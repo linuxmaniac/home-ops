@@ -1,0 +1,24 @@
+---
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: MachineDeployment
+metadata:
+  name: pk8s-workers
+  namespace: sidero-system
+spec:
+  clusterName: pk8s
+  replicas: 2
+  selector:
+    matchLabels: {}
+  template:
+    spec:
+      bootstrap:
+        configRef:
+          apiVersion: bootstrap.cluster.x-k8s.io/v1alpha3
+          kind: TalosConfigTemplate
+          name: pk8s-workers
+      clusterName: pk8s
+      infrastructureRef:
+        apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
+        kind: MetalMachineTemplate
+        name: pk8s-workers
+      version: v1.26.0

@@ -1,0 +1,36 @@
+---
+apiVersion: controlplane.cluster.x-k8s.io/v1alpha3
+kind: TalosControlPlane
+metadata:
+  name: pk8s-cp
+  namespace: sidero-system
+spec:
+  controlPlaneConfig:
+    controlplane:
+      configPatches:
+        - op: add
+          path: /machine/network
+          value:
+            interfaces:
+              - interface: eth0
+                dhcp: true
+                vip:
+                  ip: 192.168.4.201
+        - op: add
+          path: /machine/install/extensions
+          value:
+            - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
+        - op: add
+          path: /cluster/allowSchedulingOnMasters
+          value: true
+        - op: add
+          path: /cluster/apiServer/admissionControl/0/configuration/exemptions/namespaces/-
+          value: democratic-csi
+      generateType: controlplane
+      talosVersion: v1.3.0
+  infrastructureTemplate:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
+    kind: MetalMachineTemplate
+    name: pk8s-cp
+  replicas: 3
+  version: v1.26.0
