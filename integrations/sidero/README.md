@@ -47,3 +47,26 @@ kubectl -n sidero-system patch deployments.apps sidero-controller-manager \
 
 kubectl -n sidero-system scale deployment sidero-controller-manager --replicas 1
 ```
+
+## install flux
+```bash
+flux install
+```
+
+### add initial flux secrets
+```bash
+sops --decrypt secrets/sidero/flux-system.enc.yaml | \
+  kubectl apply -f -
+```
+### age config
+```bash
+cat ~/.config/sops/age/keys.txt | kubectl create secret generic sops-age \
+  --namespace=flux-system \
+  --from-file=age.agekey=/dev/stdin
+```
+
+### add flux-system kustomization
+```bash
+kubectl apply -f clusters/sidero/flux-system/gotk-sync.yaml
+flux reconcile kustomization flux-system --with-source flux-system
+```
