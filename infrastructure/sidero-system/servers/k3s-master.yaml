@@ -1,0 +1,27 @@
+---
+apiVersion: metal.sidero.dev/v1alpha1
+kind: Server
+metadata:
+  name: 03000200-0400-0500-0006-000700080009
+  labels:
+    metal.sidero.dev/serverclass: trigkey
+    metal.sidero.dev/machine.type: controlplane
+spec:
+  accepted: true
+  hostname: k3s-master.lab
+  cpu:
+    manufacturer: Advanced Micro Devices, Inc.
+    version: AMD Ryzen 5 5560U with Radeon Graphics
+  system:
+    family: Default string
+    manufacturer: AZW
+    productName: S5
+    serialNumber: Default string
+    skuNumber: Default string
+    version: Default string
+  pxeBootAlways: true
+  bootFromDiskMethod: ipxe-sanboot
+  configPatches:
+    - op: replace
+      path: /machine/install/disk
+      value: /dev/nvme0n1

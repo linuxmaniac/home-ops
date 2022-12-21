@@ -1,0 +1,28 @@
+---
+apiVersion: metal.sidero.dev/v1alpha1
+kind: Server
+metadata:
+  name: 00d03114-0000-0000-0000-e45f01496f26
+  labels:
+    metal.sidero.dev/serverclass: rpi.8gb
+    metal.sidero.dev/machine.type: worker
+spec:
+  accepted: true
+  hostname: k3s-node3.lab
+  pxeBootAlways: true
+  environmentRef:
+    namespace: default
+    name: rpi4
+  system:
+    manufacturer: Raspberry Pi Foundation
+    productName: Raspberry Pi 4 Model B
+    version: D03114
+    serialNumber: "0000E45F01496F26"
+  configPatches:
+    - op: replace
+      path: /machine/install/disk
+      value: /dev/mmcblk0
+    - op: add
+      path: /machine/sysctls
+      value:
+        kernel.kexec_load_disabled: 1

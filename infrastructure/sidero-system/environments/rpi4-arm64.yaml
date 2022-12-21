@@ -1,0 +1,28 @@
+---
+apiVersion: metal.sidero.dev/v1alpha1
+kind: Environment
+metadata:
+  name: rpi4
+spec:
+  initrd:
+    url: https://github.com/siderolabs/talos/releases/download/v1.3.1/initramfs-arm64.xz
+    sha512: f6ba78bbe65e93c2669c34d314e555b74887baf4c5f133f62d2fbe9b7f3ab2d639c30ed859c9713fda19842441df063c127d0cc2918495c896f8c9e506e82082
+  kernel:
+    url: https://github.com/siderolabs/talos/releases/download/v1.3.1/vmlinuz-arm64
+    sha512: 75f77973d00bb36369637d8079849389a7b6aa211012ddf2b038ba95a9e7a87c10b48f6b7afbcb623a49b4fb17351f35635b072c26fc6f31962d10dc76066e4f
+    args:
+      - console=tty0
+      - console=ttyS0
+      - consoleblank=0
+      - earlyprintk=ttyAMA0,115200
+      - ima_appraise=fix
+      - ima_hash=sha512
+      - ima_template=ima-ng
+      - init_on_alloc=1
+      - initrd=initramfs.xz
+      - nvme_core.io_timeout=4294967295
+      - printk.devkmsg=on
+      - pti=on
+      - random.trust_cpu=on
+      - slab_nomerge=
+      - talos.platform=metal

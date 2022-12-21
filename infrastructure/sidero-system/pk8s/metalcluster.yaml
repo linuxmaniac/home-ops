@@ -1,0 +1,10 @@
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
+kind: MetalCluster
+metadata:
+  name: pk8s
+  namespace: sidero-system
+spec:
+  controlPlaneEndpoint:
+    host: pk8s.lab
+    port: 6443

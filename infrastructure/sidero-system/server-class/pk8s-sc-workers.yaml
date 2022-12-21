@@ -1,0 +1,15 @@
+---
+apiVersion: metal.sidero.dev/v1alpha1
+kind: ServerClass
+metadata:
+  name: pk8s-sc-worker
+spec:
+  selector:
+    matchLabels:
+      metal.sidero.dev/machine.type: worker
+    matchExpressions:
+      - key: metal.sidero.dev/serverclass
+        operator: In
+        values:
+          - trigkey
+          - rpi.8gb

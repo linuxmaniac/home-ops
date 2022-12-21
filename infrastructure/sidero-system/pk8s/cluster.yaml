@@ -1,0 +1,22 @@
+---
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  name: pk8s
+  namespace: sidero-system
+spec:
+  clusterNetwork:
+    pods:
+      cidrBlocks:
+        - 10.244.0.0/16
+    services:
+      cidrBlocks:
+        - 10.96.0.0/12
+  controlPlaneRef:
+    apiVersion: controlplane.cluster.x-k8s.io/v1alpha3
+    kind: TalosControlPlane
+    name: pk8s-cp
+  infrastructureRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
+    kind: MetalCluster
+    name: pk8s

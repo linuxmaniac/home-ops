@@ -1,0 +1,19 @@
+---
+apiVersion: metal.sidero.dev/v1alpha1
+kind: ServerClass
+metadata:
+  name: trigkey
+spec:
+  qualifiers:
+    cpu:
+      - manufacturer: Advanced Micro Devices, Inc.
+        version: AMD Ryzen 5 5560U with Radeon Graphics
+    systemInformation:
+      - manufacturer: AZW
+        productName: S5
+        version: Default string
+  bootFromDiskMethod: ipxe-sanboot
+  configPatches:
+    - op: replace
+      path: /machine/install/disk
+      value: /dev/nvme0n1
