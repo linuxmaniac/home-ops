@@ -1,0 +1,15 @@
+---
+machine:
+  install:
+    disk: /dev/mmcblk0
+    extensions:
+      - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
+cluster:
+  allowSchedulingOnMasters: true
+  apiServer:
+    admissionControl:
+      - name: PodSecurity
+        configuration:
+          exemptions:
+            namespaces:
+              - democratic-csi

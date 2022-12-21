@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sidero-controller-manager
+  labels:
+    app: sidero
+    control-plane: sidero-controller-manager
+    cluster.x-k8s.io/provider: sidero
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+    kustomize.toolkit.fluxcd.io/ssa: merge
+spec:
+  selector:
+    matchLabels:
+      app: sidero
+      cluster.x-k8s.io/provider: sidero
+      cluster.x-k8s.io/v1alpha3: v1alpha3
+      cluster.x-k8s.io/v1alpha4: v1alpha3
+      cluster.x-k8s.io/v1beta1: v1alpha3
+      control-plane: sidero-controller-manager
+  template:
+    spec:
+      volumes:
+        - name: tftp-folder
+          emptyDir: {}
+      initContainers:
+        - image: ghcr.io/linuxmaniac/raspberrypi4-uefi:v1.3.0-6-g5a39853
+          imagePullPolicy: Always
+          name: tftp-folder-setup
+          command:
+            - sh
+          args:
+            - -c
+            - find /tftp && cp -rv /tftp /var/lib/sidero/ && find /var/lib/sidero/tftp/
+          volumeMounts:
+            - mountPath: /var/lib/sidero/tftp
+              name: tftp-folder
+      containers:
+        - name: manager
+          volumeMounts:
+            - mountPath: /var/lib/sidero/tftp
+              name: tftp-folder
