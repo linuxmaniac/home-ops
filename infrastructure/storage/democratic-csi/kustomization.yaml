@@ -1,0 +1,20 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  labels:
+    app.kubernetes.io/sops: enabled
+namespace: flux-system
+resources:
+  - source.yaml
+  - helm-release.yaml
+secretGenerator:
+  - name: truenas-api-token
+    files:
+      - values.yaml=secret-values.enc.yaml
+configMapGenerator:
+  - name: zfs-iscsi-values
+    files:
+      - values-csi.yaml=csi-values.yaml
+configurations:
+  - kustomizeconfig.yaml
