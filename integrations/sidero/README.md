@@ -70,3 +70,37 @@ cat ~/.config/sops/age/keys.txt | kubectl create secret generic sops-age \
 kubectl apply -f clusters/sidero/flux-system/gotk-sync.yaml
 flux reconcile kustomization flux-system --with-source flux-system
 ```
+## Initial pk8s controlplane
+```bash
+export PK8S_ENDPOINT=192.168.4.7
+
+kubectl --context=sidero-system get secret \
+    pk8s-talosconfig -o jsonpath='{.data.talosconfig}' \
+  | base64 -d > integrations/sidero/pk8s-talosconfig
+```
+Put that info at ~/.talos/config
+```bash
+talosctl --context pk8s -n ${PK8S_ENDPOINT} kubeconfig
+kubectl config use-context admin@pk8s
+```
+## install flux
+```bash
+flux install
+```
+
+### add initial flux secrets
+sops --decrypt secrets/pk8s/flux-system.enc.yaml | \
+  kubectl apply -f -
+
+### age config
+```bash
+cat ~/.config/sops/age/keys.txt | kubectl create secret generic sops-age \
+  --namespace=flux-system \
+  --from-file=age.agekey=/dev/stdin
+```
+
+### add flux-system kustomization
+```bash
+kubectl apply -f clusters/pk8s/flux-system/gotk-sync.yaml
+flux reconcile kustomization flux-system --with-source flux-system
+```
