@@ -10,7 +10,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: cert-manager
-  namespace: cert-manager
+  namespace: flux-system
 spec:
   interval: 24h
   url: https://charts.jetstack.io
@@ -19,9 +19,12 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: cert-manager
-  namespace: cert-manager
+  namespace: flux-system
 spec:
   interval: 30m
+  releaseName: cert-manager
+  targetNamespace: cert-manager
+  serviceAccountName: helm-controller
   chart:
     spec:
       chart: cert-manager
@@ -29,8 +32,26 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: cert-manager
-        namespace: cert-manager
+        namespace: flux-system
       interval: 12h
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    # Remediaton configuration for when an Helm upgrade action fails
+    remediation:
+      # Amount of retries to attempt after a failure,
+      # setting this to 0 means no remedation will be
+      # attempted
+      retries: 5
+  # Configuration options for the Helm rollback action
+  rollback:
+    timeout: 5m
+    disableWait: false
+    disableHooks: false
+    recreate: false
+    force: false
+    cleanupOnFail: false
   values:
     installCRDs: true
     extraArgs:
