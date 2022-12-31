@@ -14,3 +14,8 @@ spec:
           path: /machine/install/extensions
           value:
             - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
+        - op: add
+          path: /machine/kubelet
+          value:
+            extraArgs:
+              rotate-server-certificates: true
