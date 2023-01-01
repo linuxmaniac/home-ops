@@ -14,7 +14,7 @@ spec:
     namespace: default
     name: rpi4
   system:
-    # 5d9451e2
+    # ae88c0f7
     manufacturer: Raspberry Pi Foundation
     productName: Raspberry Pi 4 Model B
     version: D03114
