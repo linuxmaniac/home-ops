@@ -1,0 +1,80 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: nextcloud
+  namespace: flux-system
+spec:
+  interval: 24h
+  url: https://nextcloud.github.io/helm/
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nextcloud
+  namespace: flux-system
+spec:
+  interval: 30m
+  releaseName: nextcloud
+  targetNamespace: tw
+  serviceAccountName: helm-controller
+  chart:
+    spec:
+      chart: nextcloud
+      version: "3.3.x"
+      sourceRef:
+        kind: HelmRepository
+        name: nextcloud
+        namespace: flux-system
+      interval: 12h
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    # Remediaton configuration for when an Helm upgrade action fails
+    remediation:
+      # Amount of retries to attempt after a failure,
+      # setting this to 0 means no remedation will be
+      # attempted
+      retries: 5
+  # Configuration options for the Helm rollback action
+  rollback:
+    timeout: 5m
+    disableWait: false
+    disableHooks: false
+    recreate: false
+    force: false
+    cleanupOnFail: false
+  values:
+    global:
+      postgresql:
+        auth:
+          password: reallysecret
+    nodeSelector:
+      kubernetes.io/arch: amd64
+    image:
+      flavor: fpm
+    nginx:
+      enabled: true
+    nextcloud:
+      host: cloud.torreviejawireless.org
+    internalDatabase:
+      enabled: false
+    postgresql:
+      enabled: true
+      primary:
+        nodeSelector:
+          kubernetes.io/arch: amd64
+        persistence:
+          enabled: true
+          storageClass: freenas-iscsi-csi
+    persistence:
+      enabled: true
+      storageClass: freenas-iscsi-csi
+      nextcloudData:
+        enabled: true
+        storageClass: freenas-iscsi-csi
+    rbac:
+      enabled: true
+    cronjob:
+      enabled: true
