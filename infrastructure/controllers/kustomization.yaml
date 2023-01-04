@@ -4,3 +4,4 @@ resources:
   - metallb.yaml
   - prometheus
   - cert-manager.yaml
+  - kubed.yaml
