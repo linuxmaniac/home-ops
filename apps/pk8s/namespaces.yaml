@@ -5,3 +5,4 @@ metadata:
   name: tw
   labels:
     toolkit.fluxcd.io/tenant: sre-team
+    app: kubed
