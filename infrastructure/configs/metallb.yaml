@@ -2,30 +2,40 @@
 apiVersion: metallb.io/v1beta2
 kind: BGPPeer
 metadata:
-  name: unifi
+  name: opnsense
   namespace: metallb-system
 spec:
   myASN: 64500
   peerASN: 64512
-  peerAddress: 192.168.2.1
+  peerAddress: 192.168.4.1
 ---
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: lab-pool
+  name: external-pool
   namespace: metallb-system
 spec:
   addresses:
-    - 192.168.4.240-192.168.4.250
+    - 192.168.5.224/27
 ---
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: lan-pool
+  name: internal-pool
   namespace: metallb-system
 spec:
   addresses:
-    - 192.168.2.240-192.168.2.250
+    - 192.168.4.240/32
+    - 192.168.4.241/32
+    - 192.168.4.242/32
+    - 192.168.4.243/32
+    - 192.168.4.244/32
+    - 192.168.4.245/32
+    - 192.168.4.246/32
+    - 192.168.4.247/32
+    - 192.168.4.248/32
+    - 192.168.4.249/32
+    - 192.168.4.250/32
 ---
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
@@ -34,8 +44,8 @@ metadata:
   namespace: metallb-system
 spec:
   ipAddressPools:
-    - lab-pool
-    - lan-pool
+    - internal-pool
+    - external-pool
 ---
 apiVersion: metallb.io/v1beta1
 kind: BGPAdvertisement
@@ -44,5 +54,5 @@ metadata:
   namespace: metallb-system
 spec:
   ipAddressPools:
-    - lab-pool
-    - lan-pool
+    - external-pool
+  aggregationLength: 27
