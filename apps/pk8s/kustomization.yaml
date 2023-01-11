@@ -6,3 +6,4 @@ resources:
   - certificate.yaml
   - bitnami
   - nextcloud.yaml
+  - traefik.yaml

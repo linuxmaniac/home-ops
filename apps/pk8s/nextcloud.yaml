@@ -94,5 +94,6 @@ spec:
       services:
         - name: nextcloud
           kind: Service
+          port: 443
   tls:
     secretName: tw-tls
