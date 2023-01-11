@@ -78,3 +78,21 @@ spec:
       enabled: true
     cronjob:
       enabled: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: cloud-tw
+  namespace: tw
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - match: Host(`cloud.torreviejawireless.org`)
+      kind: Rule
+      services:
+        - name: nextcloud
+          kind: Service
+  tls:
+    secretName: tw-tls
