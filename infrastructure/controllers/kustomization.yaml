@@ -5,3 +5,4 @@ resources:
   - prometheus
   - cert-manager.yaml
   - kubed.yaml
+  - traefik.yaml
