@@ -6,7 +6,7 @@ metadata:
   namespace: metallb-system
 spec:
   myASN: 64500
-  peerASN: 64512
+  peerASN: 64501
   peerAddress: 192.168.4.1
 ---
 apiVersion: metallb.io/v1beta1
@@ -40,17 +40,29 @@ spec:
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
 metadata:
-  name: pk8s
+  name: pk8s-internal
   namespace: metallb-system
 spec:
   ipAddressPools:
     - internal-pool
+  interfaces:
+    - eth0
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: pk8s-external
+  namespace: metallb-system
+spec:
+  ipAddressPools:
     - external-pool
+  interfaces:
+    - eth0.200
 ---
 apiVersion: metallb.io/v1beta1
 kind: BGPAdvertisement
 metadata:
-  name: pk8s
+  name: metallb-external
   namespace: metallb-system
 spec:
   ipAddressPools:

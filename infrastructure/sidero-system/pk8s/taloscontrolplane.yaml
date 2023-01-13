@@ -16,6 +16,9 @@ spec:
                 dhcp: true
                 vip:
                   ip: 192.168.4.201
+                vlans:
+                  - vlanId: 200
+                    dhcp: false
         - op: add
           path: /machine/install/extensions
           value:
