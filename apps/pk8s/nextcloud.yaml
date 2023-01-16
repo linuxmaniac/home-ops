@@ -74,6 +74,8 @@ spec:
       nextcloudData:
         enabled: true
         storageClass: freenas-iscsi-csi
+    phpClientHttpsFix:
+      enabled: true
     rbac:
       enabled: true
     cronjob:
@@ -84,9 +86,10 @@ kind: IngressRoute
 metadata:
   name: cloud-tw
   namespace: tw
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
 spec:
   entryPoints:
-    - web
     - websecure
   routes:
     - match: Host(`cloud.torreviejawireless.org`)
@@ -94,6 +97,6 @@ spec:
       services:
         - name: nextcloud
           kind: Service
-          port: 443
+          port: 8080
   tls:
     secretName: tw-tls
