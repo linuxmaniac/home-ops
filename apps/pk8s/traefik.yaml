@@ -1,0 +1,40 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: tw-external
+  namespace: tw
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`cloud.torreviejawireless.org`)
+      kind: Rule
+      services:
+        - name: nextcloud
+          kind: Service
+          port: 8080
+  tls:
+    secretName: tw-tls
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: tw-internal
+  namespace: tw
+  annotations:
+    kubernetes.io/ingress.class: traefik-internal
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`cloud.torreviejawireless.org`)
+      kind: Rule
+      services:
+        - name: nextcloud
+          kind: Service
+          port: 8080
+  tls:
+    secretName: tw-tls

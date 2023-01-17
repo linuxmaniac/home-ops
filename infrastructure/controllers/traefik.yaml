@@ -68,7 +68,6 @@ spec:
         redirectTo: websecure
       websecure:
         tls:
-          enabled: true
     tlsOptions:
       default:
         minVersion: VersionTLS12
@@ -98,8 +97,18 @@ spec:
       enabled: true
       type: LoadBalancer
       annotations:
+        metallb.universe.tf/address-pool: external-pool
         metallb.universe.tf/loadBalancerIPs: 192.168.5.240
       labels: {}
       spec: {}
       loadBalancerSourceRanges: []
       externalIPs: []
+      internal:
+        type: LoadBalancer
+        labels: {}
+        annotations:
+          metallb.universe.tf/address-pool: internal-pool
+          metallb.universe.tf/loadBalancerIPs: 192.168.4.240
+        spec: {}
+        loadBalancerSourceRanges: []
+        externalIPs: []
