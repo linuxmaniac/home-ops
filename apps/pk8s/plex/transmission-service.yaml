@@ -1,0 +1,26 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/address-pool: external-pool
+    metallb.universe.tf/loadBalancerIPs: 192.168.5.241
+  labels:
+    io.kompose.service: transmission
+  name: transmission
+  namespace: plex
+spec:
+  ports:
+    - name: http
+      port: 9091
+      targetPort: 9091
+    - name: data
+      port: 51413
+      targetPort: 51413
+    - name: data-udp
+      port: 51413
+      protocol: UDP
+      targetPort: 51413
+  type: LoadBalancer
+  selector:
+    io.kompose.service: transmission

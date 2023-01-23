@@ -1,0 +1,54 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: plex
+  name: plex
+  namespace: plex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: plex
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: plex
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      containers:
+        - env:
+            - name: PGID
+              value: "1000"
+            - name: PLEX_CLAIM
+              valueFrom:
+                secretKeyRef:
+                  name: flexget
+                  key: PLEX_CLAIM
+            - name: PUID
+              value: "1000"
+            - name: VERSION
+              value: docker
+          image: lscr.io/linuxserver/plex:latest
+          name: plex
+          ports:
+            - containerPort: 32400
+          resources: {}
+          volumeMounts:
+            - mountPath: /config
+              name: plex-config
+            - mountPath: /tv
+              name: plex-media
+              subPath: series
+      restartPolicy: Always
+      volumes:
+        - name: plex-config
+          persistentVolumeClaim:
+            claimName: plex-config
+        - name: plex-media
+          persistentVolumeClaim:
+            claimName: plex-media
