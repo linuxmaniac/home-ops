@@ -1,0 +1,47 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: democratic-csi-manual
+  namespace: flux-system
+spec:
+  interval: 10m
+  releaseName: democratic-csi-manual
+  targetNamespace: democratic-csi
+  serviceAccountName: helm-controller
+  chart:
+    spec:
+      chart: democratic-csi
+      sourceRef:
+        kind: HelmRepository
+        name: democratic-csi
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 5
+  upgrade:
+    # Remediaton configuration for when an Helm upgrade action fails
+    remediation:
+      # Amount of retries to attempt after a failure,
+      # setting this to 0 means no remedation will be
+      # attempted
+      retries: 5
+  # Configuration options for the Helm rollback action
+  rollback:
+    timeout: 5m
+    disableWait: false
+    disableHooks: false
+    recreate: false
+    force: false
+    cleanupOnFail: false
+  values:
+    csiDriver:
+      name: "org.democratic-csi.node-manual"
+    driver:
+      config:
+        driver: node-manual
+    controller:
+      externalSnapshotter:
+        enabled: false
+      externalResizer:
+        enabled: false

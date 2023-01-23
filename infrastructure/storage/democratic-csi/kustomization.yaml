@@ -8,6 +8,8 @@ namespace: flux-system
 resources:
   - source.yaml
   - helm-release.yaml
+  - helm-release-nfs.yaml
+  - helm-release-manual.yaml
 secretGenerator:
   - name: truenas-api-token
     files:
@@ -16,5 +18,8 @@ configMapGenerator:
   - name: zfs-iscsi-values
     files:
       - values-csi.yaml=csi-values.yaml
+  - name: zfs-nfs-values
+    files:
+      - values-nfs-csi.yaml=csi-nfs-values.yaml
 configurations:
   - kustomizeconfig.yaml
