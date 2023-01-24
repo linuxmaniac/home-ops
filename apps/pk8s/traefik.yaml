@@ -2,10 +2,10 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: tw-external
+  name: tw
   namespace: tw
   annotations:
-    kubernetes.io/ingress.class: traefik-external
+    kubernetes.io/ingress.class: traefik
 spec:
   entryPoints:
     - websecure
@@ -16,31 +16,53 @@ spec:
         - name: nextcloud
           kind: Service
           port: 8080
-  tls:
-    secretName: tw-tls
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: tw-internal
-  namespace: tw
-  annotations:
-    kubernetes.io/ingress.class: traefik-internal
-spec:
-  entryPoints:
-    - websecure
-  routes:
-    - match: Host(`cloud.torreviejawireless.org`)
+    - match: Host(`traefik.torreviejawireless.org`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
       kind: Rule
+      middlewares:
+        - name: internal-ipwhitelist
+          namespace: traefik
       services:
-        - name: nextcloud
-          kind: Service
-          port: 8080
+        - kind: TraefikService
+          name: api@internal
+          namespace: traefik
     - match: Host(`mirror.torreviejawireless.org`)
       kind: Rule
+      middlewares:
+        - name: internal-ipwhitelist
+          namespace: traefik
       services:
         - name: sipwise-mirror-nginx
           kind: Service
           port: 80
   tls:
     secretName: tw-tls
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: tw-http
+  namespace: tw
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`mirror.torreviejawireless.org`)
+      kind: Rule
+      middlewares:
+        - name: internal-ipwhitelist
+          namespace: traefik
+      services:
+        - name: sipwise-mirror-nginx
+          kind: Service
+          port: 80
+    - match: HostRegexp(`{host:.+}`)
+      kind: Rule
+      middlewares:
+        - name: redirectscheme
+          namespace: traefik
+      services:
+        - name: noop@internal
+          kind: TraefikService
+          namespace: traefik

@@ -18,6 +18,29 @@ spec:
   interval: 24h
   url: https://traefik.github.io/charts
 ---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: redirectscheme
+  namespace: traefik
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: internal-ipwhitelist
+  namespace: traefik
+spec:
+  ipWhiteList:
+    sourceRange:
+      - 127.0.0.1/32
+      - 10.0.0.1/24
+      - 192.168.2.1/24
+      - 192.168.4.1/24
+---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -59,15 +82,9 @@ spec:
       - "--global.checknewversion"
     additionalArguments:
       - "--serversTransport.insecureSkipVerify=true"
-      - "--log.level=INFO"
     persistence:
       enabled: true
       storageClass: freenas-iscsi-csi
-    ports:
-      web:
-        redirectTo: websecure
-      websecure:
-        tls:
     tlsOptions:
       default:
         minVersion: VersionTLS12
@@ -85,7 +102,7 @@ spec:
     providers:
       kubernetesCRD:
         enabled: true
-        ingressClass: traefik-external
+        ingressClass: traefik
         allowExternalNameServices: true
         allowCrossNamespace: true
       kubernetesIngress:
@@ -93,6 +110,12 @@ spec:
         allowExternalNameServices: true
         publishedService:
           enabled: false
+    ingressRoute:
+      dashboard:
+        enabled: false
+    logs:
+      general:
+        level: DEBUG
     service:
       enabled: true
       type: LoadBalancer
