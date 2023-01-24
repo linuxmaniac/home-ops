@@ -36,5 +36,11 @@ spec:
         - name: nextcloud
           kind: Service
           port: 8080
+    - match: Host(`mirror.torreviejawireless.org`)
+      kind: Rule
+      services:
+        - name: sipwise-mirror-nginx
+          kind: Service
+          port: 80
   tls:
     secretName: tw-tls

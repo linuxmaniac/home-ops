@@ -1,0 +1,177 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-sipwise-mirror
+  labels:
+    io.kompose.service: sipwise-mirror
+spec:
+  capacity:
+    storage: 1Ti
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - nfsvers=4
+    - nolock
+    - noatime
+  csi:
+    driver: org.democratic-csi.node-manual
+    readOnly: false
+    fsType: nfs
+    volumeHandle: nfs-sipwise-mirror
+    volumeAttributes:
+      server: 192.168.4.5
+      share: /mnt/main/sipwise/mirror/nas.office.sipwise.com
+      node_attach_driver: nfs
+      provisioner_driver: node-manual
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    io.kompose.service: sipwise-mirror
+  name: nfs-sipwise-mirror
+  namespace: tw
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Ti
+  selector:
+    matchLabels:
+      io.kompose.service: sipwise-mirror
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sipwise-mirror-nginx
+  namespace: tw
+data:
+  default.conf: |
+    server {
+      listen                  80;
+      server_name             _;
+      root                    /config/www/vmbuilder;
+      location / {
+        autoindex on;
+      }
+    }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sipwise-mirror-custom
+  namespace: tw
+data:
+  rysnc: |
+    #!/bin/sh
+    apk add --no-cache rsync
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sipwise-mirror
+  namespace: tw
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: sipwise-mirror
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: sipwise-mirror
+    spec:
+      containers:
+        - env:
+            - name: PGID
+              value: "1001"
+            - name: PUID
+              value: "1001"
+            - name: TZ
+              value: Europe/Madrid
+            - name: PUBLIC_KEY
+              value: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDP7oLGyDPF39xT7g0hqETizWwQ801U6f4/zdJTy/zU7G/IB1RQnhtfQzvpAuYM+/b7o7vofTdmShZs6uj+XbDLsHmSwned8Eid1vJGiORFjpuYxtvjeOtaQrQ41OSkTuNuChw8rxTSFO+0qJ0gNowFT6derwh8/VY3SZClK8a+WV5QQq6Txsu0cm1jBtTz8NCWxIoMhgUi4qNenLebpb5VS8FFI8r7CFax5ey5h6E/Y6YgQ7s6J3EM9139EFfomws19tuKgCJs+BgU80oW2Zrj08l2NdGSJRsX0epMhjqOnsuOF2yTceLQIqEGKgXRoLGb6Bmp991ZsVdnZxa/57CJxa3aL3geamZGJ4hZgPXa+14RV2BFuZLwM/yCwjyCfjs0dV5EsQal27Pbto7hEQIyglhI7X5toxdfnIrI0O10XB80A/845yDKsnRukgj3Ch13qFZjeewlCKTJjl0cBuH3kH7GQYvhntTOPn2XwXMjqPpLPqnFslDQZIrKnEZFknqlHSN2GsyLeGj30tG4KXZ3CshovkiBDJuHR5wf3Uj7HD5NHKdOB0MkZ5gpTpzw8Oo4uYw7XN44RSHcUkvg5N7p9fQQ5X3qY2WXXeUGtOxC1RUok0yPAn5sVOKV2G8aOJewqsuZzwU3Y/w7jJ8q94FzmnkSEvzIhCNQtr9rH2rimw== root@10fe3ed58d5f
+            - name: USER_NAME
+              value: jenkins
+            - name: SUDO_ACCESS
+              value: "false"
+          image: lscr.io/linuxserver/openssh-server:latest
+          name: sipwise-mirror
+          resources: {}
+          ports:
+            - containerPort: 2222
+          volumeMounts:
+            - mountPath: /nas.office.sipwise.com
+              name: nfs-sipwise-mirror
+            - mountPath: /custom-cont-init.d
+              name: sipwise-mirror-custom
+        - name: sipwise-mirror-nginx
+          image: lscr.io/linuxserver/nginx:latest
+          env:
+            - name: TZ
+              value: Europe/Madrid
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /config/www
+              name: nfs-sipwise-mirror
+              readOnly: true
+            - mountPath: /config/nginx
+              name: sipwise-mirror-nginx-confs
+            - mountPath: /config/nginx/site-confs/default.conf
+              name: sipwise-mirror-nginx
+              subPath: default.conf
+      restartPolicy: Always
+      volumes:
+        - name: nfs-sipwise-mirror
+          persistentVolumeClaim:
+            claimName: nfs-sipwise-mirror
+        - name: sipwise-mirror-custom
+          configMap:
+            name: sipwise-mirror-custom
+        - name: sipwise-mirror-nginx-confs
+          emptyDir:
+            sizeLimit: 20Mi
+        - name: sipwise-mirror-nginx
+          configMap:
+            name: sipwise-mirror-nginx
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/address-pool: external-pool
+    metallb.universe.tf/loadBalancerIPs: 192.168.5.242
+  labels:
+    io.kompose.service: sipwise-mirror
+  name: sipwise-mirror
+  namespace: tw
+spec:
+  ports:
+    - name: ssh
+      port: 22
+      targetPort: 2222
+  type: LoadBalancer
+  selector:
+    io.kompose.service: sipwise-mirror
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: sipwise-mirror
+  name: sipwise-mirror-nginx
+  namespace: tw
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+  selector:
+    io.kompose.service: sipwise-mirror
