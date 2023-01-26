@@ -20,6 +20,7 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/arch: amd64
+        kubernetes.io/hostname: k3s-master
       containers:
         - env:
             - name: PGID
@@ -38,12 +39,17 @@ spec:
           ports:
             - containerPort: 32400
           resources: {}
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
           volumeMounts:
             - mountPath: /config
               name: plex-config
             - mountPath: /tv
               name: plex-media
               subPath: series
+      hostNetwork: true
       restartPolicy: Always
       volumes:
         - name: plex-config

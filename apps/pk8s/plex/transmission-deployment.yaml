@@ -18,6 +18,9 @@ spec:
       labels:
         io.kompose.service: transmission
     spec:
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        kubernetes.io/hostname: k3s-master
       containers:
         - env:
             - name: PASS
@@ -43,6 +46,10 @@ spec:
             - containerPort: 51413
               protocol: UDP
           resources: {}
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
           volumeMounts:
             - mountPath: /config
               name: transmission-config
@@ -51,6 +58,7 @@ spec:
               subPath: transmission
             - mountPath: /watch
               name: transmission-watch
+      hostNetwork: true
       restartPolicy: Always
       volumes:
         - name: transmission-config
