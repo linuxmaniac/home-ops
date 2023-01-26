@@ -1,0 +1,80 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prowlarr-custom
+  namespace: plex
+data:
+  serverConfig: |
+    #!/usr/bin/with-contenv bash
+    CONFIG=/config/config.xml
+
+    if [ -f ${CONFIG} ]; then
+      sed -i 's#<UrlBase></UrlBase>#<UrlBase>/prowlarr</UrlBase>#' ${CONFIG}
+    else
+      echo "<Config><UrlBase>/prowlarr</UrlBase></Config>" > ${CONFIG}
+    EOF
+    fi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: prowlarr
+  name: prowlarr
+  namespace: plex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: prowlarr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: prowlarr
+    spec:
+      containers:
+        - env:
+            - name: PGID
+              value: "1000"
+            - name: PUID
+              value: "1000"
+            - name: TZ
+              value: Europe/Madrid
+          image: lscr.io/linuxserver/prowlarr:latest
+          name: prowlarr
+          ports:
+            - containerPort: 9696
+          resources: {}
+          volumeMounts:
+            - mountPath: /custom-cont-init.d
+              name: prowlarr-custom
+              readOnly: true
+            - mountPath: /config
+              name: prowlarr-config
+      restartPolicy: Always
+      volumes:
+        - name: prowlarr-custom
+          configMap:
+            name: prowlarr-custom
+        - name: prowlarr-config
+          persistentVolumeClaim:
+            claimName: prowlarr-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: prowlarr
+  name: prowlarr
+  namespace: plex
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 9696
+  type: ClusterIP
+  selector:
+    io.kompose.service: prowlarr

@@ -1,0 +1,63 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: bazarr
+  name: bazarr
+  namespace: plex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: bazarr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: bazarr
+    spec:
+      containers:
+        - env:
+            - name: PGID
+              value: "1000"
+            - name: PUID
+              value: "1000"
+            - name: TZ
+              value: Europe/Madrid
+          image: lscr.io/linuxserver/bazarr:latest
+          name: bazarr
+          ports:
+            - containerPort: 6767
+          resources: {}
+          volumeMounts:
+            - mountPath: /config
+              name: bazarr-config
+            - mountPath: /tv
+              name: plex-media
+              subPath: series
+      restartPolicy: Always
+      volumes:
+        - name: plex-media
+          persistentVolumeClaim:
+            claimName: plex-media
+        - name: bazarr-config
+          persistentVolumeClaim:
+            claimName: bazarr-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: bazarr
+  name: bazarr
+  namespace: plex
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 6767
+  type: ClusterIP
+  selector:
+    io.kompose.service: bazarr

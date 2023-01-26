@@ -5,7 +5,9 @@ resources:
   - storage.yaml
   - transmission-service.yaml
   - transmission-deployment.yaml
-  - flexget-service.yaml
-  - flexget-deployment.yaml
+  - jackett.yaml
+  - sonarr.yaml
+  - bazarr.yaml
+  - prowlarr.yaml
   - plex-deployment.yaml
   - plex-service.yaml

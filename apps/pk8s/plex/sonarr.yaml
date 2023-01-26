@@ -1,0 +1,89 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sonarr-custom
+  namespace: plex
+data:
+  serverConfig: |
+    #!/usr/bin/with-contenv bash
+    CONFIG=/config/config.xml
+
+    if [ -f ${CONFIG} ]; then
+      sed -i 's#<UrlBase></UrlBase>#<UrlBase>/sonarr</UrlBase>#' ${CONFIG}
+    else
+      echo "<Config><UrlBase>/sonarr</UrlBase></Config>" > ${CONFIG}
+    EOF
+    fi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: sonarr
+  name: sonarr
+  namespace: plex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: sonarr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: sonarr
+    spec:
+      containers:
+        - env:
+            - name: PGID
+              value: "1000"
+            - name: PUID
+              value: "1000"
+            - name: TZ
+              value: Europe/Madrid
+          image: lscr.io/linuxserver/sonarr:latest
+          name: sonarr
+          ports:
+            - containerPort: 8989
+          resources: {}
+          volumeMounts:
+            - mountPath: /custom-cont-init.d
+              name: sonarr-custom
+              readOnly: true
+            - mountPath: /config
+              name: sonarr-config
+            - mountPath: /tv
+              name: plex-media
+              subPath: series
+            - mountPath: /downloads
+              name: plex-media
+              subPath: transmission
+      restartPolicy: Always
+      volumes:
+        - name: sonarr-custom
+          configMap:
+            name: sonarr-custom
+        - name: plex-media
+          persistentVolumeClaim:
+            claimName: plex-media
+        - name: sonarr-config
+          persistentVolumeClaim:
+            claimName: sonarr-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: sonarr
+  name: sonarr
+  namespace: plex
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8989
+  type: ClusterIP
+  selector:
+    io.kompose.service: sonarr

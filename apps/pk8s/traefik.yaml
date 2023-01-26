@@ -34,15 +34,35 @@ spec:
         - name: sipwise-mirror-nginx
           kind: Service
           port: 80
-    - match: Host(`panel.torreviejawireless.org`) && PathPrefix(`/flexget`)
+    - match: Host(`panel.torreviejawireless.org`) && PathPrefix(`/bazarr`)
       kind: Rule
       middlewares:
         - name: internal-ipwhitelist
           namespace: traefik
       services:
-        - name: flexget
+        - name: bazarr
           kind: Service
-          port: 5050
+          port: 80
+          namespace: plex
+    - match: Host(`panel.torreviejawireless.org`) && PathPrefix(`/prowlarr`)
+      kind: Rule
+      middlewares:
+        - name: internal-ipwhitelist
+          namespace: traefik
+      services:
+        - name: prowlarr
+          kind: Service
+          port: 80
+          namespace: plex
+    - match: Host(`panel.torreviejawireless.org`) && PathPrefix(`/sonarr`)
+      kind: Rule
+      middlewares:
+        - name: internal-ipwhitelist
+          namespace: traefik
+      services:
+        - name: sonarr
+          kind: Service
+          port: 80
           namespace: plex
   tls:
     secretName: tw-tls
