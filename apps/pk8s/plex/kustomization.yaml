@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - storage.yaml
   - transmission-deployment.yaml
+  - radarr.yaml
   - sonarr.yaml
   - bazarr.yaml
   - prowlarr.yaml

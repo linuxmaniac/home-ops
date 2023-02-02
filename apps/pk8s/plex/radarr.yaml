@@ -1,0 +1,89 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: radarr-custom
+  namespace: plex
+data:
+  serverConfig: |
+    #!/usr/bin/with-contenv bash
+    CONFIG=/config/config.xml
+
+    if [ -f ${CONFIG} ]; then
+      sed -i 's#<UrlBase></UrlBase>#<UrlBase>/radarr</UrlBase>#' ${CONFIG}
+    else
+      echo "<Config><UrlBase>/radarr</UrlBase></Config>" > ${CONFIG}
+    EOF
+    fi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: radarr
+  name: radarr
+  namespace: plex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: radarr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: radarr
+    spec:
+      containers:
+        - env:
+            - name: PGID
+              value: "1000"
+            - name: PUID
+              value: "1000"
+            - name: TZ
+              value: Europe/Madrid
+          image: lscr.io/linuxserver/radarr:latest
+          name: radarr
+          ports:
+            - containerPort: 7878
+          resources: {}
+          volumeMounts:
+            - mountPath: /custom-cont-init.d
+              name: radarr-custom
+              readOnly: true
+            - mountPath: /config
+              name: radarr-config
+            - mountPath: /movies
+              name: plex-media
+              subPath: films
+            - mountPath: /downloads
+              name: plex-media
+              subPath: transmission
+      restartPolicy: Always
+      volumes:
+        - name: radarr-custom
+          configMap:
+            name: radarr-custom
+        - name: plex-media
+          persistentVolumeClaim:
+            claimName: plex-media
+        - name: radarr-config
+          persistentVolumeClaim:
+            claimName: radarr-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: radarr
+  name: radarr
+  namespace: plex
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 7878
+  type: ClusterIP
+  selector:
+    io.kompose.service: radarr

@@ -64,6 +64,16 @@ spec:
           kind: Service
           port: 80
           namespace: plex
+    - match: Host(`panel.torreviejawireless.org`) && PathPrefix(`/radarr`)
+      kind: Rule
+      middlewares:
+        - name: internal-ipwhitelist
+          namespace: traefik
+      services:
+        - name: radarr
+          kind: Service
+          port: 80
+          namespace: plex
   tls:
     secretName: tw-tls
 ---
