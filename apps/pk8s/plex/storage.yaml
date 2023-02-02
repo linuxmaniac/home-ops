@@ -83,32 +83,6 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: flexget-config
-  namespace: plex
-spec:
-  storageClassName: freenas-iscsi-csi
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 2Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: flexget-data
-  namespace: plex
-spec:
-  storageClassName: freenas-iscsi-csi
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 200Mi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
   name: sonarr-config
   namespace: plex
 spec:
