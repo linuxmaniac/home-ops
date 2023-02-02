@@ -109,19 +109,6 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: jackett-config
-  namespace: plex
-spec:
-  storageClassName: freenas-iscsi-csi
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 100Mi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
   name: sonarr-config
   namespace: plex
 spec:
