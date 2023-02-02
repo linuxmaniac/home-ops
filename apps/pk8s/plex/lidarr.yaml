@@ -50,6 +50,9 @@ spec:
             - mountPath: /custom-cont-init.d
               name: lidarr-custom
               readOnly: true
+            - mountPath: /config/MediaCover
+              name: plex-media
+              subPath: music_cover
             - mountPath: /config
               name: lidarr-config
             - mountPath: /music
