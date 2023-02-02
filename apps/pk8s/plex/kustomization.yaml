@@ -7,5 +7,6 @@ resources:
   - radarr.yaml
   - sonarr.yaml
   - bazarr.yaml
+  - lidarr.yaml
   - prowlarr.yaml
   - plex-deployment.yaml
