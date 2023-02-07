@@ -37,6 +37,9 @@ spec:
             - mountPath: /tv
               name: plex-media
               subPath: series
+            - mountPath: /movies
+              name: plex-media
+              subPath: films
       restartPolicy: Always
       volumes:
         - name: plex-media
