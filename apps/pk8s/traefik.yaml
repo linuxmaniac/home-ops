@@ -84,6 +84,26 @@ spec:
           kind: Service
           port: 80
           namespace: plex
+    - match: Host(`cambaby.torreviejawireless.org`)
+      kind: Rule
+      middlewares:
+        - name: internal-ipwhitelist
+          namespace: traefik
+      services:
+        - name: baby-agent
+          kind: Service
+          port: 80
+          namespace: kerberos
+    - match: Host(`cam.torreviejawireless.org`)
+      kind: Rule
+      middlewares:
+        - name: internal-ipwhitelist
+          namespace: traefik
+      services:
+        - name: main-agent
+          kind: Service
+          port: 80
+          namespace: kerberos
   tls:
     secretName: tw-tls
 ---
