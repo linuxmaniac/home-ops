@@ -50,8 +50,6 @@ spec:
       postgresql:
         auth:
           password: reallysecret
-    nodeSelector:
-      kubernetes.io/arch: amd64
     image:
       flavor: fpm
     nginx:
@@ -63,8 +61,6 @@ spec:
     postgresql:
       enabled: true
       primary:
-        nodeSelector:
-          kubernetes.io/arch: amd64
         persistence:
           enabled: true
           storageClass: freenas-iscsi-csi
