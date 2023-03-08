@@ -9,4 +9,3 @@ resources:
   - traefik.yaml
   - sipwise-mirror.yaml
   - plex
-  - kerberos
