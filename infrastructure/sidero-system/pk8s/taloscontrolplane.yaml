@@ -35,6 +35,9 @@ spec:
           path: /cluster/apiServer/admissionControl/0/configuration/exemptions/namespaces/-
           value: democratic-csi
         - op: add
+          path: /cluster/apiServer/admissionControl/0/configuration/exemptions/namespaces/-
+          value: monitoring
+        - op: add
           path: /cluster/proxy
           value:
             disabled: true

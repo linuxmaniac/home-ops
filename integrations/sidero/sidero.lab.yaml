@@ -13,3 +13,4 @@ cluster:
           exemptions:
             namespaces:
               - democratic-csi
+              - monitoring
