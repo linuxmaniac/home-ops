@@ -8,4 +8,5 @@ resources:
   - nextcloud.yaml
   - traefik.yaml
   - sipwise-mirror.yaml
+  - gitea.yaml
   - plex
