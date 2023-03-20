@@ -34,6 +34,15 @@ spec:
         - name: sipwise-mirror-nginx
           kind: Service
           port: 80
+    - match: Host(`coder.torreviejawireless.org`)
+      kind: Rule
+      middlewares:
+        - name: internal-ipwhitelist
+          namespace: traefik
+      services:
+        - name: code-server
+          kind: Service
+          port: 80
     - match: Host(`panel.torreviejawireless.org`) && PathPrefix(`/bazarr`)
       kind: Rule
       middlewares:

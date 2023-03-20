@@ -9,4 +9,5 @@ resources:
   - traefik.yaml
   - sipwise-mirror.yaml
   - gitea.yaml
+  - coder.yaml
   - plex
