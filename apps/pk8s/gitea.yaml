@@ -27,24 +27,6 @@ spec:
         name: gitea-charts
         namespace: flux-system
       interval: 12h
-  install:
-    remediation:
-      retries: 5
-  upgrade:
-    # Remediaton configuration for when an Helm upgrade action fails
-    remediation:
-      # Amount of retries to attempt after a failure,
-      # setting this to 0 means no remedation will be
-      # attempted
-      retries: 5
-  # Configuration options for the Helm rollback action
-  rollback:
-    timeout: 5m
-    disableWait: false
-    disableHooks: false
-    recreate: false
-    force: false
-    cleanupOnFail: false
   values:
     nodeSelector:
       kubernetes.io/arch: amd64
@@ -62,10 +44,12 @@ spec:
       ssh:
         type: LoadBalancer
         externalTrafficPolicy: Local
-        port: 22
+        port: 2223
         annotations:
           metallb.universe.tf/address-pool: external-pool
           metallb.universe.tf/loadBalancerIPs: 192.168.5.243
+    image:
+      rootless: true
     gitea:
       admin:
         existingSecret: gitea-admin-secret
@@ -74,7 +58,7 @@ spec:
         server:
           ROOT_URL: https://git.torreviejawireless.org/
           DOMAIN: git.torreviejawireless.org
-          SSH_LISTEN_PORT: 22
+          START_SSH_SERVER: true
           SSH_PORT: 2223
         service:
           DISABLE_REGISTRATION: true
