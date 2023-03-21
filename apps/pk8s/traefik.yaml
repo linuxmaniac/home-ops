@@ -43,6 +43,17 @@ spec:
         - name: code-server
           kind: Service
           port: 80
+    - match: Host(`jenkins.torreviejawireless.org`)
+      kind: Rule
+      middlewares:
+        - name: internal-ipwhitelist
+          namespace: traefik
+      services:
+        - name: jenkins
+          kind: Service
+          port: 80
+          passHostHeader: true
+          namespace: jenkins
     - match: Host(`panel.torreviejawireless.org`) && PathPrefix(`/bazarr`)
       kind: Rule
       middlewares:

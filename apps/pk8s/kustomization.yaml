@@ -10,4 +10,5 @@ resources:
   - sipwise-mirror.yaml
   - gitea.yaml
   - coder.yaml
+  - jenkins.yaml
   - plex
