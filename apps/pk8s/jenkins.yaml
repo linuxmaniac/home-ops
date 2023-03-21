@@ -23,6 +23,15 @@ spec:
       storageClass: freenas-iscsi-csi
     jenkinsUser: vseva
     jenkinsHost: jenkins.torreviejawireless.org
+    agentListenerService:
+      enabled: true
+    agent:
+      enabled: true
+      image:
+        registry: docker.io
+        repository: bitnami/jenkins-inbound-agent
+        tag: latest
+        pullPolicy: Always
     plugins:
       - kubernetes:3896.v19b_160fd9589
     extraPlugins: []
