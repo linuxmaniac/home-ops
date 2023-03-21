@@ -82,6 +82,11 @@ spec:
       - "--global.checknewversion"
     additionalArguments:
       - "--serversTransport.insecureSkipVerify=true"
+    ports:
+      websecure:
+        forwardedHeaders:
+          trustedIPs: []
+          insecure: true
     persistence:
       enabled: true
       storageClass: freenas-iscsi-csi
