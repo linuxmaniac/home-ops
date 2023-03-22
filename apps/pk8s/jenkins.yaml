@@ -25,6 +25,13 @@ spec:
     jenkinsHost: jenkins.torreviejawireless.org
     agentListenerService:
       enabled: true
+      # this is needed in order make it work, jenkins URL ==>
+      # http://jenkins-agent-listener.jenkins.svc.cluster.local
+      extraPorts:
+        - name: http
+          protocol: TCP
+          port: 80
+          targetPort: http
     agent:
       enabled: true
       image:
