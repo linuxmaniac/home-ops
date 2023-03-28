@@ -52,6 +52,9 @@ spec:
             - mountPath: /movies
               name: plex-media
               subPath: films
+            - mountPath: /music
+              name: plex-media
+              subPath: music
       hostNetwork: true
       restartPolicy: Always
       volumes:
