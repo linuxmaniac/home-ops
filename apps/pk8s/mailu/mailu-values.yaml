@@ -1,0 +1,55 @@
+---
+# secret-values
+secretKey:
+external_relay:
+  host:
+  username:
+  password:
+initialAccount:
+  username:
+  domain:
+  password:
+#
+logLevel: DEBUG
+mailuVersion: 1.9.50
+hostnames:
+  - imap.torreviejawireless.org
+domain: torreviejawireless.org
+nodeSelector:
+  kubernetes.io/arch: amd64
+persistence:
+  single_pvc: true
+  storageClass: freenas-iscsi-csi
+  existingClaim: mailu-data
+subnet: 10.0.0.0/8
+rspamd:
+  resources:
+    limits:
+      memory: 500Mi
+roundcube:
+  enabled: true
+fetchmail:
+  enabled: true
+  delay: 300
+ingress:
+  className: traefik
+front:
+  hostPort:
+    enabled: false
+  externalService:
+    enabled: true
+    type: LoadBalancer
+    externalTrafficPolicy: Local
+    annotations:
+      metallb.universe.tf/address-pool: external-pool
+      metallb.universe.tf/loadBalancerIPs: 192.168.4.244
+    pop3:
+      pop3: false
+      pop3s: false
+    imap:
+      imap: false
+      imaps: true
+    smtp:
+      smtp: true
+      smtps: true
+      submission: true

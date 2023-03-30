@@ -11,4 +11,5 @@ resources:
   - gitea.yaml
   - coder.yaml
   - jenkins.yaml
+  - mailu
   - plex

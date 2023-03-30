@@ -1,0 +1,14 @@
+---
+nameReference:
+  - kind: ConfigMap
+    version: v1
+    namespace: flux-system
+    fieldSpecs:
+      - path: spec/valuesFrom/name
+        kind: HelmRelease
+  - kind: Secret
+    version: v1
+    namespace: flux-system
+    fieldSpecs:
+      - path: spec/valuesFrom/name
+        kind: HelmRelease
