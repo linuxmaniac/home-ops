@@ -45,10 +45,6 @@ spec:
             - containerPort: 51413
               protocol: UDP
           resources: {}
-          securityContext:
-            capabilities:
-              add:
-                - NET_ADMIN
           volumeMounts:
             - mountPath: /config
               name: transmission-config
@@ -57,7 +53,6 @@ spec:
               subPath: transmission
             - mountPath: /watch
               name: transmission-watch
-      hostNetwork: true
       restartPolicy: Always
       volumes:
         - name: transmission-config

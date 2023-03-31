@@ -4,9 +4,11 @@ kind: Kustomization
 resources:
   - storage.yaml
   - transmission-deployment.yaml
+  - transmission-service.yaml
   - radarr.yaml
   - sonarr.yaml
   - bazarr.yaml
   - lidarr.yaml
   - prowlarr.yaml
   - plex-deployment.yaml
+  - plex-service.yaml

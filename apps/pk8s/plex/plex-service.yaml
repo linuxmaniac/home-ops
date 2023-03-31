@@ -4,16 +4,49 @@ kind: Service
 metadata:
   annotations:
     metallb.universe.tf/address-pool: internal-pool
-    metallb.universe.tf/loadBalancerIPs: 192.168.4.241
+    metallb.universe.tf/loadBalancerIPs: 192.168.4.243
   labels:
     io.kompose.service: plex
   name: plex
   namespace: plex
 spec:
   ports:
-    - name: data
+    - name: pms
       port: 32400
-      targetPort: 32400
+      protocol: TCP
+      targetPort: pms
+    - name: home-theatre
+      port: 3005
+      protocol: TCP
+      targetPort: home-theatre
+    - name: discovery
+      port: 5353
+      protocol: TCP
+      targetPort: discovery
+    - name: dnla-tcp
+      port: 32469
+      protocol: TCP
+      targetPort: dnla-tcp
+    - name: dnla-udp
+      port: 1900
+      protocol: UDP
+      targetPort: dnla-udp
+    - name: gdm32410
+      port: 32410
+      protocol: UDP
+      targetPort: 32410
+    - name: gdm32412
+      port: 32412
+      protocol: UDP
+      targetPort: 32412
+    - name: gdm32413
+      port: 32413
+      protocol: UDP
+      targetPort: 32413
+    - name: gdm32414
+      port: 32414
+      protocol: UDP
+      targetPort: 32414
   type: LoadBalancer
   selector:
     io.kompose.service: plex
