@@ -30,7 +30,7 @@ spec:
               rotate-server-certificates: true
         - op: add
           path: /cluster/allowSchedulingOnMasters
-          value: true
+          value: false
         - op: add
           path: /cluster/apiServer/admissionControl/0/configuration/exemptions/namespaces/-
           value: democratic-csi
