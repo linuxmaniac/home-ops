@@ -20,3 +20,7 @@ spec:
     - op: replace
       path: /machine/install/disk
       value: /dev/nvme0n1
+    - op: add
+      path: /machine/install/extensions/-
+      value:
+        - image: ghcr.io/siderolabs/amd-ucode:20230310
