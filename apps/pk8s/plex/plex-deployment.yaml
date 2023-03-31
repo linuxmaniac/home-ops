@@ -20,7 +20,6 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/arch: amd64
-        kubernetes.io/hostname: k3s-master
       containers:
         - env:
             - name: PGID
