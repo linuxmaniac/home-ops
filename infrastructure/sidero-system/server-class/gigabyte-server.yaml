@@ -2,21 +2,21 @@
 apiVersion: metal.sidero.dev/v1alpha1
 kind: ServerClass
 metadata:
-  name: trigkey
+  name: gigabyte
 spec:
   environmentRef:
     namespace: default
     name: amd64
   qualifiers:
     cpu:
-      - manufacturer: Advanced Micro Devices, Inc.
-        version: AMD Ryzen 5 5560U with Radeon Graphics
+      - manufacturer: Intel
+        version: Intel(R) Celeron(R) CPU N3000 @ 1.04GHz
     systemInformation:
-      - manufacturer: AZW
-        productName: S5
-        version: Default string
+      - manufacturer: GIGABYTE
+        productName: GB-BACE-3000
+        version: 1.x
   bootFromDiskMethod: ipxe-sanboot
   configPatches:
     - op: replace
       path: /machine/install/disk
-      value: /dev/nvme0n1
+      value: /dev/sda

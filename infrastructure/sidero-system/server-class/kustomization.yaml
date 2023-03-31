@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - rpi4-server.yaml
   - trigkey-server.yaml
+  - gigabyte-server.yaml
   - pk8s-sc.yaml
   - pk8s-sc-workers.yaml

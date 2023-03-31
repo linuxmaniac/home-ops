@@ -13,3 +13,4 @@ spec:
         values:
           - trigkey
           - rpi.8gb
+          - gigabyte

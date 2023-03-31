@@ -2,23 +2,23 @@
 apiVersion: metal.sidero.dev/v1alpha1
 kind: Server
 metadata:
-  name: 03000200-0400-0500-0006-000700080009
+  name: 031b021c-040d-05f9-bd06-900700080009
   labels:
-    metal.sidero.dev/serverclass: trigkey
-    metal.sidero.dev/machine.type: controlplane
+    metal.sidero.dev/serverclass: gigabyte
+    metal.sidero.dev/machine.type: worker
 spec:
   accepted: true
-  hostname: k3s-master.lab
+  hostname: k3s-node4.lab
   cpu:
-    manufacturer: Advanced Micro Devices, Inc.
-    version: AMD Ryzen 5 5560U with Radeon Graphics
+    manufacturer: Intel
+    version: Intel(R) Celeron(R) CPU N3000 @ 1.04GHz
   system:
     family: Default string
-    manufacturer: AZW
-    productName: S5
+    manufacturer: GIGABYTE
+    productName: GB-BACE-3000
     serialNumber: Default string
     skuNumber: Default string
-    version: Default string
+    version: 1.x
   pxeBootAlways: true
   environmentRef:
     namespace: default
@@ -27,4 +27,4 @@ spec:
   configPatches:
     - op: replace
       path: /machine/install/disk
-      value: /dev/nvme0n1
+      value: /dev/sda

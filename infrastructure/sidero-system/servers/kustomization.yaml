@@ -8,3 +8,4 @@ resources:
   - k3s-node1.yaml
   - k3s-node2.yaml
   - k3s-node3.yaml
+  - k3s-node4.yaml
