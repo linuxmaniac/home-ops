@@ -50,6 +50,8 @@ spec:
       postgresql:
         auth:
           password: reallysecret
+    nodeSelector:
+      kubernetes.io/arch: amd64
     image:
       flavor: fpm
     nginx:
