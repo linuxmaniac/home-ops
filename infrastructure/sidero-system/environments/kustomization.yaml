@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - amd64.yaml
   - rpi4-arm64.yaml
+  - rpi4-arm64-beta.yaml

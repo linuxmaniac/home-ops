@@ -6,7 +6,7 @@ metadata:
 spec:
   environmentRef:
     namespace: default
-    name: rpi4
+    name: rpi4-beta
   qualifiers:
     systemInformation:
       - manufacturer: Raspberry Pi Foundation
