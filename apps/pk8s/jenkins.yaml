@@ -40,7 +40,7 @@ spec:
         tag: latest
         pullPolicy: Always
     plugins:
-      - kubernetes:3896.v19b_160fd9589
+      - kubernetes:3900.va_dce992317b_4
     extraPlugins: []
     overridePlugins: true
     rbac:
