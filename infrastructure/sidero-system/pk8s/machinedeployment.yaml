@@ -6,7 +6,7 @@ metadata:
   namespace: sidero-system
 spec:
   clusterName: pk8s
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels: {}
   template:
