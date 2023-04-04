@@ -27,41 +27,35 @@ spec:
         name: nextcloud
         namespace: flux-system
       interval: 12h
-  install:
-    remediation:
-      retries: 5
-  upgrade:
-    # Remediaton configuration for when an Helm upgrade action fails
-    remediation:
-      # Amount of retries to attempt after a failure,
-      # setting this to 0 means no remedation will be
-      # attempted
-      retries: 5
-  # Configuration options for the Helm rollback action
-  rollback:
-    timeout: 5m
-    disableWait: false
-    disableHooks: false
-    recreate: false
-    force: false
-    cleanupOnFail: false
   values:
     global:
       postgresql:
         auth:
           password: reallysecret
-    nodeSelector:
-      kubernetes.io/arch: amd64
     image:
       flavor: fpm
     nginx:
       enabled: true
     nextcloud:
       host: cloud.torreviejawireless.org
+      existingSecret:
+        enabled: true
+        secretName: nextcloud
+        mail:
+          enabled: true
+          fromAddress: noreply@torreviejawireless.org
+          domain: torreviejawireless.org
+          smtp:
+            host: mailu-postfix.tw.svc.cluster.local
+            secure: ssl
+            port: 465
+            authtype: LOGIN
     internalDatabase:
       enabled: false
     postgresql:
       enabled: true
+      image:
+        tag: 15.2.0-debian-11-r11
       primary:
         persistence:
           enabled: true
