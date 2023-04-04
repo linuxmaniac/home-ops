@@ -104,6 +104,16 @@ spec:
           kind: Service
           port: 80
           namespace: plex
+    - match: Host(`monitor.torreviejawireless.org`)
+      kind: Rule
+      middlewares:
+        - name: internal-ipwhitelist
+          namespace: traefik
+      services:
+        - name: kube-prometheus-stack-grafana
+          kind: Service
+          port: 80
+          namespace: monitoring
     - match: Host(`git.torreviejawireless.org`)
       kind: Rule
       services:
