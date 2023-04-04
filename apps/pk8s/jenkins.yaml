@@ -21,6 +21,8 @@ spec:
   values:
     global:
       storageClass: freenas-iscsi-csi
+    nodeSelector:
+      kubernetes.io/arch: amd64
     jenkinsUser: vseva
     jenkinsHost: jenkins.torreviejawireless.org
     agentListenerService:
