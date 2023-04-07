@@ -37,7 +37,6 @@ spec:
   ipWhiteList:
     sourceRange:
       - 127.0.0.1/32
-      - 10.0.0.0/8
       - 192.168.2.1/24
       - 192.168.4.1/24
 ---
@@ -59,24 +58,6 @@ spec:
         name: traefik
         namespace: flux-system
       interval: 12h
-  install:
-    remediation:
-      retries: 5
-  upgrade:
-    # Remediaton configuration for when an Helm upgrade action fails
-    remediation:
-      # Amount of retries to attempt after a failure,
-      # setting this to 0 means no remedation will be
-      # attempted
-      retries: 5
-  # Configuration options for the Helm rollback action
-  rollback:
-    timeout: 5m
-    disableWait: false
-    disableHooks: false
-    recreate: false
-    force: false
-    cleanupOnFail: false
   values:
     globalArguments:
       - "--global.checknewversion"
@@ -87,6 +68,10 @@ spec:
         forwardedHeaders:
           trustedIPs: []
           insecure: true
+      web:
+        forwardedHeaders:
+          trustedIPs: []
+          insecure: false
     persistence:
       enabled: true
       storageClass: freenas-iscsi-csi
@@ -108,11 +93,9 @@ spec:
       kubernetesCRD:
         enabled: true
         ingressClass: traefik
-        allowExternalNameServices: true
         allowCrossNamespace: true
       kubernetesIngress:
         enabled: true
-        allowExternalNameServices: true
         publishedService:
           enabled: false
     ingressRoute:
@@ -128,7 +111,8 @@ spec:
         metallb.universe.tf/address-pool: external-pool
         metallb.universe.tf/loadBalancerIPs: 192.168.5.240
       labels: {}
-      spec: {}
+      spec:
+        externalTrafficPolicy: Local
       loadBalancerSourceRanges: []
       externalIPs: []
       internal:
@@ -137,6 +121,7 @@ spec:
         annotations:
           metallb.universe.tf/address-pool: internal-pool
           metallb.universe.tf/loadBalancerIPs: 192.168.4.240
-        spec: {}
+        spec:
+          externalTrafficPolicy: Local
         loadBalancerSourceRanges: []
         externalIPs: []
