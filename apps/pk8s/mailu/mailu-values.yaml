@@ -41,7 +41,7 @@ front:
     type: LoadBalancer
     externalTrafficPolicy: Local
     annotations:
-      metallb.universe.tf/address-pool: external-pool
+      metallb.universe.tf/address-pool: internal-pool
       metallb.universe.tf/loadBalancerIPs: 192.168.4.244
     pop3:
       pop3: false
