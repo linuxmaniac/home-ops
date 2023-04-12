@@ -23,17 +23,31 @@ persistence:
   existingClaim: mailu-data
 subnet: 10.0.0.0/8
 rspamd:
+  image:
+    repository: ghcr.io/mailu/rspamd
   resources:
     limits:
       memory: 500Mi
+clamav:
+  image:
+    repository: ghcr.io/mailu/clamav
 roundcube:
   enabled: true
+  image:
+    repository: ghcr.io/mailu/roundcube
 fetchmail:
   enabled: true
+  image:
+    repository: ghcr.io/mailu/fetchmail
   delay: 300
 ingress:
   className: traefik
+admin:
+  image:
+    repository: ghcr.io/mailu/admin
 front:
+  image:
+    repository: ghcr.io/mailu/nginx
   hostPort:
     enabled: false
   externalService:
@@ -53,3 +67,9 @@ front:
       smtp: true
       smtps: true
       submission: true
+postfix:
+  image:
+    repository: ghcr.io/mailu/postfix
+dovecot:
+  image:
+    repository: ghcr.io/mailu/dovecot
