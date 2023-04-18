@@ -13,3 +13,4 @@ resources:
   - jenkins.yaml
   - mailu
   - plex
+  - quassel.yaml
