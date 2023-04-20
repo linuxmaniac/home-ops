@@ -1,7 +1,7 @@
 ---
 # secret-values
 secretKey:
-external_relay:
+externalRelay:
   host:
   username:
   password:
@@ -10,8 +10,9 @@ initialAccount:
   domain:
   password:
 #
+global:
+  storageClass: freenas-iscsi-csi
 logLevel: DEBUG
-mailuVersion: 1.9.50
 hostnames:
   - imap.torreviejawireless.org
 domain: torreviejawireless.org
@@ -23,31 +24,17 @@ persistence:
   existingClaim: mailu-data
 subnet: 10.0.0.0/8
 rspamd:
-  image:
-    repository: ghcr.io/mailu/rspamd
   resources:
     limits:
       memory: 500Mi
-clamav:
-  image:
-    repository: ghcr.io/mailu/clamav
-roundcube:
-  enabled: true
-  image:
-    repository: ghcr.io/mailu/roundcube
+webmail:
+  enabled: false
 fetchmail:
   enabled: true
-  image:
-    repository: ghcr.io/mailu/fetchmail
   delay: 300
 ingress:
   className: traefik
-admin:
-  image:
-    repository: ghcr.io/mailu/admin
 front:
-  image:
-    repository: ghcr.io/mailu/nginx
   hostPort:
     enabled: false
   externalService:
@@ -57,19 +44,9 @@ front:
     annotations:
       metallb.universe.tf/address-pool: internal-pool
       metallb.universe.tf/loadBalancerIPs: 192.168.4.244
-    pop3:
-      pop3: false
+    ports:
       pop3s: false
-    imap:
-      imap: false
       imaps: true
-    smtp:
       smtp: true
       smtps: true
       submission: true
-postfix:
-  image:
-    repository: ghcr.io/mailu/postfix
-dovecot:
-  image:
-    repository: ghcr.io/mailu/dovecot

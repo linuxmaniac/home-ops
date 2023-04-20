@@ -12,6 +12,7 @@ spec:
   chart:
     spec:
       chart: mailu
+      version: 1.1.x
       sourceRef:
         kind: HelmRepository
         name: mailu-charts
