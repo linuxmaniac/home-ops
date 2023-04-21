@@ -23,3 +23,10 @@ metadata:
   name: jenkins
   labels:
     toolkit.fluxcd.io/tenant: sre-team
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: infra
+  labels:
+    toolkit.fluxcd.io/tenant: sre-team

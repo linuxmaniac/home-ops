@@ -14,3 +14,4 @@ resources:
   - mailu
   - plex
   - quassel.yaml
+  - bootxyz.yaml

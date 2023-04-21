@@ -104,6 +104,16 @@ spec:
           kind: Service
           port: 80
           namespace: plex
+    - match: Host(`panel.torreviejawireless.org`) && PathPrefix(`/bootxyz`)
+      kind: Rule
+      middlewares:
+        - name: internal-ipwhitelist
+          namespace: traefik
+      services:
+        - name: bootxyz
+          kind: Service
+          port: 3000
+          namespace: infra
     - match: Host(`monitor.torreviejawireless.org`)
       kind: Rule
       middlewares:
@@ -144,6 +154,18 @@ spec:
         - name: sipwise-mirror-nginx
           kind: Service
           port: 80
+    - match: Host(`panel.torreviejawireless.org`) && PathPrefix(`/assets`)
+      kind: Rule
+      middlewares:
+        - name: internal-ipwhitelist
+          namespace: traefik
+        - name: bootxyz-assets
+          namespace: infra
+      services:
+        - name: bootxyz
+          kind: Service
+          port: 80
+          namespace: infra
     - match: HostRegexp(`{host:.+}`)
       kind: Rule
       middlewares:

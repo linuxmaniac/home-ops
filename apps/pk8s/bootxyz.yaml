@@ -1,0 +1,155 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: bootxyz-config
+  namespace: infra
+spec:
+  storageClassName: freenas-iscsi-csi
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: bootxyz-assets
+  namespace: infra
+spec:
+  storageClassName: freenas-iscsi-csi
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: bootxyz-tftp
+  labels:
+    org.democratic-csi.manual: bootxyz-tftp
+spec:
+  capacity:
+    storage: 50Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - nfsvers=4
+    - nolock
+    - noatime
+  csi:
+    driver: org.democratic-csi.node-manual
+    readOnly: false
+    fsType: nfs
+    volumeHandle: bootxyz-tftp
+    volumeAttributes:
+      server: 192.168.4.5
+      share: /mnt/main/tftp
+      node_attach_driver: nfs
+      provisioner_driver: node-manual
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: bootxyz-tftp
+  namespace: infra
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Mi
+  selector:
+    matchLabels:
+      org.democratic-csi.manual: bootxyz-tftp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: bootxyz
+  name: bootxyz
+  namespace: infra
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: bootxyz
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: bootxyz
+    spec:
+      containers:
+        - env:
+            - name: PGID
+              value: "1000"
+            - name: PUID
+              value: "1000"
+            - name: TZ
+              value: Europe/Madrid
+            - name: SUBFOLDER
+              value: /bootxyz/
+          image: lscr.io/linuxserver/netbootxyz:latest
+          name: bootxyz
+          ports:
+            - name: config
+              containerPort: 3000
+            - name: assets
+              containerPort: 80
+          resources: {}
+          volumeMounts:
+            - mountPath: /config
+              name: bootxyz-config
+            - mountPath: /config/menus
+              name: bootxyz-tftp
+            - mountPath: /assets
+              name: bootxyz-assets
+      restartPolicy: Always
+      volumes:
+        - name: bootxyz-assets
+          persistentVolumeClaim:
+            claimName: bootxyz-assets
+        - name: bootxyz-config
+          persistentVolumeClaim:
+            claimName: bootxyz-config
+        - name: bootxyz-tftp
+          persistentVolumeClaim:
+            claimName: bootxyz-tftp
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/address-pool: internal-pool
+    metallb.universe.tf/loadBalancerIPs: 192.168.4.246
+  labels:
+    io.kompose.service: bootxyz
+  name: bootxyz
+  namespace: infra
+spec:
+  ports:
+    - name: assets-svc
+      port: 80
+    - name: config-svc
+      port: 3000
+  type: LoadBalancer
+  selector:
+    io.kompose.service: bootxyz
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: bootxyz-assets
+  namespace: infra
+spec:
+  stripPrefix:
+    prefixes:
+      - "/assets"
+    forceSlash: false
