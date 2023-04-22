@@ -110,6 +110,8 @@ driver:
 # talos config
 # https://github.com/democratic-csi/democratic-csi#talos
 controller:
+  driver:
+    image: ghcr.io/democratic-csi/democratic-csi:v1.8.3
   rbac:
     enabled: true
   enabled: true
@@ -120,6 +122,7 @@ node:
   enabled: true
   hostPID: true
   driver:
+    image: ghcr.io/democratic-csi/democratic-csi:v1.8.3
     extraEnv:
       - name: ISCSIADM_HOST_STRATEGY
         value: nsenter
