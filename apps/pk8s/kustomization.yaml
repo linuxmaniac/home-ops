@@ -15,3 +15,4 @@ resources:
   - plex
   - quassel.yaml
   - bootxyz.yaml
+  - bastion.yaml
