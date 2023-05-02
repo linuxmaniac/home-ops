@@ -12,8 +12,6 @@ initialAccount:
 #
 global:
   storageClass: freenas-iscsi-csi
-logLevel: DEBUG
-mailuVersion: 2.0.10
 hostnames:
   - imap.torreviejawireless.org
 domain: torreviejawireless.org
@@ -52,8 +50,3 @@ front:
       smtp: true
       smtps: true
       submission: true
-dovecot:
-  startupProbe:
-    enabled: false
-  livenessProbe:
-    enabled: false
