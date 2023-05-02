@@ -50,3 +50,8 @@ front:
       smtp: true
       smtps: true
       submission: true
+postfix:
+  overrides:
+    postfix.cf: |
+      smtp_tls_wrappermode = yes
+      smtp_tls_security_level = encrypt
