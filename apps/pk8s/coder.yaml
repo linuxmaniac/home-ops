@@ -1,5 +1,32 @@
 ---
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: vseva-remote
+  labels:
+    org.democratic-csi.manual: vseva-remote
+spec:
+  capacity:
+    storage: 1Ti
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - nfsvers=4
+    - nolock
+    - noatime
+  csi:
+    driver: org.democratic-csi.node-manual
+    readOnly: false
+    fsType: nfs
+    volumeHandle: vseva-remote
+    volumeAttributes:
+      server: 192.168.4.5
+      share: /mnt/main/home/vseva
+      node_attach_driver: nfs
+      provisioner_driver: node-manual
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: code-server-config
@@ -11,6 +38,21 @@ spec:
   resources:
     requests:
       storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vseva-remote
+  namespace: tw
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Ti
+  selector:
+    matchLabels:
+      org.democratic-csi.manual: vseva-remote
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -59,11 +101,17 @@ spec:
           volumeMounts:
             - mountPath: /config
               name: code-server-config
+            - mountPath: /config/workspace
+              name: code-server-workspace
+              subPath: workspace
       restartPolicy: Always
       volumes:
         - name: code-server-config
           persistentVolumeClaim:
             claimName: code-server-config
+        - name: code-server-workspace
+          persistentVolumeClaim:
+            claimName: vseva-remote
 ---
 apiVersion: v1
 kind: Service
