@@ -107,6 +107,12 @@ driver:
       extentRpm: "SSD"
       # 0-100 (0 == ignore)
       extentAvailThreshold: 0
+    node:
+      mount:
+        checkFileSystem:
+          enabled: true
+          ext4:
+            enabled: true
 # talos config
 # https://github.com/democratic-csi/democratic-csi#talos
 controller:
