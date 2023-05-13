@@ -33,6 +33,9 @@ fetchmail:
   delay: 300
 ingress:
   className: traefik
+redis:
+  image:
+    tag: "7.0"
 front:
   hostPort:
     enabled: false
