@@ -7,7 +7,7 @@ metadata:
 spec:
   interval: 10m0s
   dependsOn:
-    - name: infra-configs
+    - name: infra-pk8s-configs
   sourceRef:
     kind: GitRepository
     name: flux-system
