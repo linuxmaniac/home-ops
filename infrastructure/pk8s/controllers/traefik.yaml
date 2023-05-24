@@ -37,8 +37,9 @@ spec:
   ipWhiteList:
     sourceRange:
       - 127.0.0.1/32
-      - 192.168.2.1/24
-      - 192.168.4.1/24
+      - 192.168.2.0/24
+      - 192.168.4.0/24
+      - 192.168.6.0/29
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
