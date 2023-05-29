@@ -5,8 +5,8 @@ metadata:
   name: amd64
 spec:
   initrd:
-    url: https://github.com/talos-systems/talos/releases/download/v1.3.6/initramfs-amd64.xz
-    sha512: 31f8fe0bc88c7f1e6071098e368b4fd42d5b4ac0a3e4dfae2c7da21c7aa056bb8f053c087e008e73d5afc007f053dea0d834d84db700c9d799648c88eb918cc9
+    url: https://github.com/talos-systems/talos/releases/download/v1.4.4/initramfs-amd64.xz
+    sha512: a0d03de744fa7134b8369ee7210cf5ed4b10139b5ced35089dd359afa8e53fdc5b6175f607c45691c2eb003bf1d3ebad8afd30800cd4a2d63f1cfc25199ea766
   kernel:
     args:
       - console=tty0
@@ -23,5 +23,5 @@ spec:
       - pti=on
       - slab_nomerge=
       - talos.platform=metal
-    url: https://github.com/talos-systems/talos/releases/download/v1.3.6/vmlinuz-amd64
-    sha512: 99f638526c2223056fed4b317a959283e3d9731a97a9c396eff8492d65f20b236d17a9b64f0095e14ed19242d49b84aab6d2203be265884f58dcbcea5a241526
+    url: https://github.com/talos-systems/talos/releases/download/v1.4.4/vmlinuz-amd64
+    sha512: a697876d5a727ebb1107b990d087344b113a5af1404f210563cff08350ba2762db6124166c14dae6a0042dfb2c078b665086fd646dba2af7d03d3f9f4154d6f2

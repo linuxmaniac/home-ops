@@ -12,7 +12,7 @@ spec:
   pxeBootAlways: true
   environmentRef:
     namespace: default
-    name: rpi4-beta
+    name: rpi4
   system:
     # 32fc0ab3
     manufacturer: Raspberry Pi Foundation

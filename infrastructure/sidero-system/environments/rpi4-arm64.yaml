@@ -5,11 +5,11 @@ metadata:
   name: rpi4
 spec:
   initrd:
-    url: https://github.com/siderolabs/talos/releases/download/v1.3.6/initramfs-arm64.xz
-    sha512: 7a07c47e3e56f7aa5a18764eb3549960548d6b6b1d522de4ed1a6260cf9e273440409cc19bb8858a3193f15169395d05a64944548ec88c8c092f124a8ea6da88
+    url: https://github.com/siderolabs/talos/releases/download/v1.4.4/initramfs-arm64.xz
+    sha512: 51e39ab02e8c7f298cc284ba3601a495dae242443d4c3187dd32cab354c54a16630e968dfc2b944b7edd507014815448560b4b67513127058f36da13829ae0c6
   kernel:
-    url: https://github.com/siderolabs/talos/releases/download/v1.3.6/vmlinuz-arm64
-    sha512: e4e289a4c1d0ba14d6d73221691c8284214df4cd96f582d4c8d010015f7f35a6423c7fe5d2ee2c33fd4bacb7e0e95d62afb7c5a8be1532dfe8fbcd87ddbdce9e
+    url: https://github.com/siderolabs/talos/releases/download/v1.4.4/vmlinuz-arm64
+    sha512: a697876d5a727ebb1107b990d087344b113a5af1404f210563cff08350ba2762db6124166c14dae6a0042dfb2c078b665086fd646dba2af7d03d3f9f4154d6f2
     args:
       - console=tty0
       - console=ttyS0

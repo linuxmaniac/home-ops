@@ -8,7 +8,7 @@ spec:
   template:
     spec:
       generateType: join
-      talosVersion: v1.3.6
+      talosVersion: v1.4.4
       configPatches:
         - op: add
           path: /machine/install/extensions
