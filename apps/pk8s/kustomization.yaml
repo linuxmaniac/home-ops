@@ -10,7 +10,6 @@ resources:
   - sipwise-mirror.yaml
   - gitea.yaml
   - coder.yaml
-  - jenkins.yaml
   - mailu
   - plex
   - quassel.yaml
