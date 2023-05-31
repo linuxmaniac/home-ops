@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - namespaces.yaml
   - certificate.yaml
-  - bitnami
+  - ../base/bitnami
   - nextcloud.yaml
   - traefik.yaml
   - sipwise-mirror.yaml
