@@ -102,7 +102,13 @@ spec:
               value: "false"
           image: lscr.io/linuxserver/openssh-server:latest
           name: sipwise-mirror
-          resources: {}
+          resources:
+            requests:
+              cpu: 10m
+              memory: 5Mi
+            limits:
+              cpu: 500m
+              memory: 10Mi
           ports:
             - containerPort: 2222
           volumeMounts:
@@ -126,6 +132,13 @@ spec:
             - mountPath: /config/nginx/site-confs/default.conf
               name: sipwise-mirror-nginx
               subPath: default.conf
+          resources:
+            requests:
+              cpu: 10m
+              memory: 30Mi
+            limits:
+              cpu: 500m
+              memory: 100Mi
       restartPolicy: Always
       volumes:
         - name: nfs-sipwise-mirror

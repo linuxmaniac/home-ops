@@ -103,7 +103,13 @@ spec:
               containerPort: 3000
             - name: assets
               containerPort: 80
-          resources: {}
+          resources:
+            requests:
+              cpu: 100m
+              memory: 50Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
           volumeMounts:
             - mountPath: /config
               name: bootxyz-config

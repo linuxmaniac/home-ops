@@ -45,7 +45,13 @@ spec:
               value: --config-from-environment
           image: lscr.io/linuxserver/quassel-core:latest
           name: quassel-core
-          resources: {}
+          resources:
+            requests:
+              cpu: 100m
+              memory: 15Mi
+            limits:
+              cpu: 500m
+              memory: 128Mi
           ports:
             - containerPort: 4242
           volumeMounts:

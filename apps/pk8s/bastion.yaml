@@ -115,7 +115,13 @@ spec:
           name: bastion
           stdin: true
           tty: true
-          resources: {}
+          resources:
+            requests:
+              cpu: 250m
+              memory: 15Mi
+            limits:
+              cpu: 1000m
+              memory: 256Mi
           ports:
             - containerPort: 2222
           volumeMounts:

@@ -97,7 +97,13 @@ spec:
           name: code-server
           ports:
             - containerPort: 8443
-          resources: {}
+          resources:
+            requests:
+              cpu: 100m
+              memory: 50Mi
+            limits:
+              cpu: 1000m
+              memory: 256Mi
           volumeMounts:
             - mountPath: /config
               name: code-server-config
