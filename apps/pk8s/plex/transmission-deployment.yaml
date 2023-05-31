@@ -42,7 +42,13 @@ spec:
             - containerPort: 51413
             - containerPort: 51413
               protocol: UDP
-          resources: {}
+          resources:
+            requests:
+              cpu: 150m
+              memory: 50Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
           volumeMounts:
             - mountPath: /config
               name: transmission-config

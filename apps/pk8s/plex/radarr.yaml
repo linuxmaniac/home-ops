@@ -47,7 +47,13 @@ spec:
           name: radarr
           ports:
             - containerPort: 7878
-          resources: {}
+          resources:
+            requests:
+              cpu: 250m
+              memory: 150Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
           volumeMounts:
             - mountPath: /custom-cont-init.d
               name: radarr-custom
