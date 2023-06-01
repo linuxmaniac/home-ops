@@ -4,9 +4,13 @@ kind: Kustomization
 resources:
   - descheduler.yaml
   - ../../controllers/kubed.yaml
-  - traefik.yaml
+  - ../../controllers/traefik.yaml
 patches:
   - path: kubed-values.yaml
     target:
       kind: HelmRelease
       name: kubed
+  - path: traefik-values.yaml
+    target:
+      kind: HelmRelease
+      name: traefik

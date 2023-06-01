@@ -31,7 +31,7 @@ spec:
   chart:
     spec:
       chart: traefik
-      version: 22.2.x
+      version: 23.0.x
       sourceRef:
         kind: HelmRepository
         name: traefik
@@ -53,7 +53,6 @@ spec:
           insecure: false
     persistence:
       enabled: true
-      storageClass: openebs-zfspv-default
     tlsOptions:
       default:
         minVersion: VersionTLS12
@@ -83,17 +82,6 @@ spec:
     logs:
       general:
         level: DEBUG
-    service:
-      enabled: true
-      type: LoadBalancer
-      annotations:
-        metallb.universe.tf/address-pool: internal-pool
-        metallb.universe.tf/loadBalancerIPs: 192.168.4.220
-      labels: {}
-      spec:
-        externalTrafficPolicy: Local
-      loadBalancerSourceRanges: []
-      externalIPs: []
     extraObjects:
       - apiVersion: traefik.containo.us/v1alpha1
         kind: Middleware
