@@ -1,0 +1,32 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: traefik
+  namespace: flux-system
+spec:
+  values:
+    persistence:
+      enabled: true
+      storageClass: freenas-iscsi-csi
+    service:
+      enabled: true
+      type: LoadBalancer
+      annotations:
+        metallb.universe.tf/address-pool: external-pool
+        metallb.universe.tf/loadBalancerIPs: 192.168.5.240
+      labels: {}
+      spec:
+        externalTrafficPolicy: Local
+      loadBalancerSourceRanges: []
+      externalIPs: []
+      internal:
+        type: LoadBalancer
+        labels: {}
+        annotations:
+          metallb.universe.tf/address-pool: internal-pool
+          metallb.universe.tf/loadBalancerIPs: 192.168.4.240
+        spec:
+          externalTrafficPolicy: Local
+        loadBalancerSourceRanges: []
+        externalIPs: []
