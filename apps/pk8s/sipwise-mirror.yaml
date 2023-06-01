@@ -104,11 +104,11 @@ spec:
           name: sipwise-mirror
           resources:
             requests:
-              cpu: 10m
+              cpu: 100m
               memory: 5Mi
             limits:
-              cpu: 500m
-              memory: 10Mi
+              cpu: 1000m
+              memory: 256Mi
           ports:
             - containerPort: 2222
           volumeMounts:
