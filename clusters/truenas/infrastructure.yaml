@@ -18,7 +18,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: infra-truenas-configs
+  name: infra-truenas-controllers
   namespace: flux-system
 spec:
   dependsOn:
@@ -29,5 +29,31 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+  path: ./infrastructure/truenas/controllers
+  prune: true
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infra-truenas-configs
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infra-truenas-controllers
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
   path: ./infrastructure/truenas/configs
   prune: true
+  patches:
+    - patch: |
+        - op: replace
+          path: /spec/acme/server
+          value: https://acme-v02.api.letsencrypt.org/directory
+      target:
+        kind: ClusterIssuer
+        name: letsencrypt
