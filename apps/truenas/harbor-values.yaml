@@ -1,0 +1,42 @@
+---
+# secret-values
+adminPassword:
+#
+global:
+  storageClass: openebs-zfspv-default
+externalURL: https://harbor.lab.sipwork.pro
+exposureType: ingress
+service:
+  type: LoadBalancer
+  ports:
+    http: 80
+    https: 443
+    notary: 4443
+  annotations:
+    metallb.universe.tf/address-pool: internal-pool
+    metallb.universe.tf/loadBalancerIPs: 192.168.4.221
+ingress:
+  core:
+    annotations:
+      traefik.ingress.kubernetes.io/router.tls: "true"
+      traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+      traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd,traefik-internal-ipwhitelist@kubernetescrd
+    hostname: harbor.lab.sipwork.pro
+    ingressClassName: traefik
+    extraTls:
+      - hosts:
+          - harbor.lab.sipwork.pro
+        secretName: lab.sipwork.pro-tls
+  notary:
+    annotations:
+      traefik.ingress.kubernetes.io/router.tls: "true"
+      traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+      traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd,traefik-internal-ipwhitelist@kubernetescrd
+    hostname: notary.lab.sipwork.pro
+    ingressClassName: traefik
+    extraTls:
+      - hosts:
+          - notary.lab.sipwork.pro
+        secretName: lab.sipwork.pro-tls
+persistence:
+  enabled: true

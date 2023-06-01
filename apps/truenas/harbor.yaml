@@ -1,0 +1,34 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: harbor
+  labels:
+    toolkit.fluxcd.io/tenant: sre-team
+    app: kubed
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: harbor
+  namespace: flux-system
+spec:
+  interval: 30m
+  releaseName: harbor
+  targetNamespace: harbor
+  serviceAccountName: helm-controller
+  chart:
+    spec:
+      chart: harbor
+      version: "16.6.x"
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+      interval: 12h
+  valuesFrom:
+    - kind: ConfigMap
+      name: harbor-values
+      valuesKey: values-harbor.yaml
+    - kind: Secret
+      name: harbor-admin
