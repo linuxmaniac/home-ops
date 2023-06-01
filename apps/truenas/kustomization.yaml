@@ -1,7 +1,23 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+metadata:
+  labels:
+    app.kubernetes.io/sops: enabled
 resources:
   - ../base/bitnami
   - certificate.yaml
   - traefik.yaml
+  - harbor.yaml
+secretGenerator:
+  - name: harbor-admin
+    namespace: flux-system
+    files:
+      - values.yaml=harbor-secret-values.enc.yaml
+configMapGenerator:
+  - name: harbor-values
+    namespace: flux-system
+    files:
+      - values-harbor.yaml=harbor-values.yaml
+configurations:
+  - kustomizeconfig.yaml
