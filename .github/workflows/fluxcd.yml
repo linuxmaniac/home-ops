@@ -1,3 +1,4 @@
+---
 name: update-flux
 
 on:
@@ -24,14 +25,16 @@ jobs:
             --export > ./clusters/pk8s/flux-system/gotk-components.yaml
           flux install \
             --export > ./clusters/sidero/flux-system/gotk-components.yaml
+          flux install \
+            --export > ./clusters/truenas/flux-system/gotk-components.yaml
           VERSION="$(flux -v)"
           echo "flux_version=$VERSION" >> $GITHUB_OUTPUT
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
-            token: ${{ secrets.GITHUB_TOKEN }}
-            branch: update-flux
-            commit-message: Update to ${{ steps.update.outputs.flux_version }}
-            title: Update to ${{ steps.update.outputs.flux_version }}
-            body: |
-              ${{ steps.update.outputs.flux_version }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: update-flux
+          commit-message: Update to ${{ steps.update.outputs.flux_version }}
+          title: Update to ${{ steps.update.outputs.flux_version }}
+          body: |
+            ${{ steps.update.outputs.flux_version }}
