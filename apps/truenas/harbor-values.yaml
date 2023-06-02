@@ -40,3 +40,16 @@ ingress:
         secretName: lab.sipwork.pro-tls
 persistence:
   enabled: true
+  s3:
+# secret-values
+    accesskey:
+    secretkey:
+#
+    region: us-east-1
+    regionendpoint: http://truenas.lab:9000
+    bucket: harbor-registry
+    encrypt: false
+    secure: false
+    v4auth: true
+    chunksize: 5242880
+    rootdirectory: /
