@@ -117,7 +117,12 @@ spec:
           tty: true
           resources: {}
           ports:
-            - containerPort: 2222
+            - name: ssh
+              containerPort: 2222
+          livenessProbe:
+            tcpSocket:
+              port: ssh
+            initialDelaySeconds: 2
           volumeMounts:
             - mountPath: /config
               name: bastion-config
