@@ -30,3 +30,11 @@ metadata:
   name: infra
   labels:
     toolkit.fluxcd.io/tenant: sre-team
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: umh
+  labels:
+    toolkit.fluxcd.io/tenant: sre-team
+    app: kubed

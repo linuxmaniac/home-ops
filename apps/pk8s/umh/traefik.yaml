@@ -1,0 +1,35 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: comunicacioncientifica.info
+  namespace: traefik
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes: []
+  tls:
+    secretName: comunicacioncientifica.info-tls
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: comunicacioncientifica.info-http
+  namespace: traefik
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: HostRegexp(`{host:.+}`)
+      kind: Rule
+      middlewares:
+        - name: redirectscheme
+          namespace: traefik
+      services:
+        - name: noop@internal
+          kind: TraefikService
+          namespace: traefik
