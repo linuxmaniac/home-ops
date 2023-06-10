@@ -1,0 +1,26 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: wp-sipwork
+  namespace: flux-system
+spec:
+  interval: 30m
+  releaseName: wp-sipwork
+  targetNamespace: sipwork
+  serviceAccountName: helm-controller
+  chart:
+    spec:
+      chart: wordpress
+      version: "16.1.x"
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+      interval: 12h
+  valuesFrom:
+    - kind: ConfigMap
+      name: wp-sipwork-values
+      valuesKey: values-wp.yaml
+    - kind: Secret
+      name: wp-sipwork-config

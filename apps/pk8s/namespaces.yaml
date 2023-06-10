@@ -38,3 +38,11 @@ metadata:
   labels:
     toolkit.fluxcd.io/tenant: sre-team
     app: kubed
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sipwork
+  labels:
+    toolkit.fluxcd.io/tenant: sre-team
+    app: kubed

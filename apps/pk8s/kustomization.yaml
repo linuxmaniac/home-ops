@@ -16,3 +16,4 @@ resources:
   - bootxyz.yaml
   - bastion.yaml
   - umh
+  - sipwork

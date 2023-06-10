@@ -1,0 +1,47 @@
+---
+global:
+  storageClass: freenas-iscsi-csi
+# secret-values
+wordpressUsername:
+wordpressPassword:
+wordpressEmail:
+wordpressFirstName:
+wordpressLastName:
+wordpressBlogName:
+smtpHost:
+smtpPort:
+smtpUser:
+smtpPassword:
+smtpProtocol:
+#
+wordpressScheme: https
+service:
+  type: ClusterIP
+ingress:
+  enabled: true
+  ingressClassName: traefik
+  hostname: sipwork.pro
+  extraHosts:
+    - name: www.sipwork.pro
+      path: /
+    - name: ww2.sipwork.pro
+      path: /
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd,traefik-internal-ipwhitelist@kubernetescrd
+  extraTls:
+    - hosts:
+        - sipwork.pro
+        - www.sipwork.pro
+        - ww2.sipwork.pro
+      secretName: sipwork.pro-tls
+persistence:
+  enabled: true
+readinessProbe:
+  enabled: false
+metrics:
+  enabled: true
+multisite:
+  enable: true
+  host: sipwork.pro
