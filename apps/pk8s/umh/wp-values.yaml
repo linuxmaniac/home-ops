@@ -24,17 +24,14 @@ ingress:
   extraHosts:
     - name: www.comunicacioncientifica.info
       path: /
-    - name: ww2.comunicacioncientifica.info
-      path: /
   annotations:
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd,traefik-internal-ipwhitelist@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd
   extraTls:
     - hosts:
         - comunicacioncientifica.info
         - www.comunicacioncientifica.info
-        - ww2.comunicacioncientifica.info
       secretName: comunicacioncientifica.info-tls
 persistence:
   enabled: true
