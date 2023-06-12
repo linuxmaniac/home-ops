@@ -153,3 +153,52 @@ spec:
     prefixes:
       - "/assets"
     forceSlash: false
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bootxyz
+  namespace: infra
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-internal-ipwhitelist@kubernetescrd
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - panel.torreviejawireless.org
+      secretName: tw-tls
+  rules:
+    - host: panel.torreviejawireless.org
+      http:
+        paths:
+          - path: /bootxyz
+            pathType: Prefix
+            backend:
+              service:
+                name: bootxyz
+                port:
+                  name: config-svc
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bootxyz-assets
+  namespace: infra
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/router.middlewares: infra-bootxyz-assets@kubernetescrd,traefik-internal-ipwhitelist@kubernetescrd
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: panel.torreviejawireless.org
+      http:
+        paths:
+          - path: /assets
+            pathType: Prefix
+            backend:
+              service:
+                name: bootxyz
+                port:
+                  name: assets-svc

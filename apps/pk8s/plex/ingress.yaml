@@ -1,0 +1,55 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: panel
+  namespace: plex
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd,traefik-internal-ipwhitelist@kubernetescrd
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - panel.torreviejawireless.org
+      secretName: tw-tls
+  rules:
+    - host: panel.torreviejawireless.org
+      http:
+        paths:
+          - path: /bazarr
+            pathType: Prefix
+            backend:
+              service:
+                name: bazar
+                port:
+                  name: http
+          - path: /prowlarr
+            pathType: Prefix
+            backend:
+              service:
+                name: prowlarr
+                port:
+                  name: http
+          - path: /sonarr
+            pathType: Prefix
+            backend:
+              service:
+                name: sonarr
+                port:
+                  name: http
+          - path: /radarr
+            pathType: Prefix
+            backend:
+              service:
+                name: radarr
+                port:
+                  name: http
+          - path: /lidarr
+            pathType: Prefix
+            backend:
+              service:
+                name: lidarr
+                port:
+                  name: http

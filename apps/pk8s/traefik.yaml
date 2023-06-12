@@ -10,12 +10,6 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`cloud.torreviejawireless.org`)
-      kind: Rule
-      services:
-        - name: nextcloud
-          kind: Service
-          port: 8080
     - match: Host(`traefik.torreviejawireless.org`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
       kind: Rule
       middlewares:
@@ -25,95 +19,6 @@ spec:
         - kind: TraefikService
           name: api@internal
           namespace: traefik
-    - match: Host(`mirror.torreviejawireless.org`)
-      kind: Rule
-      middlewares:
-        - name: internal-ipwhitelist
-          namespace: traefik
-      services:
-        - name: sipwise-mirror-nginx
-          kind: Service
-          port: 80
-    - match: Host(`coder.torreviejawireless.org`)
-      kind: Rule
-      middlewares:
-        - name: internal-ipwhitelist
-          namespace: traefik
-      services:
-        - name: code-server
-          kind: Service
-          port: 80
-    - match: Host(`jenkins.torreviejawireless.org`)
-      kind: Rule
-      middlewares:
-        - name: internal-ipwhitelist
-          namespace: traefik
-      services:
-        - name: jenkins-agent-listener
-          kind: Service
-          port: 80
-          passHostHeader: true
-          namespace: jenkins
-    - match: Host(`panel.torreviejawireless.org`) && PathPrefix(`/bazarr`)
-      kind: Rule
-      middlewares:
-        - name: internal-ipwhitelist
-          namespace: traefik
-      services:
-        - name: bazarr
-          kind: Service
-          port: 80
-          namespace: plex
-    - match: Host(`panel.torreviejawireless.org`) && PathPrefix(`/prowlarr`)
-      kind: Rule
-      middlewares:
-        - name: internal-ipwhitelist
-          namespace: traefik
-      services:
-        - name: prowlarr
-          kind: Service
-          port: 80
-          namespace: plex
-    - match: Host(`panel.torreviejawireless.org`) && PathPrefix(`/sonarr`)
-      kind: Rule
-      middlewares:
-        - name: internal-ipwhitelist
-          namespace: traefik
-      services:
-        - name: sonarr
-          kind: Service
-          port: 80
-          namespace: plex
-    - match: Host(`panel.torreviejawireless.org`) && PathPrefix(`/radarr`)
-      kind: Rule
-      middlewares:
-        - name: internal-ipwhitelist
-          namespace: traefik
-      services:
-        - name: radarr
-          kind: Service
-          port: 80
-          namespace: plex
-    - match: Host(`panel.torreviejawireless.org`) && PathPrefix(`/lidarr`)
-      kind: Rule
-      middlewares:
-        - name: internal-ipwhitelist
-          namespace: traefik
-      services:
-        - name: lidarr
-          kind: Service
-          port: 80
-          namespace: plex
-    - match: Host(`panel.torreviejawireless.org`) && PathPrefix(`/bootxyz`)
-      kind: Rule
-      middlewares:
-        - name: internal-ipwhitelist
-          namespace: traefik
-      services:
-        - name: bootxyz
-          kind: Service
-          port: 3000
-          namespace: infra
     - match: Host(`monitor.torreviejawireless.org`)
       kind: Rule
       middlewares:
@@ -124,13 +29,6 @@ spec:
           kind: Service
           port: 80
           namespace: monitoring
-    - match: Host(`git.torreviejawireless.org`)
-      kind: Rule
-      services:
-        - name: gitea-http
-          kind: Service
-          port: 3000
-          namespace: tw
   tls:
     secretName: tw-tls
 ---
@@ -145,27 +43,6 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`mirror.torreviejawireless.org`)
-      kind: Rule
-      middlewares:
-        - name: internal-ipwhitelist
-          namespace: traefik
-      services:
-        - name: sipwise-mirror-nginx
-          kind: Service
-          port: 80
-    - match: Host(`panel.torreviejawireless.org`) && PathPrefix(`/assets`)
-      kind: Rule
-      middlewares:
-        - name: internal-ipwhitelist
-          namespace: traefik
-        - name: bootxyz-assets
-          namespace: infra
-      services:
-        - name: bootxyz
-          kind: Service
-          port: 80
-          namespace: infra
     - match: HostRegexp(`{host:.+}`)
       kind: Rule
       middlewares:

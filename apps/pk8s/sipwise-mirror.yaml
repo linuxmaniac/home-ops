@@ -175,3 +175,29 @@ spec:
   type: ClusterIP
   selector:
     io.kompose.service: sipwise-mirror
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sipwise-mirror
+  namespace: tw
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-internal-ipwhitelist@kubernetescrd
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - mirror.torreviejawireless.org
+      secretName: tw-tls
+  rules:
+    - host: mirror.torreviejawireless.org
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: sipwise-mirror-nginx
+                port:
+                  name: http

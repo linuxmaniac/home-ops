@@ -12,3 +12,4 @@ resources:
   - prowlarr.yaml
   - plex-deployment.yaml
   - plex-service.yaml
+  - ingress.yaml

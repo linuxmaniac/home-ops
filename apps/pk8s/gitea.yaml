@@ -65,3 +65,19 @@ spec:
       persistence:
         enabled: true
         storageClass: freenas-iscsi-csi
+    ingress:
+      enabled: true
+      className: traefik
+      annotations:
+        traefik.ingress.kubernetes.io/router.tls: "true"
+        traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd
+      hosts:
+        - host: git.torreviejawireless.org
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: tw-tls
+          hosts:
+            - git.torreviejawireless.org
