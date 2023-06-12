@@ -81,7 +81,14 @@ spec:
         enabled: false
     logs:
       general:
-        level: DEBUG
+        level: INFO
+        format: json
+      access:
+        enabled: true
+        format: json
+    metrics:
+      service:
+        enabled: true
     extraObjects:
       - apiVersion: traefik.containo.us/v1alpha1
         kind: Middleware
