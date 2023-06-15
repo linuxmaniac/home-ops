@@ -6,6 +6,7 @@ resources:
   - ../../controllers/weave-gitops.yaml
   - ../../controllers/kubed.yaml
   - ../../controllers/traefik.yaml
+  - ../../controllers/kube-dashboard.yaml
 patches:
   - path: kubed-values.yaml
     target:
@@ -19,3 +20,7 @@ patches:
     target:
       kind: HelmRelease
       name: weave-gitops
+  - path: kube-dashboard-values.yaml
+    target:
+      kind: HelmRelease
+      name: kube-dashboard
