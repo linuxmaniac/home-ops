@@ -19,16 +19,6 @@ spec:
         - kind: TraefikService
           name: api@internal
           namespace: traefik
-    - match: Host(`monitor.torreviejawireless.org`)
-      kind: Rule
-      middlewares:
-        - name: internal-ipwhitelist
-          namespace: traefik
-      services:
-        - name: kube-prometheus-stack-grafana
-          kind: Service
-          port: 80
-          namespace: monitoring
   tls:
     secretName: tw-tls
 ---

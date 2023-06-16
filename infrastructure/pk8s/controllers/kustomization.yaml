@@ -6,6 +6,7 @@ resources:
   - ../../controllers/weave-gitops.yaml
   - ../../controllers/kubed.yaml
   - ../../controllers/traefik.yaml
+  - ../../controllers/monitoring/fluxcd-monitoring.yaml
   - ../../controllers/kube-dashboard.yaml
 patches:
   - path: kubed-values.yaml
@@ -20,6 +21,10 @@ patches:
     target:
       kind: HelmRelease
       name: weave-gitops
+  - path: kube-prometheus-stack.yaml
+    target:
+      kind: Kustomization
+      name: kube-prometheus-stack
   - path: kube-dashboard-values.yaml
     target:
       kind: HelmRelease
