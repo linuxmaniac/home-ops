@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - metallb.yaml
   - ../../configs/cluster-issuers.yaml
+  - kube-dashboard.yaml
