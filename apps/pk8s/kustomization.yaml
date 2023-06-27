@@ -9,7 +9,7 @@ resources:
   - traefik.yaml
   - sipwise-mirror.yaml
   - gitea.yaml
-  - coder.yaml
+  - code-server.yaml
   - plex
   - quassel.yaml
   - bootxyz.yaml

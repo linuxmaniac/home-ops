@@ -157,10 +157,10 @@ spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - coder.torreviejawireless.org
+        - code.torreviejawireless.org
       secretName: tw-tls
   rules:
-    - host: coder.torreviejawireless.org
+    - host: code.torreviejawireless.org
       http:
         paths:
           - path: /
