@@ -1,0 +1,22 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  labels:
+    app.kubernetes.io/sops: enabled
+resources:
+  - postgresql.yaml
+  - coder-secrets.enc.yaml
+  - coder.yaml
+secretGenerator:
+  - name: coder-pg-config
+    namespace: flux-system
+    files:
+      - values.yaml=pg-secret-values.enc.yaml
+configMapGenerator:
+  - name: coder-pg-values
+    namespace: flux-system
+    files:
+      - values-pg.yaml=pg-values.yaml
+configurations:
+  - kustomizeconfig.yaml

@@ -1,0 +1,26 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: coder-pg
+  namespace: flux-system
+spec:
+  interval: 30m
+  releaseName: coder-pg
+  targetNamespace: coder
+  serviceAccountName: helm-controller
+  chart:
+    spec:
+      chart: postgresql
+      version: "12.5.x"
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+      interval: 12h
+  valuesFrom:
+    - kind: ConfigMap
+      name: coder-pg-values
+      valuesKey: values-pg.yaml
+    - kind: Secret
+      name: coder-pg-config
