@@ -11,6 +11,7 @@ spec:
     args:
       - console=tty0
       - console=ttyS0
+      - console=ttyUSB0,115200
       - consoleblank=0
       - earlyprintk=ttyS0
       - ima_appraise=fix
