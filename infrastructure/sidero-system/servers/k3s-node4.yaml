@@ -29,6 +29,10 @@ spec:
       path: /machine/install/disk
       value: /dev/sda
     - op: add
+      path: /machine/install/extraKernelArgs
+      value:
+        - console=ttyUSB0,115200
+    - op: add
       path: /machine/install/extensions
       value:
         - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
