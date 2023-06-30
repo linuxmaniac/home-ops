@@ -1,0 +1,35 @@
+---
+apiVersion: metal.sidero.dev/v1alpha1
+kind: Server
+metadata:
+  name: f6ab382a-171c-11ee-9a2d-f3300775a202
+  labels:
+    metal.sidero.dev/serverclass: trigkey
+    metal.sidero.dev/machine.type: worker
+spec:
+  accepted: true
+  hostname: k3s-node5.lab
+  cpu:
+    manufacturer: Advanced Micro Devices, Inc.
+    version: AMD Ryzen 5 5560U with Radeon Graphics
+  system:
+    family: Default string
+    manufacturer: AZW
+    productName: S5
+    serialNumber: Default string
+    skuNumber: Default string
+    version: Default string
+  pxeBootAlways: true
+  environmentRef:
+    namespace: default
+    name: amd64
+  bootFromDiskMethod: ipxe-sanboot
+  configPatches:
+    - op: replace
+      path: /machine/install/disk
+      value: /dev/nvme0n1
+    - op: add
+      path: /machine/install/extensions
+      value:
+        - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
+        - image: ghcr.io/siderolabs/amd-ucode:20230310
