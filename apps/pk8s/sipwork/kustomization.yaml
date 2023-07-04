@@ -7,8 +7,6 @@ metadata:
 resources:
   - certificate.yaml
   - traefik.yaml
-  - wordpress.yaml
-  - phpmyadmin.yaml
 secretGenerator:
   - name: wp-sipwork-config
     namespace: flux-system
