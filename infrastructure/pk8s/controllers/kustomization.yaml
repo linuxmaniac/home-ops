@@ -7,7 +7,7 @@ resources:
   - ../../controllers/kubed.yaml
   - ../../controllers/traefik.yaml
   - ../../controllers/monitoring/fluxcd-monitoring.yaml
-  - ../../controllers/kube-dashboard.yaml
+  # - ../../controllers/kube-dashboard.yaml
 patches:
   - path: kubed-values.yaml
     target:
@@ -25,7 +25,7 @@ patches:
     target:
       kind: Kustomization
       name: kube-prometheus-stack
-  - path: kube-dashboard-values.yaml
-    target:
-      kind: HelmRelease
-      name: kube-dashboard
+  # - path: kube-dashboard-values.yaml
+  #   target:
+  #     kind: HelmRelease
+  #     name: kube-dashboard
