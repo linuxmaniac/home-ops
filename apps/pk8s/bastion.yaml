@@ -10,7 +10,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 50Mi
+      storage: 100Mi
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -88,7 +88,7 @@ metadata:
   name: bastion
   namespace: infra
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       io.kompose.service: bastion
