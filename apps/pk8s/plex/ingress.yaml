@@ -22,7 +22,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: bazar
+                name: bazarr
                 port:
                   name: http
           - path: /prowlarr
