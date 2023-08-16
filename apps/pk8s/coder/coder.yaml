@@ -37,6 +37,34 @@ spec:
               key: url
         - name: CODER_ACCESS_URL
           value: https://coder.torreviejawireless.org
+        - name: CODER_OAUTH2_GITHUB_ALLOWED_ORGS
+          value: torreviejawireless
+        - name: CODER_OAUTH2_GITHUB_ALLOW_SIGNUPS
+          value: "true"
+        - name: CODER_OAUTH2_GITHUB_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: coder-secrets
+              key: github_oauth2_client_id
+        - name: CODER_OAUTH2_GITHUB_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: coder-secrets
+              key: github_oauth2_client_secret
+        - name: CODER_GITAUTH_0_ID
+          value: "primary-github"
+        - name: CODER_GITAUTH_0_TYPE
+          value: github
+        - name: CODER_GITAUTH_0_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: coder-secrets
+              key: github_auth_client_id
+        - name: CODER_GITAUTH_0_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: coder-secrets
+              key: github_auth_client_secret
       service:
         type: ClusterIP
       ingress:
