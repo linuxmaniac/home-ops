@@ -37,7 +37,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
+      storage: 1Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -53,16 +53,6 @@ spec:
   selector:
     matchLabels:
       org.democratic-csi.manual: vseva-remote
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: code-custom-init
-  namespace: tw
-data:
-  pre-commit: |
-    #!/usr/bin/with-contenv sh
-    apt update && apt install -y pre-commit vim
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -109,8 +99,6 @@ spec:
             - containerPort: 8443
           resources: {}
           volumeMounts:
-            - mountPath: /custom-cont-init.d
-              name: code-custom-init
             - mountPath: /config
               name: code-server-config
             - mountPath: /config/workspace
@@ -118,9 +106,6 @@ spec:
               subPath: workspace
       restartPolicy: Always
       volumes:
-        - name: code-custom-init
-          configMap:
-            name: code-custom-init
         - name: code-server-config
           persistentVolumeClaim:
             claimName: code-server-config
