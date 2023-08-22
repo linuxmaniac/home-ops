@@ -1,6 +1,4 @@
 ---
-global:
-  storageClass: freenas-iscsi-csi
 # secret-values
 wordpressUsername:
 wordpressPassword:
@@ -35,5 +33,17 @@ ingress:
       secretName: comunicacioncientifica.info-tls
 persistence:
   enabled: true
+  existingClaim: wp-wordpress
+  selector:
+    matchLabels:
+      app: umh-wp
+mariadb:
+  enabled: true
+  primary:
+    persistence:
+      enabled: true
+      selector:
+        matchLabels:
+          app: umh-db
 metrics:
   enabled: true

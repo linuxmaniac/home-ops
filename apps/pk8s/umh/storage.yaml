@@ -1,0 +1,94 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: umh-wp
+  labels:
+    app: umh-wp
+spec:
+  capacity:
+    storage: 10Gi
+  csi:
+    driver: org.democratic-csi.node-manual
+    volumeHandle: pvc-ecb93422-f09f-466e-a05a-1f27f3217fb5
+    fsType: ext4
+    volumeAttributes:
+      interface: ''
+      iqn: >-
+        iqn.2005-10.org.freenas.ctl:csi-pvc-ecb93422-f09f-466e-a05a-1f27f3217fb5-cluster
+      lun: '0'
+      node_attach_driver: iscsi
+      portal: 192.168.4.5:3260
+      portals: ''
+      provisioner_driver: node-manual
+    controllerPublishSecretRef:
+      name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    nodeStageSecretRef:
+      name: node-stage-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    nodePublishSecretRef:
+      name: node-publish-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    controllerExpandSecretRef:
+      name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: umh-db
+  labels:
+    app: umh-db
+spec:
+  capacity:
+    storage: 8Gi
+  csi:
+    driver: org.democratic-csi.node-manual
+    volumeHandle: pvc-7ae81406-89af-4590-9e4f-6222f5673a33
+    fsType: ext4
+    volumeAttributes:
+      interface: ''
+      iqn: >-
+        iqn.2005-10.org.freenas.ctl:csi-pvc-7ae81406-89af-4590-9e4f-6222f5673a33-cluster
+      lun: '0'
+      node_attach_driver: iscsi
+      portal: 192.168.4.5:3260
+      portals: ''
+      provisioner_driver: node-manual
+    controllerPublishSecretRef:
+      name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    nodeStageSecretRef:
+      name: node-stage-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    nodePublishSecretRef:
+      name: node-publish-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    controllerExpandSecretRef:
+      name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: wp-wordpress
+  namespace: umh
+spec:
+  accessModes:
+    - ReadWriteOnce
+  selector:
+    matchLabels:
+      app: umh-wp
+  resources:
+    requests:
+      storage: 10Gi
+  volumeMode: Filesystem
