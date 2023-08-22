@@ -41,7 +41,23 @@ spec:
       config:
         driver: node-manual
     controller:
+      driver:
+        image: ghcr.io/democratic-csi/democratic-csi:v1.8.3
       externalSnapshotter:
         enabled: false
       externalResizer:
         enabled: false
+    node:
+      rbac:
+        enabled: true
+      enabled: true
+      hostPID: true
+      driver:
+        image: ghcr.io/democratic-csi/democratic-csi:v1.8.3
+        extraEnv:
+          - name: ISCSIADM_HOST_STRATEGY
+            value: nsenter
+          - name: ISCSIADM_HOST_PATH
+            value: /usr/local/sbin/iscsiadm
+        iscsiDirHostPath: /usr/local/etc/iscsi
+        iscsiDirHostPathType: ""
