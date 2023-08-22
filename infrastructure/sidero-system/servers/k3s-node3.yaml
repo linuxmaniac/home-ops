@@ -37,3 +37,4 @@ spec:
       value:
         - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
         - image: ghcr.io/siderolabs/amd-ucode:20230310
+        - image: ghcr.io/linuxmaniac/amdgpu:20230310
