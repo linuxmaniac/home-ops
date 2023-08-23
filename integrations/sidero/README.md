@@ -84,49 +84,6 @@ talosctl --context pk8s -n ${PK8S_ENDPOINT} kubeconfig
 kubectl config use-context admin@pk8s
 ```
 
-## install cilium
-```bash
-#!/bin/bash
-set -e
-
-CILIUM_CLI_VERSION=$(curl -s https://raw.githubusercontent.com/cilium/cilium-cli/master/stable.txt)
-CLI_ARCH=amd64
-if [ "$(uname -m)" = "aarch64" ]; then CLI_ARCH=arm64; fi
-curl -L --fail --remote-name-all https://github.com/cilium/cilium-cli/releases/download/${CILIUM_CLI_VERSION}/cilium-linux-${CLI_ARCH}.tar.gz{,.sha256sum}
-sha256sum --check cilium-linux-${CLI_ARCH}.tar.gz.sha256sum
-sudo tar xzvfC cilium-linux-${CLI_ARCH}.tar.gz ~/bin
-rm cilium-linux-${CLI_ARCH}.tar.gz{,.sha256sum}
-```
-
-```bash
-cilium install --helm-set-string securityContext.privileged=true \
-  --helm-set-string kubeProxyReplacement=strict \
-  --helm-set-string hubble.relay.enabled=true \
-  --helm-set-string hubble.ui.enabled=true
-```
-
-check the status and wait for all OK
-```bash
-cilium status
-```
-
-```bash
-cilium hubble enable --ui
-```
-
-```bash
-#!/bin/bash
-set -e
-
-export HUBBLE_VERSION=$(curl -s https://raw.githubusercontent.com/cilium/hubble/master/stable.txt)
-HUBBLE_ARCH=amd64
-if [ "$(uname -m)" = "aarch64" ]; then HUBBLE_ARCH=arm64; fi
-curl -L --fail --remote-name-all https://github.com/cilium/hubble/releases/download/$HUBBLE_VERSION/hubble-linux-${HUBBLE_ARCH}.tar.gz{,.sha256sum}
-sha256sum --check hubble-linux-${HUBBLE_ARCH}.tar.gz.sha256sum
-sudo tar xzvfC hubble-linux-${HUBBLE_ARCH}.tar.gz ~/bin
-rm hubble-linux-${HUBBLE_ARCH}.tar.gz{,.sha256sum}
-```
-
 ## install flux
 ```bash
 flux install
