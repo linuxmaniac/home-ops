@@ -12,7 +12,6 @@ resources:
   - code-server.yaml
   - coder
   - plex
-  - bootxyz.yaml
-  - bastion.yaml
+  - infra
   - umh
   - sipwork
