@@ -12,6 +12,8 @@ smtpUser:
 smtpPassword:
 smtpProtocol:
 #
+existingSecret: wp-wordpress
+#
 wordpressScheme: https
 service:
   type: ClusterIP
@@ -39,6 +41,8 @@ persistence:
       app: umh-wp
 mariadb:
   enabled: true
+  auth:
+    existingSecret: wp-mariadb
   primary:
     persistence:
       enabled: true
