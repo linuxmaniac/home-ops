@@ -1,0 +1,52 @@
+## secrets values
+global:
+  postgresql:
+    auth:
+      password:
+##
+image:
+  flavor: fpm
+nginx:
+  enabled: true
+nextcloud:
+  host: cloud.torreviejawireless.org
+  existingSecret:
+    enabled: true
+    secretName: nextcloud
+    mail:
+      enabled: false
+internalDatabase:
+  enabled: false
+postgresql:
+  enabled: true
+  image:
+    tag: 15.2.0-debian-11-r11
+  primary:
+    persistence:
+      enabled: true
+      selector:
+        matchLabels:
+          app: tw-nextcloud-pg
+persistence:
+  enabled: true
+  existingClaim: nextcloud
+  nextcloudData:
+    existingClaim: nextcloud-data
+    enabled: true
+phpClientHttpsFix:
+  enabled: true
+rbac:
+  enabled: true
+cronjob:
+  enabled: true
+ingress:
+  enabled: true
+  className: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd
+  tls:
+    - secretName: tw-tls
+      hosts:
+        - cloud.torreviejawireless.org

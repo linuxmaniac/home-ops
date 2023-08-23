@@ -1,0 +1,149 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: tw-nextcloud-pg
+  labels:
+    app: tw-nextcloud-pg
+spec:
+  capacity:
+    storage: 8Gi
+  csi:
+    driver: org.democratic-csi.node-manual
+    volumeHandle: pvc-1d400623-44d6-43ae-8aec-c3bf101de8ed
+    fsType: ext4
+    volumeAttributes:
+      interface: ''
+      iqn: >-
+        iqn.2005-10.org.freenas.ctl:csi-pvc-1d400623-44d6-43ae-8aec-c3bf101de8ed-cluster
+      lun: '0'
+      node_attach_driver: iscsi
+      portal: 192.168.4.5:3260
+      portals: ''
+      provisioner_driver: node-manual
+    controllerPublishSecretRef:
+      name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    nodeStageSecretRef:
+      name: node-stage-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    nodePublishSecretRef:
+      name: node-publish-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    controllerExpandSecretRef:
+      name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: tw-nextcloud-data
+  labels:
+    app: tw-nextcloud-data
+spec:
+  capacity:
+    storage: 8Gi
+  csi:
+    driver: org.democratic-csi.node-manual
+    volumeHandle: pvc-97609815-3116-4c38-b8f5-86cc77492b9c
+    fsType: ext4
+    volumeAttributes:
+      interface: ''
+      iqn: >-
+        iqn.2005-10.org.freenas.ctl:csi-pvc-97609815-3116-4c38-b8f5-86cc77492b9c-cluster
+      lun: '0'
+      node_attach_driver: iscsi
+      portal: 192.168.4.5:3260
+      portals: ''
+      provisioner_driver: node-manual
+    controllerPublishSecretRef:
+      name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    nodeStageSecretRef:
+      name: node-stage-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    nodePublishSecretRef:
+      name: node-publish-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    controllerExpandSecretRef:
+      name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: tw-nextcloud
+  labels:
+    app: tw-nextcloud
+spec:
+  capacity:
+    storage: 8Gi
+  csi:
+    driver: org.democratic-csi.node-manual
+    volumeHandle: pvc-8771b123-a0be-42b7-b4b0-5c544b29d03f
+    fsType: ext4
+    volumeAttributes:
+      interface: ''
+      iqn: >-
+        iqn.2005-10.org.freenas.ctl:csi-pvc-8771b123-a0be-42b7-b4b0-5c544b29d03f-cluster
+      lun: '0'
+      node_attach_driver: iscsi
+      portal: 192.168.4.5:3260
+      portals: ''
+      provisioner_driver: node-manual
+    controllerPublishSecretRef:
+      name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    nodeStageSecretRef:
+      name: node-stage-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    nodePublishSecretRef:
+      name: node-publish-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    controllerExpandSecretRef:
+      name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nextcloud-data
+  namespace: tw
+spec:
+  accessModes:
+    - ReadWriteOnce
+  selector:
+    matchLabels:
+      app: tw-nextcloud-data
+  resources:
+    requests:
+      storage: 8Gi
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nextcloud
+  namespace: tw
+spec:
+  accessModes:
+    - ReadWriteOnce
+  selector:
+    matchLabels:
+      app: tw-nextcloud
+  resources:
+    requests:
+      storage: 8Gi
+  volumeMode: Filesystem

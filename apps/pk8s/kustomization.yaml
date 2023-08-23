@@ -5,7 +5,7 @@ resources:
   - namespaces.yaml
   - certificate.yaml
   - ../base/bitnami
-  - nextcloud.yaml
+  - tw
   - traefik.yaml
   - sipwise-mirror.yaml
   - gitea.yaml

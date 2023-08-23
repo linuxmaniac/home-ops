@@ -1,0 +1,36 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: nextcloud
+  namespace: flux-system
+spec:
+  interval: 24h
+  url: https://nextcloud.github.io/helm/
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nextcloud
+  namespace: flux-system
+spec:
+  interval: 30m
+  releaseName: nextcloud
+  targetNamespace: tw
+  serviceAccountName: helm-controller
+  chart:
+    spec:
+      chart: nextcloud
+      version: "3.5.x"
+      sourceRef:
+        kind: HelmRepository
+        name: nextcloud
+        namespace: flux-system
+      interval: 12h
+  valuesFrom:
+    - kind: ConfigMap
+      name: nextcloud-values
+      valuesKey: values-nextcloud.yaml
+    - kind: Secret
+      name: nextcloud-config
+

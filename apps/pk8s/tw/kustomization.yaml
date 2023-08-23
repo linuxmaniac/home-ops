@@ -1,0 +1,21 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  labels:
+    app.kubernetes.io/sops: enabled
+resources:
+  - storage.yaml
+  - nextcloud.yaml
+secretGenerator:
+  - name: nextcloud-config
+    namespace: flux-system
+    files:
+      - values.yaml=secret-values.enc.yaml
+configMapGenerator:
+  - name: nextcloud-values
+    namespace: flux-system
+    files:
+      - values-nextcloud.yaml=values.yaml
+configurations:
+  - kustomizeconfig.yaml
