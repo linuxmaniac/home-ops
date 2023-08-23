@@ -1,0 +1,59 @@
+nodeSelector:
+  kubernetes.io/arch: amd64
+postgresql:
+  auth:
+    password:
+    postgresPassword:
+  enabled: true
+  image:
+    tag: 15.2.0-debian-11-r11
+  primary:
+    persistence:
+      enabled: true
+      selector:
+        matchLabels:
+          app: tw-gitea-pg
+memcached:
+  enabled: true
+service:
+  ssh:
+    type: LoadBalancer
+    externalTrafficPolicy: Local
+    port: 2223
+    annotations:
+      metallb.universe.tf/address-pool: external-pool
+      metallb.universe.tf/loadBalancerIPs: 192.168.5.243
+image:
+  rootless: true
+gitea:
+  admin:
+    existingSecret: gitea-admin-secret
+    email: victor.seva+gitea@gmail.com
+  config:
+    server:
+      ROOT_URL: https://git.torreviejawireless.org/
+      DOMAIN: git.torreviejawireless.org
+      START_SSH_SERVER: true
+      SSH_PORT: 2223
+    service:
+      DISABLE_REGISTRATION: true
+persistence:
+  enabled: true
+  create: false
+  existingClaim: gitea-data
+ingress:
+  enabled: true
+  className: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd
+  hosts:
+    - host: git.torreviejawireless.org
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: tw-tls
+      hosts:
+        - git.torreviejawireless.org

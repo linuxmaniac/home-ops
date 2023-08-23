@@ -5,7 +5,6 @@ resources:
   - namespaces.yaml
   - ../base/bitnami
   - tw
-  - gitea.yaml
   - code-server.yaml
   - coder
   - plex

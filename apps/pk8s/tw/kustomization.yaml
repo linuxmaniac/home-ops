@@ -9,6 +9,7 @@ resources:
   - traefik.yaml
   - storage.yaml
   - nextcloud.yaml
+  - gitea.yaml
   - sipwise-mirror.yaml
   - quassel.yaml
 secretGenerator:
@@ -16,10 +17,18 @@ secretGenerator:
     namespace: flux-system
     files:
       - values.yaml=secret-values.enc.yaml
+  - name: gitea-config
+    namespace: flux-system
+    files:
+      - values.yaml=gitea-secret-values.enc.yaml
 configMapGenerator:
   - name: nextcloud-values
     namespace: flux-system
     files:
       - values-nextcloud.yaml=values.yaml
+  - name: gitea-values
+    namespace: flux-system
+    files:
+      - values-gitea.yaml=gitea-values.yaml
 configurations:
   - kustomizeconfig.yaml
