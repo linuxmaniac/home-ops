@@ -3,11 +3,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - namespaces.yaml
-  - certificate.yaml
   - ../base/bitnami
   - tw
-  - traefik.yaml
-  - sipwise-mirror.yaml
   - gitea.yaml
   - code-server.yaml
   - coder

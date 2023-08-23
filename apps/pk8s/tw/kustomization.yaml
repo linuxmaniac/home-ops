@@ -5,8 +5,11 @@ metadata:
   labels:
     app.kubernetes.io/sops: enabled
 resources:
+  - certificate.yaml
+  - traefik.yaml
   - storage.yaml
   - nextcloud.yaml
+  - sipwise-mirror.yaml
   - quassel.yaml
 secretGenerator:
   - name: nextcloud-config
