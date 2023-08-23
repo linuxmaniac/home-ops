@@ -86,22 +86,19 @@ kubectl config use-context admin@pk8s
 
 ## install flux
 ```bash
-flux install
+flux --context admin@pk8s bootstrap \
+  github --owner=linuxmaniac --repository=home-ops --path=clusters/pk8s --personal
 ```
-
-### add initial flux secrets
-sops --decrypt secrets/pk8s/flux-system.enc.yaml | \
-  kubectl apply -f -
 
 ### age config
 ```bash
-cat ~/.config/sops/age/keys.txt | kubectl create secret generic sops-age \
+cat ~/.config/sops/age/keys.txt | kubectl --context admin@pk8s create secret generic sops-age \
   --namespace=flux-system \
   --from-file=age.agekey=/dev/stdin
 ```
 
 ### add flux-system kustomization
 ```bash
-kubectl apply -f clusters/pk8s/flux-system/gotk-sync.yaml
-flux reconcile kustomization flux-system --with-source flux-system
+kubectl --context admin@pk8s apply -f clusters/pk8s/flux-system/gotk-sync.yaml
+flux --context admin@pk8s reconcile kustomization flux-system --with-source flux-system
 ```
