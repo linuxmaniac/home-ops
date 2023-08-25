@@ -75,7 +75,6 @@ metadata:
   name: bootxyz
   namespace: infra
 spec:
-  replicas: 0
   selector:
     matchLabels:
       io.kompose.service: bootxyz
