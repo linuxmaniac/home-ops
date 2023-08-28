@@ -35,7 +35,6 @@ ingress:
       secretName: comunicacioncientifica.info-tls
 persistence:
   enabled: true
-  existingClaim: wp-wordpress
   selector:
     matchLabels:
       app: umh-wp

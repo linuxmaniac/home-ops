@@ -76,19 +76,3 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   volumeMode: Filesystem
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: wp-wordpress
-  namespace: umh
-spec:
-  accessModes:
-    - ReadWriteOnce
-  selector:
-    matchLabels:
-      app: umh-wp
-  resources:
-    requests:
-      storage: 10Gi
-  volumeMode: Filesystem
