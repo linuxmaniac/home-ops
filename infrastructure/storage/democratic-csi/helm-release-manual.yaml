@@ -12,52 +12,12 @@ spec:
   chart:
     spec:
       chart: democratic-csi
+      version: 0.14.x
       sourceRef:
         kind: HelmRepository
         name: democratic-csi
         namespace: flux-system
-  install:
-    remediation:
-      retries: 5
-  upgrade:
-    # Remediaton configuration for when an Helm upgrade action fails
-    remediation:
-      # Amount of retries to attempt after a failure,
-      # setting this to 0 means no remedation will be
-      # attempted
-      retries: 5
-  # Configuration options for the Helm rollback action
-  rollback:
-    timeout: 5m
-    disableWait: false
-    disableHooks: false
-    recreate: false
-    force: false
-    cleanupOnFail: false
-  values:
-    csiDriver:
-      name: "org.democratic-csi.node-manual"
-    driver:
-      config:
-        driver: node-manual
-    controller:
-      driver:
-        image: ghcr.io/democratic-csi/democratic-csi:v1.8.3
-      externalSnapshotter:
-        enabled: false
-      externalResizer:
-        enabled: false
-    node:
-      rbac:
-        enabled: true
-      enabled: true
-      hostPID: true
-      driver:
-        image: ghcr.io/democratic-csi/democratic-csi:v1.8.3
-        extraEnv:
-          - name: ISCSIADM_HOST_STRATEGY
-            value: nsenter
-          - name: ISCSIADM_HOST_PATH
-            value: /usr/local/sbin/iscsiadm
-        iscsiDirHostPath: /usr/local/etc/iscsi
-        iscsiDirHostPathType: ""
+  valuesFrom:
+    - kind: ConfigMap
+      name: zfs-manual-values
+      valuesKey: values-manual-csi.yaml

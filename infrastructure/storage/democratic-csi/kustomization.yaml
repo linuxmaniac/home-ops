@@ -22,5 +22,8 @@ configMapGenerator:
   - name: zfs-nfs-values
     files:
       - values-nfs-csi.yaml=csi-nfs-values.yaml
+  - name: zfs-manual-values
+    files:
+      - values-manual-csi.yaml=csi-manual-values.yaml
 configurations:
   - kustomizeconfig.yaml

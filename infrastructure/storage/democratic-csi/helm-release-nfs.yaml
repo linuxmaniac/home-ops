@@ -12,28 +12,11 @@ spec:
   chart:
     spec:
       chart: democratic-csi
+      version: 0.14.x
       sourceRef:
         kind: HelmRepository
         name: democratic-csi
         namespace: flux-system
-  install:
-    remediation:
-      retries: 5
-  upgrade:
-    # Remediaton configuration for when an Helm upgrade action fails
-    remediation:
-      # Amount of retries to attempt after a failure,
-      # setting this to 0 means no remedation will be
-      # attempted
-      retries: 5
-  # Configuration options for the Helm rollback action
-  rollback:
-    timeout: 5m
-    disableWait: false
-    disableHooks: false
-    recreate: false
-    force: false
-    cleanupOnFail: false
   valuesFrom:
     - kind: ConfigMap
       name: zfs-nfs-values
