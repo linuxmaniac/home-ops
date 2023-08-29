@@ -1,0 +1,26 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: velero
+  namespace: flux-system
+spec:
+  interval: 30m
+  releaseName: velero
+  targetNamespace: velero
+  serviceAccountName: helm-controller
+  chart:
+    spec:
+      chart: velero
+      version: "5.0.x"
+      sourceRef:
+        kind: HelmRepository
+        name: vmware-tanzu
+        namespace: flux-system
+      interval: 12h
+  valuesFrom:
+    - kind: ConfigMap
+      name: velero-values
+      valuesKey: values-velero.yaml
+    - kind: Secret
+      name: velero-config

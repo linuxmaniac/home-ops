@@ -23,6 +23,8 @@ storageClasses:
 
 volumeSnapshotClasses:
   - name: freenas-iscsi-csi
+    labels:
+      velero.io/csi-volumesnapshot-class: "true"
     parameters:
       detachedSnapshots: "false"
     secrets:

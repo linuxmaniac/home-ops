@@ -8,3 +8,4 @@ resources:
   - plex
   - infra
   - umh
+  - velero

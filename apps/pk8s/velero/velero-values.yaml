@@ -1,0 +1,41 @@
+initContainers:
+  - name: velero-plugin-for-csi
+    image: velero/velero-plugin-for-csi:v0.5.1
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+      - mountPath: /target
+        name: plugins
+  - name: velero-plugin-for-aws
+    image: velero/velero-plugin-for-aws:v1.7.1
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+      - mountPath: /target
+        name: plugins
+credentials:
+  useSecret: true
+  name: cloud-minio
+configuration:
+  features: EnableCSI
+  backupStorageLocation:
+    - name: default
+      provider: aws
+      bucket: velero
+      credential:
+        name: cloud-minio
+        key: cloud
+      config:
+        region: minio
+        s3ForcePathStyle: true
+        s3Url: http://truenas.lab:9000
+  volumeSnapshotLocation:
+    - name: default
+      provider: aws
+      bucket: velero
+      credential:
+        name: cloud-minio
+        key: cloud
+      config:
+        region: minio
+        s3ForcePathStyle: true
+        s3Url: http://truenas.lab:9000
+deployNodeAgent: false

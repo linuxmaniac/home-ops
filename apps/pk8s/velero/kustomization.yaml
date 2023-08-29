@@ -1,0 +1,21 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  labels:
+    app.kubernetes.io/sops: enabled
+resources:
+  - source.yaml
+  - release.yaml
+secretGenerator:
+  - name: velero-config
+    namespace: flux-system
+    files:
+      - values.yaml=secret-values.enc.yaml
+configMapGenerator:
+  - name: velero-values
+    namespace: flux-system
+    files:
+      - values-velero.yaml=velero-values.yaml
+configurations:
+  - kustomizeconfig.yaml
