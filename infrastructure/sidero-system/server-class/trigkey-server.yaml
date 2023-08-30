@@ -1,5 +1,5 @@
 ---
-apiVersion: metal.sidero.dev/v1alpha1
+apiVersion: metal.sidero.dev/v1alpha2
 kind: ServerClass
 metadata:
   name: trigkey
@@ -8,13 +8,15 @@ spec:
     namespace: default
     name: amd64
   qualifiers:
-    cpu:
-      - manufacturer: Advanced Micro Devices, Inc.
-        version: AMD Ryzen 5 5560U with Radeon Graphics
-    systemInformation:
-      - manufacturer: AZW
-        productName: S5
-        version: Default string
+    hardware:
+      - system:
+          manufacturer: AZW
+          productName: S5
+          version: Default string
+      - compute:
+          processors:
+            - manufacturer: Advanced Micro Devices, Inc.
+              productName: AMD Ryzen 5 5560U with Radeon Graphics
   bootFromDiskMethod: ipxe-sanboot
   configPatches:
     - op: replace

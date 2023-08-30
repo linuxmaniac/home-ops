@@ -1,5 +1,5 @@
 ---
-apiVersion: metal.sidero.dev/v1alpha1
+apiVersion: metal.sidero.dev/v1alpha2
 kind: Server
 metadata:
   name: 00d03114-0000-0000-0000-e45f01496f26
@@ -13,12 +13,13 @@ spec:
   environmentRef:
     namespace: default
     name: rpi4
-  system:
-    # 32fc0ab3
-    manufacturer: Raspberry Pi Foundation
-    productName: Raspberry Pi 4 Model B
-    version: D03114
-    serialNumber: "0000E45F01496F26"
+  hardware:
+    system:
+      # 32fc0ab3
+      manufacturer: Raspberry Pi Foundation
+      productName: Raspberry Pi 4 Model B
+      version: D03114
+      serialNumber: "0000E45F01496F26"
   configPatches:
     - op: replace
       path: /machine/install/disk

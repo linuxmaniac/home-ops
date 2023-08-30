@@ -1,5 +1,5 @@
 ---
-apiVersion: metal.sidero.dev/v1alpha1
+apiVersion: metal.sidero.dev/v1alpha2
 kind: Server
 metadata:
   name: 03000200-0400-0500-0006-000700080009
@@ -9,16 +9,18 @@ metadata:
 spec:
   accepted: true
   hostname: k3s-node3.lab
-  cpu:
-    manufacturer: Advanced Micro Devices, Inc.
-    version: AMD Ryzen 5 5560U with Radeon Graphics
-  system:
-    family: Default string
-    manufacturer: AZW
-    productName: S5
-    serialNumber: Default string
-    skuNumber: Default string
-    version: Default string
+  hardware:
+    compute:
+      processors:
+        - manufacturer: Advanced Micro Devices, Inc.
+          productName: AMD Ryzen 5 5560U with Radeon Graphics
+    system:
+      family: Default string
+      manufacturer: AZW
+      productName: S5
+      serialNumber: Default string
+      skuNumber: Default string
+      version: Default string
   pxeBootAlways: true
   environmentRef:
     namespace: default

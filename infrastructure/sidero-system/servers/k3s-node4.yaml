@@ -1,5 +1,5 @@
 ---
-apiVersion: metal.sidero.dev/v1alpha1
+apiVersion: metal.sidero.dev/v1alpha2
 kind: Server
 metadata:
   name: 031b021c-040d-05f9-bd06-900700080009
@@ -9,15 +9,17 @@ metadata:
 spec:
   accepted: true
   hostname: k3s-node4.lab
-  cpu:
-    manufacturer: Intel
-    version: Intel(R) Celeron(R) CPU N3000 @ 1.04GHz
-  system:
-    family: Default string
-    manufacturer: GIGABYTE
-    productName: GB-BACE-3000
-    serialNumber: Default string
-    skuNumber: Default string
+  hardware:
+    compute:
+      processors:
+        - manufacturer: Intel
+          productName: Intel(R) Celeron(R) CPU N3000 @ 1.04GHz
+    system:
+      family: Default string
+      manufacturer: GIGABYTE
+      productName: GB-BACE-3000
+      serialNumber: Default string
+      skuNumber: Default string
     version: 1.x
   pxeBootAlways: true
   environmentRef:

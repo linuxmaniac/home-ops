@@ -1,5 +1,5 @@
 ---
-apiVersion: metal.sidero.dev/v1alpha1
+apiVersion: metal.sidero.dev/v1alpha2
 kind: ServerClass
 metadata:
   name: gigabyte
@@ -8,13 +8,15 @@ spec:
     namespace: default
     name: amd64
   qualifiers:
-    cpu:
-      - manufacturer: Intel
-        version: Intel(R) Celeron(R) CPU N3000 @ 1.04GHz
-    systemInformation:
-      - manufacturer: GIGABYTE
-        productName: GB-BACE-3000
-        version: 1.x
+    hardware:
+      - system:
+          manufacturer: GIGABYTE
+          productName: GB-BACE-3000
+          version: 1.x
+      - compute:
+          processors:
+            - manufacturer: Intel
+              productName: Intel(R) Celeron(R) CPU N3000 @ 1.04GHz
   bootFromDiskMethod: ipxe-sanboot
   configPatches:
     - op: replace
