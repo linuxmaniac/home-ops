@@ -33,6 +33,7 @@ talosctl --context sidero -e ${SIDERO_ENDPOINT} -n ${SIDERO_ENDPOINT} bootstrap
 ## Install sidero
 ```bash
 SIDERO_CONTROLLER_MANAGER_AUTO_BMC_SETUP=false \
+SIDERO_CONTROLLER_MANAGER_DEPLOYMENT_STRATEGY=Recreate \
 SIDERO_CONTROLLER_MANAGER_HOST_NETWORK=true \
 SIDERO_CONTROLLER_MANAGER_API_ENDPOINT=${SIDERO_ENDPOINT} \
 clusterctl init -b talos -c talos -i sidero
@@ -50,14 +51,9 @@ kubectl -n sidero-system scale deployment sidero-controller-manager --replicas 1
 
 ## install flux
 ```bash
-flux install
+flux --context admin@sidero bootstrap github --owner=linuxmaniac --repository=home-ops --path=clusters/sidero --personal
 ```
 
-### add initial flux secrets
-```bash
-sops --decrypt secrets/sidero/flux-system.enc.yaml | \
-  kubectl apply -f -
-```
 ### age config
 ```bash
 cat ~/.config/sops/age/keys.txt | kubectl create secret generic sops-age \
