@@ -21,6 +21,16 @@ spec:
       version: D03114
       serialNumber: "0000E45F0135FB38"
   configPatches:
+    - op: add
+      path: /machine/network
+      value:
+        interfaces:
+          - deviceSelector:
+              hardwareAddr: "e4:5f:01:35:fb:38"
+            dhcp: true
+            vlans:
+              - vlanId: 200
+                dhcp: false
     - op: replace
       path: /machine/install/disk
       value: /dev/mmcblk0

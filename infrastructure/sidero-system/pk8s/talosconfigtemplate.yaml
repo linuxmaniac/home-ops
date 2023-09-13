@@ -19,12 +19,3 @@ spec:
           value:
             extraArgs:
               rotate-server-certificates: true
-        - op: add
-          path: /machine/network
-          value:
-            interfaces:
-              - interface: eth0
-                dhcp: true
-                vlans:
-                  - vlanId: 200
-                    dhcp: false

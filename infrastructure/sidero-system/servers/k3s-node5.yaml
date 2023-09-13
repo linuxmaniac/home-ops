@@ -27,6 +27,16 @@ spec:
     name: amd64
   bootFromDiskMethod: ipxe-sanboot
   configPatches:
+    - op: add
+      path: /machine/network
+      value:
+        interfaces:
+          - deviceSelector:
+              hardwareAddr: "b0:41:6f:09:e6:60"
+            dhcp: true
+            vlans:
+              - vlanId: 200
+                dhcp: false
     - op: replace
       path: /machine/install/disk
       value: /dev/nvme0n1
@@ -38,5 +48,5 @@ spec:
       path: /machine/install/extensions
       value:
         - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
-        - image: ghcr.io/siderolabs/amd-ucode:20230310
-        - image: ghcr.io/linuxmaniac/amdgpu:20230310
+        - image: ghcr.io/siderolabs/amd-ucode:20230804
+        - image: ghcr.io/siderolabs/amdgpu-firmware:20230804
