@@ -39,7 +39,7 @@ spec:
                 dhcp: false
     - op: replace
       path: /machine/install/disk
-      value: /dev/nvme0n1
+      value: /dev/sda
     - op: add
       path: /machine/install/extraKernelArgs
       value:
