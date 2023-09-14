@@ -39,3 +39,6 @@ configuration:
         s3ForcePathStyle: true
         s3Url: http://truenas.lab:9000
 deployNodeAgent: false
+kubectl:
+  image:
+    tag: 1.27
