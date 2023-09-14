@@ -2,6 +2,7 @@
 global:
   postgresql:
     auth:
+      postgresPassword:
       password:
 ##
 image:
@@ -19,8 +20,6 @@ internalDatabase:
   enabled: false
 postgresql:
   enabled: true
-  image:
-    tag: 15.2.0-debian-11-r11
   primary:
     persistence:
       enabled: true
