@@ -290,7 +290,7 @@ kind: PersistentVolume
 metadata:
   name: tw-gitea-pg
   labels:
-    app: tw-gitea-pq
+    app: tw-gitea-pg
 spec:
   capacity:
     storage: 10Gi
