@@ -148,3 +148,29 @@ spec:
   policy:
     semver:
       range: '>=1.32.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: transmission
+  namespace: flux-system
+spec:
+  image: lscr.io/linuxserver/transmission
+  interval: 12h
+  exclusionList:
+    - '^2021\..*'
+    - '^develop.*'
+    - '^nightly-.*'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: transmission
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: transmission
+    namespace: flux-system
+  policy:
+    semver:
+      range: '>=4.0.0'
