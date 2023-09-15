@@ -25,6 +25,31 @@ spec:
     semver:
       range: '>=0.6.0, <=1.x'
 ---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: openssh-server
+  namespace: infra
+spec:
+  image: lscr.io/linuxserver/openssh-server
+  interval: 12h
+  exclusionList:
+    - '^develop.*'
+    - '^nightly-.*'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: openssh-server
+  namespace: infra
+spec:
+  imageRepositoryRef:
+    name: openssh-server
+    namespace: infra
+  policy:
+    semver:
+      range: '>=9'
+---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageUpdateAutomation
 metadata:
