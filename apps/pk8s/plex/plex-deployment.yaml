@@ -33,7 +33,7 @@ spec:
               value: "1000"
             - name: VERSION
               value: docker
-          image: lscr.io/linuxserver/plex:1.32.6 # {"$imagepolicy": "flux-system:plex"}
+          image: lscr.io/linuxserver/plex:1.32.6 # {"$imagepolicy": "plex:plex"}
           name: plex
           ports:
             - containerPort: 32400

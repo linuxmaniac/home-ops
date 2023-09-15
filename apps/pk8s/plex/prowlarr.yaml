@@ -43,7 +43,7 @@ spec:
               value: "1000"
             - name: TZ
               value: Europe/Madrid
-          image: lscr.io/linuxserver/prowlarr:1.8.1259 # {"$imagepolicy": "flux-system:prowlarr"}
+          image: lscr.io/linuxserver/prowlarr:1.8.1259 # {"$imagepolicy": "plex:prowlarr"}
           name: prowlarr
           ports:
             - containerPort: 9696

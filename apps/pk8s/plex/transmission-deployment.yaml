@@ -35,7 +35,7 @@ spec:
               value: Europe/Madrid
             - name: USER
               value: transmission
-          image: lscr.io/linuxserver/transmission:4.0.4 # {"$imagepolicy": "flux-system:transmission"}
+          image: lscr.io/linuxserver/transmission:4.0.4 # {"$imagepolicy": "plex:transmission"}
           name: transmission
           ports:
             - containerPort: 9091
