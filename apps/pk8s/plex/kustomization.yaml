@@ -13,3 +13,4 @@ resources:
   - plex-deployment.yaml
   - plex-service.yaml
   - ingress.yaml
+  - images.yaml
