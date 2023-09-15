@@ -43,7 +43,7 @@ spec:
               value: "1000"
             - name: TZ
               value: Europe/Madrid
-          image: lscr.io/linuxserver/sonarr:latest
+          image: lscr.io/linuxserver/sonarr:3.0.10 # {"$imagepolicy": "flux-system:sonarr"}
           name: sonarr
           ports:
             - containerPort: 8989

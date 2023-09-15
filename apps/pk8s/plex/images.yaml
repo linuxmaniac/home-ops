@@ -23,3 +23,28 @@ spec:
   policy:
     semver:
       range: '>=1.2.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: sonarr
+  namespace: flux-system
+spec:
+  image: lscr.io/linuxserver/sonarr
+  interval: 12h
+  exclusionList:
+    - '^develop.*'
+    - '^nightly-.*'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: sonarr
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: sonarr
+    namespace: flux-system
+  policy:
+    semver:
+      range: '>=3.0.0'
