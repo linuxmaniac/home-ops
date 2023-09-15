@@ -43,7 +43,7 @@ spec:
               value: "1000"
             - name: TZ
               value: Europe/Madrid
-          image: lscr.io/linuxserver/radarr:latest
+          image: lscr.io/linuxserver/radarr:4.7.5 # {"$imagepolicy": "flux-system:radarr"}
           name: radarr
           ports:
             - containerPort: 7878
