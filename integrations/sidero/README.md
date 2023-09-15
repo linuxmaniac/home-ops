@@ -1,6 +1,6 @@
 # 🪙 Sidero
 
-The following applies to sidero v1.3.0
+The following applies to sidero v1.5.2
 ## Dependencies
 
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
