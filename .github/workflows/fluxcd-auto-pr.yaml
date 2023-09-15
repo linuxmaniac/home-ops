@@ -1,7 +1,7 @@
 name: flux-image-updates Auto-PR
 on:
   create:
-    branches: ['flux-image-updates']
+    branches-ignore: master
 jobs:
   action-pull-request:
     runs-on: ubuntu-latest
@@ -15,6 +15,5 @@ jobs:
         uses: devops-infra/action-pull-request@v0.5.5
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          body: "👑 *An automated PR*"
           assignee: linuxmaniac
           target_branch: main
