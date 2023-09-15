@@ -1,0 +1,69 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: quassel-core
+  namespace: tw
+spec:
+  image: lscr.io/linuxserver/quassel-core
+  interval: 12h
+  exclusionList:
+    - '^develop.*'
+    - '^nightly-.*'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: quassel-core
+  namespace: tw
+spec:
+  imageRepositoryRef:
+    name: quassel-core
+    namespace: tw
+  policy:
+    semver:
+      range: '>=0.14.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: tw
+  namespace: tw
+spec:
+  interval: 30m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
+      messageTemplate: |
+          Automated image update
+
+          Automation name: {{ .AutomationObject }}
+
+          Files:
+          {{ range $filename, $_ := .Updated.Files -}}
+          - {{ $filename }}
+          {{ end -}}
+
+          Objects:
+          {{ range $resource, $_ := .Updated.Objects -}}
+          - {{ $resource.Kind }} {{ $resource.Name }}
+          {{ end -}}
+
+          Images:
+          {{ range .Updated.Images -}}
+          - {{.}}
+          {{ end -}}
+    push:
+      branch: flux-image-updates
+  update:
+    path: ./apps/pk8s/tw
+    strategy: Setters

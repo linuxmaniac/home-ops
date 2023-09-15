@@ -12,6 +12,7 @@ resources:
   - gitea.yaml
   - sipwise-mirror.yaml
   - quassel.yaml
+  - images.yaml
 secretGenerator:
   - name: nextcloud-config
     namespace: flux-system

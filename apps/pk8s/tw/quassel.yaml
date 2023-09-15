@@ -30,7 +30,7 @@ spec:
               value: Database
             - name: RUN_OPTS
               value: --config-from-environment
-          image: lscr.io/linuxserver/quassel-core:latest
+          image: lscr.io/linuxserver/quassel-core:0.14.0 # {"$imagepolicy": "tw:quassel-core"}
           name: quassel-core
           resources: {}
           ports:
