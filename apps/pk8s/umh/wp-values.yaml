@@ -6,11 +6,6 @@ wordpressEmail:
 wordpressFirstName:
 wordpressLastName:
 wordpressBlogName:
-smtpHost:
-smtpPort:
-smtpUser:
-smtpPassword:
-smtpProtocol:
 #
 existingSecret: wp-wordpress
 #
