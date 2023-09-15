@@ -1,6 +1,6 @@
 name: flux-image-updates Auto-PR
 on:
-  create:
+  push:
     branches: ['flux-image-updates']
 jobs:
   action-pull-request:
