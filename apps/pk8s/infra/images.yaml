@@ -25,6 +25,35 @@ spec:
     semver:
       range: '>=0.6.0, <=1.x'
 ---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: openssh-server
+  namespace: infra
+spec:
+  image: lscr.io/linuxserver/openssh-server
+  interval: 12h
+  exclusionList:
+    - '^develop.*'
+    - '^nightly-.*'
+    - '^2021\..*'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: openssh-server
+  namespace: infra
+spec:
+  imageRepositoryRef:
+    name: openssh-server
+    namespace: infra
+  filterTags:
+    pattern: '^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)_p(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
+    extract: '$major.$minor.$patch-$prerelease'
+  policy:
+    semver:
+      range: '>=9-0'
+---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageUpdateAutomation
 metadata:
