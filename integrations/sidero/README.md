@@ -83,7 +83,10 @@ kubectl config use-context admin@pk8s
 ## install flux
 ```bash
 flux --context admin@pk8s bootstrap \
-  github --owner=linuxmaniac --repository=home-ops --path=clusters/pk8s --personal
+  --components-extra=image-reflector-controller,image-automation-controller \
+  github --owner=linuxmaniac --repository=home-ops --path=clusters/pk8s \
+  --read-write-key \
+  --personal
 ```
 
 ### age config
