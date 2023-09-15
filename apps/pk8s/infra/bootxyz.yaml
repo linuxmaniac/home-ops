@@ -95,7 +95,7 @@ spec:
               value: Europe/Madrid
             - name: SUBFOLDER
               value: /bootxyz/
-          image: lscr.io/linuxserver/netbootxyz:latest
+          image: lscr.io/linuxserver/netbootxyz:0.6.8 # {"$imagepolicy": "infra:netbootxyz"}
           name: bootxyz
           ports:
             - name: config
