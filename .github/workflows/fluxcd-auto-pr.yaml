@@ -8,6 +8,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 5
 
       - name: Create pull request
         uses: devops-infra/action-pull-request@v0.5.5
