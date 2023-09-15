@@ -195,7 +195,7 @@ spec:
         email: fluxcdbot@users.noreply.github.com
         name: fluxcdbot
       messageTemplate: |
-          Automated image update
+          pk8s: [plex] Automated image update
 
           Automation name: {{ .AutomationObject }}
 
@@ -214,7 +214,7 @@ spec:
           - {{.}}
           {{ end -}}
     push:
-      branch: flux-image-updates
+      branch: flux-image-updates-plex
   update:
     path: ./apps/pk8s/plex
     strategy: Setters
