@@ -1,4 +1,3 @@
----
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -43,7 +42,7 @@ spec:
               value: "1000"
             - name: TZ
               value: Europe/Madrid
-          image: lscr.io/linuxserver/radarr:4.7.5 # {"$imagepolicy": "plex:radarr"}
+          image: lscr.io/linuxserver/radarr:5.0.2-nightly # {"$imagepolicy": "plex:radarr"}
           name: radarr
           ports:
             - containerPort: 7878
