@@ -2,6 +2,9 @@ name: flux-image-updates Auto-PR
 on:
   create:
     branches-ignore: master
+permissions:
+  contents: read # to fetch code (actions/checkout)
+  pull-requests: write
 jobs:
   action-pull-request:
     runs-on: ubuntu-latest

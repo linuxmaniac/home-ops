@@ -5,7 +5,8 @@ on:
   push:
     branches:
       - 'main'
-
+permissions:
+  contents: read # to fetch code (actions/checkout)
 jobs:
   manifests:
     runs-on: ubuntu-latest
