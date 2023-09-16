@@ -8,8 +8,8 @@ spec:
   image: lscr.io/linuxserver/netbootxyz
   interval: 12h
   exclusionList:
-    - '^develop.*'
-    - '^nightly-.*'
+    - '.*develop.*'
+    - '.*nightly.*'
     - '.*tftp.*'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
@@ -23,7 +23,7 @@ spec:
     namespace: infra
   policy:
     semver:
-      range: '>=0.6.0, <=1.x'
+      range: '>=0.6.0-0, <=1.x'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
@@ -34,8 +34,8 @@ spec:
   image: lscr.io/linuxserver/openssh-server
   interval: 12h
   exclusionList:
-    - '^develop.*'
-    - '^nightly-.*'
+    - '.*develop.*'
+    - '.*nightly.*'
     - '^2021\..*'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
