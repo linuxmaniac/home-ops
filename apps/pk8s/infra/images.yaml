@@ -23,7 +23,7 @@ spec:
     namespace: infra
   policy:
     semver:
-      range: '>=0.6.0, <=1.x'
+      range: '>=0.6.0-0, <=1.x'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository

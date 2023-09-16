@@ -22,7 +22,7 @@ spec:
     namespace: tw
   policy:
     semver:
-      range: '>=0.14.0'
+      range: '>=0.14.0-0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
