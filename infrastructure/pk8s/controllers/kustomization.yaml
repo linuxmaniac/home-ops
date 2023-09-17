@@ -7,6 +7,7 @@ resources:
   - ../../controllers/weave-gitops.yaml
   - ../../controllers/kubed.yaml
   - ../../controllers/traefik.yaml
+  - ../../controllers/cert-manager-csi-driver.yaml
 patches:
   - path: kubed-values.yaml
     target:
