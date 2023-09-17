@@ -11,6 +11,15 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
+  name: cert-manager
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/warn: privileged
+---
+apiVersion: v1
+kind: Namespace
+metadata:
   name: default
   labels:
     toolkit.fluxcd.io/tenant: sre-team
