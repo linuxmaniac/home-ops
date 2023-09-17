@@ -53,3 +53,30 @@ spec:
                 name: lidarr
                 port:
                   name: http
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: plex
+  namespace: plex
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - plex.torreviejawireless.org
+      secretName: tw-tls
+  rules:
+    - host: plex.torreviejawireless.org
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: plex
+                port:
+                  name: pms
