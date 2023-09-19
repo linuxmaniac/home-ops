@@ -42,20 +42,3 @@ spec:
         - name: noop@internal
           kind: TraefikService
           namespace: traefik
----
-apiVersion: monitoring.coreos.com/v1
-kind: PodMonitor
-metadata:
-  labels:
-    release: kube-prometheus-stack
-  name: traefik
-  namespace: monitoring
-spec:
-  podMetricsEndpoints:
-    - port: metrics
-  namespaceSelector:
-    matchNames:
-      - traefik
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: traefik
