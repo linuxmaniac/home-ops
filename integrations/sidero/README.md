@@ -76,7 +76,8 @@ kubectl --context=admin@sidero --namespace sidero-system get secret \
 ```
 Put that info at ~/.talos/config
 ```bash
-talosctl --context pk8s -n ${PK8S_ENDPOINT} kubeconfig
+talosctl --context pk8s -e ${PK8S_ENDPOINT} -n ${PK8S_ENDPOINT} bootstrap
+talosctl --context pk8s -e ${PK8S_ENDPOINT} -n ${PK8S_ENDPOINT} kubeconfig
 kubectl config use-context admin@pk8s
 ```
 
