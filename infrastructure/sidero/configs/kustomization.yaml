@@ -1,6 +1,7 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: sidero-system
 resources:
-  - ../cert-manager
+  - ../../configs/cluster-issuers.yaml
+  - certificate.yaml
+  - traefik.yaml
