@@ -1,0 +1,16 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: sidero-system
+  namespace: velero
+spec:
+  schedule: '@every 24h'
+  template:
+    csiSnapshotTimeout: 15s
+    includedClusterScopedResources:
+      - serverbindings.infrastructure.cluster.x-k8s.io
+    includedNamespaces:
+      - sidero-system
+    itemOperationTimeout: 5s
+    ttl: 0s
+  useOwnerReferencesInBackup: false
