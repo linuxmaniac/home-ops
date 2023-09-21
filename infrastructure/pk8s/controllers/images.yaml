@@ -1,0 +1,22 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: kubelet-serving-cert-approver
+  namespace: kubelet-serving-cert-approver
+spec:
+  image: ghcr.io/alex1989hu/kubelet-serving-cert-approver
+  interval: 12h
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: kubelet-serving-cert-approver
+  namespace: kubelet-serving-cert-approver
+spec:
+  imageRepositoryRef:
+    name: kubelet-serving-cert-approver
+    namespace: kubelet-serving-cert-approver
+  policy:
+    semver:
+      range: '>=0.7.0'

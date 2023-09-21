@@ -9,6 +9,7 @@ resources:
   - ../../controllers/kubed.yaml
   - ../../controllers/traefik.yaml
   - ../../controllers/cert-manager-csi-driver.yaml
+  - images.yaml
 patches:
   - path: kubed-values.yaml
     target:
