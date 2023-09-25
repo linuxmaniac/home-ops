@@ -6,6 +6,7 @@
 
 # Include manifest directories
 !/apps/
+!/backups/
 !/clusters/
 !/infrastructure/
 !/monitoring/
