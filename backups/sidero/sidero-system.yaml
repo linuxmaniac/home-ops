@@ -12,5 +12,5 @@ spec:
     includedNamespaces:
       - sidero-system
     itemOperationTimeout: 5s
-    ttl: 0s
+    ttl: 360h00m00s
   useOwnerReferencesInBackup: false
