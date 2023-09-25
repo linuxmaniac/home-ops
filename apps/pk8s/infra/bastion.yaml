@@ -110,7 +110,7 @@ spec:
               value: https://github.com/linuxmaniac.keys
             - name: USER_NAME
               value: vseva
-          image: lscr.io/linuxserver/openssh-server:9.3_p2-r0-ls129 # {"$imagepolicy": "infra:openssh-server"}
+          image: lscr.io/linuxserver/openssh-server:9.3_p2-r0-ls130 # {"$imagepolicy": "infra:openssh-server"}
           name: bastion
           stdin: true
           tty: true
