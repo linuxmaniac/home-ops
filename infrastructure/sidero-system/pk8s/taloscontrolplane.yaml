@@ -26,11 +26,6 @@ spec:
         - op: add
           path: /cluster/apiServer/admissionControl/0/configuration/exemptions/namespaces/-
           value: monitoring
-        - op: add
-          path: /cluster/extraManifests
-          value:
-            - https://raw.githubusercontent.com/linuxmaniac/home-ops/main/infrastructure/controllers/kubelet-serving-cert-approver.yaml
-            - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
       generateType: controlplane
       talosVersion: v1.5.3
   infrastructureTemplate:
