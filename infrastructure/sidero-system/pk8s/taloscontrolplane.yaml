@@ -32,10 +32,10 @@ spec:
             - https://raw.githubusercontent.com/linuxmaniac/home-ops/main/infrastructure/controllers/kubelet-serving-cert-approver.yaml
             - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
       generateType: controlplane
-      talosVersion: v1.5.2
+      talosVersion: v1.5.3
   infrastructureTemplate:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
     kind: MetalMachineTemplate
     name: pk8s-cp
   replicas: 3
-  version: v1.28.1
+  version: v1.28.2
