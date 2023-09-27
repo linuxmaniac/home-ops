@@ -9,39 +9,43 @@ wordpressBlogName:
 #
 existingSecret: wp-wordpress
 #
+replicaCount: 1
+updateStrategy:
+    type: Recreate
+    rollingUpdate:
 wordpressScheme: https
 service:
-  type: ClusterIP
+    type: ClusterIP
 ingress:
-  enabled: true
-  ingressClassName: traefik
-  hostname: comunicacioncientifica.info
-  extraHosts:
-    - name: www.comunicacioncientifica.info
-      path: /
-  annotations:
-    traefik.ingress.kubernetes.io/router.tls: "true"
-    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd
-  extraTls:
-    - hosts:
-        - comunicacioncientifica.info
-        - www.comunicacioncientifica.info
-      secretName: comunicacioncientifica.info-tls
+    enabled: true
+    ingressClassName: traefik
+    hostname: comunicacioncientifica.info
+    extraHosts:
+        - name: www.comunicacioncientifica.info
+          path: /
+    annotations:
+        traefik.ingress.kubernetes.io/router.tls: 'true'
+        traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd
+    extraTls:
+        - hosts:
+              - comunicacioncientifica.info
+              - www.comunicacioncientifica.info
+          secretName: comunicacioncientifica.info-tls
 persistence:
-  enabled: true
-  selector:
-    matchLabels:
-      app: umh-wp
-mariadb:
-  enabled: true
-  auth:
-    existingSecret: wp-mariadb
-  primary:
-    persistence:
-      enabled: true
-      selector:
+    enabled: true
+    selector:
         matchLabels:
-          app: umh-db
+            app: umh-wp
+mariadb:
+    enabled: true
+    auth:
+        existingSecret: wp-mariadb
+    primary:
+        persistence:
+            enabled: true
+            selector:
+                matchLabels:
+                    app: umh-db
 metrics:
-  enabled: true
+    enabled: true
