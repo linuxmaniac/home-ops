@@ -2,432 +2,486 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: plex-media
-  labels:
-    org.democratic-csi.manual: plex-media
+    name: plex-media
+    labels:
+        org.democratic-csi.manual: plex-media
 spec:
-  capacity:
-    storage: 1Ti
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  mountOptions:
-    - nfsvers=4
-    - nolock
-    - noatime
-  csi:
-    driver: org.democratic-csi.node-manual
-    readOnly: false
-    fsType: nfs
-    volumeHandle: plex-media
-    volumeAttributes:
-      server: 192.168.4.5
-      share: /mnt/main/media
-      node_attach_driver: nfs
-      provisioner_driver: node-manual
+    capacity:
+        storage: 1Ti
+    accessModes:
+        - ReadWriteMany
+    persistentVolumeReclaimPolicy: Retain
+    mountOptions:
+        - nfsvers=4
+        - nolock
+        - noatime
+    csi:
+        driver: org.democratic-csi.node-manual
+        readOnly: false
+        fsType: nfs
+        volumeHandle: plex-media
+        volumeAttributes:
+            server: 192.168.4.5
+            share: /mnt/main/media
+            node_attach_driver: nfs
+            provisioner_driver: node-manual
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: plex-transmission-config
-  labels:
-    org.democratic-csi.manual: plex-transmission-config
+    name: plex-transmission-config
+    labels:
+        org.democratic-csi.manual: plex-transmission-config
 spec:
-  capacity:
-    storage: 250Mi
-  csi:
-    driver: org.democratic-csi.node-manual
-    volumeHandle: pvc-b535e738-f57c-4d34-825a-bba806aa1a38
-    fsType: ext4
-    volumeAttributes:
-      interface: ''
-      iqn: >-
-        iqn.2005-10.org.freenas.ctl:csi-pvc-b535e738-f57c-4d34-825a-bba806aa1a38-cluster
-      lun: '0'
-      node_attach_driver: iscsi
-      portal: 192.168.4.5:3260
-      portals: ''
-      provisioner_driver: node-manual
-    controllerPublishSecretRef:
-      name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    nodeStageSecretRef:
-      name: node-stage-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    nodePublishSecretRef:
-      name: node-publish-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    controllerExpandSecretRef:
-      name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  volumeMode: Filesystem
+    capacity:
+        storage: 250Mi
+    csi:
+        driver: org.democratic-csi.node-manual
+        volumeHandle: pvc-b535e738-f57c-4d34-825a-bba806aa1a38
+        fsType: ext4
+        volumeAttributes:
+            interface: ''
+            iqn: >-
+                iqn.2005-10.org.freenas.ctl:csi-pvc-b535e738-f57c-4d34-825a-bba806aa1a38-cluster
+            lun: '0'
+            node_attach_driver: iscsi
+            portal: 192.168.4.5:3260
+            portals: ''
+            provisioner_driver: node-manual
+        controllerPublishSecretRef:
+            name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        nodeStageSecretRef:
+            name: node-stage-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        nodePublishSecretRef:
+            name: node-publish-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        controllerExpandSecretRef:
+            name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+    accessModes:
+        - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: transmission-config
-  namespace: plex
+    name: transmission-config
+    namespace: plex
 spec:
-  accessModes:
-    - ReadWriteOnce
-  selector:
-    matchLabels:
-      org.democratic-csi.manual: plex-transmission-config
-  resources:
-    requests:
-      storage: 250Mi
+    accessModes:
+        - ReadWriteOnce
+    selector:
+        matchLabels:
+            org.democratic-csi.manual: plex-transmission-config
+    resources:
+        requests:
+            storage: 250Mi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: transmission-watch
-  namespace: plex
+    name: transmission-watch
+    namespace: plex
 spec:
-  storageClassName: freenas-iscsi-csi
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 250Mi
+    storageClassName: freenas-iscsi-csi
+    accessModes:
+        - ReadWriteOnce
+    resources:
+        requests:
+            storage: 250Mi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: plex-media
-  namespace: plex
+    name: plex-media
+    namespace: plex
 spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 1Ti
-  selector:
-    matchLabels:
-      org.democratic-csi.manual: plex-media
+    accessModes:
+        - ReadWriteMany
+    resources:
+        requests:
+            storage: 1Ti
+    selector:
+        matchLabels:
+            org.democratic-csi.manual: plex-media
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: plex-config
-  labels:
-    org.democratic-csi.manual: plex-config
+    name: plex-config
+    labels:
+        org.democratic-csi.manual: plex-config
 spec:
-  capacity:
-    storage: 50Gi
-  csi:
-    driver: org.democratic-csi.node-manual
-    volumeHandle: pvc-6d918b72-e34f-4f51-802e-51c997ef1ccc
-    fsType: ext4
-    volumeAttributes:
-      interface: ''
-      iqn: >-
-        iqn.2005-10.org.freenas.ctl:csi-pvc-6d918b72-e34f-4f51-802e-51c997ef1ccc-cluster
-      lun: '0'
-      node_attach_driver: iscsi
-      portal: 192.168.4.5:3260
-      portals: ''
-      provisioner_driver: node-manual
-    controllerPublishSecretRef:
-      name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    nodeStageSecretRef:
-      name: node-stage-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    nodePublishSecretRef:
-      name: node-publish-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    controllerExpandSecretRef:
-      name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  volumeMode: Filesystem
+    capacity:
+        storage: 50Gi
+    csi:
+        driver: org.democratic-csi.node-manual
+        volumeHandle: pvc-6d918b72-e34f-4f51-802e-51c997ef1ccc
+        fsType: ext4
+        volumeAttributes:
+            interface: ''
+            iqn: >-
+                iqn.2005-10.org.freenas.ctl:csi-pvc-6d918b72-e34f-4f51-802e-51c997ef1ccc-cluster
+            lun: '0'
+            node_attach_driver: iscsi
+            portal: 192.168.4.5:3260
+            portals: ''
+            provisioner_driver: node-manual
+        controllerPublishSecretRef:
+            name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        nodeStageSecretRef:
+            name: node-stage-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        nodePublishSecretRef:
+            name: node-publish-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        controllerExpandSecretRef:
+            name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+    accessModes:
+        - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: plex-config
-  namespace: plex
+    name: plex-config
+    namespace: plex
 spec:
-  accessModes:
-    - ReadWriteOnce
-  selector:
-    matchLabels:
-      org.democratic-csi.manual: plex-config
-  resources:
-    requests:
-      storage: 50Gi
+    accessModes:
+        - ReadWriteOnce
+    selector:
+        matchLabels:
+            org.democratic-csi.manual: plex-config
+    resources:
+        requests:
+            storage: 50Gi
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: plex-sonarr-config
-  labels:
-    org.democratic-csi.manual: plex-sonarr-config
+    name: plex-sonarr-config
+    labels:
+        org.democratic-csi.manual: plex-sonarr-config
 spec:
-  capacity:
-    storage: 500Mi
-  csi:
-    driver: org.democratic-csi.node-manual
-    volumeHandle: pvc-4a9947b1-fcec-4bbb-b36b-346a05488b1f
-    fsType: ext4
-    volumeAttributes:
-      interface: ''
-      iqn: >-
-        iqn.2005-10.org.freenas.ctl:csi-pvc-4a9947b1-fcec-4bbb-b36b-346a05488b1f-cluster
-      lun: '0'
-      node_attach_driver: iscsi
-      portal: 192.168.4.5:3260
-      portals: ''
-      provisioner_driver: node-manual
-    controllerPublishSecretRef:
-      name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    nodeStageSecretRef:
-      name: node-stage-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    nodePublishSecretRef:
-      name: node-publish-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    controllerExpandSecretRef:
-      name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  volumeMode: Filesystem
+    capacity:
+        storage: 500Mi
+    csi:
+        driver: org.democratic-csi.node-manual
+        volumeHandle: pvc-4a9947b1-fcec-4bbb-b36b-346a05488b1f
+        fsType: ext4
+        volumeAttributes:
+            interface: ''
+            iqn: >-
+                iqn.2005-10.org.freenas.ctl:csi-pvc-4a9947b1-fcec-4bbb-b36b-346a05488b1f-cluster
+            lun: '0'
+            node_attach_driver: iscsi
+            portal: 192.168.4.5:3260
+            portals: ''
+            provisioner_driver: node-manual
+        controllerPublishSecretRef:
+            name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        nodeStageSecretRef:
+            name: node-stage-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        nodePublishSecretRef:
+            name: node-publish-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        controllerExpandSecretRef:
+            name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+    accessModes:
+        - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: sonarr-config
-  namespace: plex
+    name: sonarr-config
+    namespace: plex
 spec:
-  accessModes:
-    - ReadWriteOnce
-  selector:
-    matchLabels:
-      org.democratic-csi.manual: plex-sonarr-config
-  resources:
-    requests:
-      storage: 500Mi
+    accessModes:
+        - ReadWriteOnce
+    selector:
+        matchLabels:
+            org.democratic-csi.manual: plex-sonarr-config
+    resources:
+        requests:
+            storage: 500Mi
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: plex-bazarr-config
-  labels:
-    org.democratic-csi.manual: plex-bazarr-config
+    name: plex-bazarr-config
+    labels:
+        org.democratic-csi.manual: plex-bazarr-config
 spec:
-  capacity:
-    storage: 500Mi
-  csi:
-    driver: org.democratic-csi.node-manual
-    volumeHandle: pvc-5c282e80-0306-4872-b3a2-d7b78280313f
-    fsType: ext4
-    volumeAttributes:
-      interface: ''
-      iqn: >-
-        iqn.2005-10.org.freenas.ctl:csi-pvc-5c282e80-0306-4872-b3a2-d7b78280313f-cluster
-      lun: '0'
-      node_attach_driver: iscsi
-      portal: 192.168.4.5:3260
-      portals: ''
-      provisioner_driver: node-manual
-    controllerPublishSecretRef:
-      name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    nodeStageSecretRef:
-      name: node-stage-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    nodePublishSecretRef:
-      name: node-publish-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    controllerExpandSecretRef:
-      name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  volumeMode: Filesystem
+    capacity:
+        storage: 500Mi
+    csi:
+        driver: org.democratic-csi.node-manual
+        volumeHandle: pvc-5c282e80-0306-4872-b3a2-d7b78280313f
+        fsType: ext4
+        volumeAttributes:
+            interface: ''
+            iqn: >-
+                iqn.2005-10.org.freenas.ctl:csi-pvc-5c282e80-0306-4872-b3a2-d7b78280313f-cluster
+            lun: '0'
+            node_attach_driver: iscsi
+            portal: 192.168.4.5:3260
+            portals: ''
+            provisioner_driver: node-manual
+        controllerPublishSecretRef:
+            name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        nodeStageSecretRef:
+            name: node-stage-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        nodePublishSecretRef:
+            name: node-publish-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        controllerExpandSecretRef:
+            name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+    accessModes:
+        - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: bazarr-config
-  namespace: plex
+    name: bazarr-config
+    namespace: plex
 spec:
-  accessModes:
-    - ReadWriteOnce
-  selector:
-    matchLabels:
-      org.democratic-csi.manual: plex-bazarr-config
-  resources:
-    requests:
-      storage: 500Mi
+    accessModes:
+        - ReadWriteOnce
+    selector:
+        matchLabels:
+            org.democratic-csi.manual: plex-bazarr-config
+    resources:
+        requests:
+            storage: 500Mi
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: plex-prowlarr-config
-  labels:
-    org.democratic-csi.manual: plex-prowlarr-config
+    name: plex-prowlarr-config
+    labels:
+        org.democratic-csi.manual: plex-prowlarr-config
 spec:
-  capacity:
-    storage: 500Mi
-  csi:
-    driver: org.democratic-csi.node-manual
-    volumeHandle: pvc-157de7e5-7977-4492-a00f-bd33c5e4a114
-    fsType: ext4
-    volumeAttributes:
-      interface: ''
-      iqn: >-
-        iqn.2005-10.org.freenas.ctl:csi-pvc-157de7e5-7977-4492-a00f-bd33c5e4a114-cluster
-      lun: '0'
-      node_attach_driver: iscsi
-      portal: 192.168.4.5:3260
-      portals: ''
-      provisioner_driver: node-manual
-    controllerPublishSecretRef:
-      name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    nodeStageSecretRef:
-      name: node-stage-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    nodePublishSecretRef:
-      name: node-publish-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    controllerExpandSecretRef:
-      name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  volumeMode: Filesystem
+    capacity:
+        storage: 500Mi
+    csi:
+        driver: org.democratic-csi.node-manual
+        volumeHandle: pvc-157de7e5-7977-4492-a00f-bd33c5e4a114
+        fsType: ext4
+        volumeAttributes:
+            interface: ''
+            iqn: >-
+                iqn.2005-10.org.freenas.ctl:csi-pvc-157de7e5-7977-4492-a00f-bd33c5e4a114-cluster
+            lun: '0'
+            node_attach_driver: iscsi
+            portal: 192.168.4.5:3260
+            portals: ''
+            provisioner_driver: node-manual
+        controllerPublishSecretRef:
+            name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        nodeStageSecretRef:
+            name: node-stage-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        nodePublishSecretRef:
+            name: node-publish-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        controllerExpandSecretRef:
+            name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+    accessModes:
+        - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: prowlarr-config
-  namespace: plex
+    name: prowlarr-config
+    namespace: plex
 spec:
-  accessModes:
-    - ReadWriteOnce
-  selector:
-    matchLabels:
-      org.democratic-csi.manual: plex-prowlarr-config
-  resources:
-    requests:
-      storage: 500Mi
+    accessModes:
+        - ReadWriteOnce
+    selector:
+        matchLabels:
+            org.democratic-csi.manual: plex-prowlarr-config
+    resources:
+        requests:
+            storage: 500Mi
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: plex-radarr-config
-  labels:
-    org.democratic-csi.manual: plex-radarr-config
+    name: plex-radarr-config
+    labels:
+        org.democratic-csi.manual: plex-radarr-config
 spec:
-  capacity:
-    storage: 500Mi
-  csi:
-    driver: org.democratic-csi.node-manual
-    volumeHandle: pvc-bfb1d154-5fdd-4f65-9268-cede7fde8714
-    fsType: ext4
-    volumeAttributes:
-      interface: ''
-      iqn: >-
-        iqn.2005-10.org.freenas.ctl:csi-pvc-bfb1d154-5fdd-4f65-9268-cede7fde8714-cluster
-      lun: '0'
-      node_attach_driver: iscsi
-      portal: 192.168.4.5:3260
-      portals: ''
-      provisioner_driver: node-manual
-    controllerPublishSecretRef:
-      name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    nodeStageSecretRef:
-      name: node-stage-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    nodePublishSecretRef:
-      name: node-publish-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    controllerExpandSecretRef:
-      name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  volumeMode: Filesystem
+    capacity:
+        storage: 500Mi
+    csi:
+        driver: org.democratic-csi.node-manual
+        volumeHandle: pvc-bfb1d154-5fdd-4f65-9268-cede7fde8714
+        fsType: ext4
+        volumeAttributes:
+            interface: ''
+            iqn: >-
+                iqn.2005-10.org.freenas.ctl:csi-pvc-bfb1d154-5fdd-4f65-9268-cede7fde8714-cluster
+            lun: '0'
+            node_attach_driver: iscsi
+            portal: 192.168.4.5:3260
+            portals: ''
+            provisioner_driver: node-manual
+        controllerPublishSecretRef:
+            name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        nodeStageSecretRef:
+            name: node-stage-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        nodePublishSecretRef:
+            name: node-publish-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        controllerExpandSecretRef:
+            name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+    accessModes:
+        - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: radarr-config
-  namespace: plex
+    name: radarr-config
+    namespace: plex
 spec:
-  accessModes:
-    - ReadWriteOnce
-  selector:
-    matchLabels:
-      org.democratic-csi.manual: plex-radarr-config
-  resources:
-    requests:
-      storage: 500Mi
+    accessModes:
+        - ReadWriteOnce
+    selector:
+        matchLabels:
+            org.democratic-csi.manual: plex-radarr-config
+    resources:
+        requests:
+            storage: 500Mi
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: plex-lidarr-config
-  labels:
-    org.democratic-csi.manual: plex-radarr-config
+    name: plex-lidarr-config
+    labels:
+        org.democratic-csi.manual: plex-radarr-config
 spec:
-  capacity:
-    storage: 500Mi
-  csi:
-    driver: org.democratic-csi.node-manual
-    volumeHandle: pvc-c8722b04-e578-472a-8a2e-8300fa56ed21
-    fsType: ext4
-    volumeAttributes:
-      interface: ''
-      iqn: >-
-        iqn.2005-10.org.freenas.ctl:csi-pvc-c8722b04-e578-472a-8a2e-8300fa56ed21-cluster
-      lun: '0'
-      node_attach_driver: iscsi
-      portal: 192.168.4.5:3260
-      portals: ''
-      provisioner_driver: node-manual
-    controllerPublishSecretRef:
-      name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    nodeStageSecretRef:
-      name: node-stage-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    nodePublishSecretRef:
-      name: node-publish-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    controllerExpandSecretRef:
-      name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  volumeMode: Filesystem
+    capacity:
+        storage: 500Mi
+    csi:
+        driver: org.democratic-csi.node-manual
+        volumeHandle: pvc-c8722b04-e578-472a-8a2e-8300fa56ed21
+        fsType: ext4
+        volumeAttributes:
+            interface: ''
+            iqn: >-
+                iqn.2005-10.org.freenas.ctl:csi-pvc-c8722b04-e578-472a-8a2e-8300fa56ed21-cluster
+            lun: '0'
+            node_attach_driver: iscsi
+            portal: 192.168.4.5:3260
+            portals: ''
+            provisioner_driver: node-manual
+        controllerPublishSecretRef:
+            name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        nodeStageSecretRef:
+            name: node-stage-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        nodePublishSecretRef:
+            name: node-publish-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        controllerExpandSecretRef:
+            name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+    accessModes:
+        - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: lidarr-config
-  namespace: plex
+    name: lidarr-config
+    namespace: plex
 spec:
-  accessModes:
-    - ReadWriteOnce
-  selector:
-    matchLabels:
-      org.democratic-csi.manual: plex-radarr-config
-  resources:
-    requests:
-      storage: 500Mi
+    accessModes:
+        - ReadWriteOnce
+    selector:
+        matchLabels:
+            org.democratic-csi.manual: plex-radarr-config
+    resources:
+        requests:
+            storage: 500Mi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+    name: plex-tautulli-config
+    labels:
+        org.democratic-csi.manual: plex-tautulli-config
+spec:
+    capacity:
+        storage: 500Mi
+    csi:
+        driver: org.democratic-csi.node-manual
+        volumeHandle: pvc-3167ebd6-e8e5-4e54-9718-be4638234c3b
+        fsType: ext4
+        volumeAttributes:
+            interface: ''
+            iqn: >-
+                iqn.2005-10.org.freenas.ctl:csi-pvc-3167ebd6-e8e5-4e54-9718-be4638234c3b-cluster
+            lun: '0'
+            node_attach_driver: iscsi
+            portal: 192.168.4.5:3260
+            portals: ''
+            provisioner_driver: node-manual
+        controllerPublishSecretRef:
+            name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        nodeStageSecretRef:
+            name: node-stage-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        nodePublishSecretRef:
+            name: node-publish-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+        controllerExpandSecretRef:
+            name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
+            namespace: democratic-csi
+    accessModes:
+        - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    name: tautulli-config
+    namespace: plex
+spec:
+    accessModes:
+        - ReadWriteOnce
+    selector:
+        matchLabels:
+            org.democratic-csi.manual: plex-tautulli-config
+    resources:
+        requests:
+            storage: 500Mi
