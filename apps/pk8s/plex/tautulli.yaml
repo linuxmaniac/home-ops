@@ -1,0 +1,57 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    labels:
+        io.kompose.service: tautulli
+    name: tautulli
+    namespace: plex
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            io.kompose.service: tautulli
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                io.kompose.service: tautulli
+        spec:
+            containers:
+                - env:
+                      - name: PGID
+                        value: '1000'
+                      - name: PUID
+                        value: '1000'
+                      - name: TZ
+                        value: Europe/Madrid
+                  image: lscr.io/linuxserver/tautulli:2.13.1 # {"$imagepolicy": "plex:tautulli"}
+                  name: tautulli
+                  ports:
+                      - containerPort: 8181
+                  resources: {}
+                  volumeMounts:
+                      - mountPath: /config
+                        name: tautulli-config
+            restartPolicy: Always
+            volumes:
+                - name: tautulli-config
+                  persistentVolumeClaim:
+                      claimName: tautulli-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+    labels:
+        io.kompose.service: tautulli
+    name: tautulli
+    namespace: plex
+spec:
+    ports:
+        - name: http
+          port: 80
+          targetPort: 8181
+    type: ClusterIP
+    selector:
+        io.kompose.service: tautulli
