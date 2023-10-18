@@ -65,3 +65,11 @@ metadata:
   name: velero
   labels:
     toolkit.fluxcd.io/tenant: sre-team
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sipwork
+  labels:
+    toolkit.fluxcd.io/tenant: sre-team
+    app: kubed

@@ -7,4 +7,5 @@ resources:
   - plex
   - infra
   - umh
+  - sipwork
   - ../base/velero

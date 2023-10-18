@@ -1,6 +1,4 @@
 ---
-global:
-  storageClass: freenas-iscsi-csi
 # secret-values
 wordpressUsername:
 wordpressPassword:
@@ -8,12 +6,13 @@ wordpressEmail:
 wordpressFirstName:
 wordpressLastName:
 wordpressBlogName:
-smtpHost:
-smtpPort:
-smtpUser:
-smtpPassword:
-smtpProtocol:
 #
+existingSecret: wp-wordpress
+#
+replicaCount: 1
+updateStrategy:
+  type: Recreate
+  rollingUpdate:
 wordpressScheme: https
 service:
   type: ClusterIP
@@ -27,7 +26,7 @@ ingress:
     - name: ww2.sipwork.pro
       path: /
   annotations:
-    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.tls: 'true'
     traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
     traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd,traefik-internal-ipwhitelist@kubernetescrd
   extraTls:
@@ -38,8 +37,19 @@ ingress:
       secretName: sipwork.pro-tls
 persistence:
   enabled: true
-readinessProbe:
-  enabled: false
+  selector:
+    matchLabels:
+      app: sipwork-wp
+mariadb:
+  enabled: true
+  auth:
+    existingSecret: wp-mariadb
+  primary:
+    persistence:
+      enabled: true
+      selector:
+        matchLabels:
+          app: sipwork-db
 metrics:
   enabled: true
 multisite:
