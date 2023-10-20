@@ -32,7 +32,7 @@ spec:
       value:
         interfaces:
           - deviceSelector:
-              hardwareAddr: "b0:41:6f:08:39:95"
+              hardwareAddr: b0:41:6f:08:39:95
             dhcp: true
             vlans:
               - vlanId: 200
@@ -47,6 +47,6 @@ spec:
     - op: add
       path: /machine/install/extensions
       value:
-        - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
+        - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4@sha256:3ab305068aa28513b26ab3c5b1f2937dbe3f63b9c50abe290287cc58eb454bb9
         - image: ghcr.io/siderolabs/amd-ucode:20230804
         - image: ghcr.io/siderolabs/amdgpu-firmware:20230804
