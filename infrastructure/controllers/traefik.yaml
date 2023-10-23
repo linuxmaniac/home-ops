@@ -31,7 +31,7 @@ spec:
   chart:
     spec:
       chart: traefik
-      version: 23.2.x
+      version: 25.0.x
       sourceRef:
         kind: HelmRepository
         name: traefik
@@ -39,9 +39,9 @@ spec:
       interval: 12h
   values:
     globalArguments:
-      - "--global.checknewversion"
+      - --global.checknewversion
     additionalArguments:
-      - "--serversTransport.insecureSkipVerify=true"
+      - --serversTransport.insecureSkipVerify=true
     ports:
       websecure:
         forwardedHeaders:
