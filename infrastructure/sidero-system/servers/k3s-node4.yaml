@@ -2,9 +2,9 @@
 apiVersion: metal.sidero.dev/v1alpha2
 kind: Server
 metadata:
-  name: 031b021c-040d-05f9-bd06-900700080009
+  name: 256d7580-71d4-11ee-94a0-239cc2696b02
   labels:
-    metal.sidero.dev/serverclass: gigabyte
+    metal.sidero.dev/serverclass: trigkey
     metal.sidero.dev/machine.type: worker
 spec:
   accepted: true
@@ -12,24 +12,34 @@ spec:
   hardware:
     compute:
       processors:
-        - manufacturer: Intel
-          productName: Intel(R) Celeron(R) CPU N3000 @ 1.04GHz
+        - manufacturer: Advanced Micro Devices, Inc.
+          productName: AMD Ryzen 5 5560U with Radeon Graphics
     system:
       family: Default string
-      manufacturer: GIGABYTE
-      productName: GB-BACE-3000
+      manufacturer: AZW
+      productName: S5
       serialNumber: Default string
       skuNumber: Default string
-    version: 1.x
+      version: Default string
   pxeBootAlways: true
   environmentRef:
     namespace: default
     name: amd64
   bootFromDiskMethod: ipxe-sanboot
   configPatches:
+    - op: add
+      path: /machine/network
+      value:
+        interfaces:
+          - deviceSelector:
+              hardwareAddr: b0:41:6f:0c:c9:d7
+            dhcp: true
+            vlans:
+              - vlanId: 200
+                dhcp: false
     - op: replace
       path: /machine/install/disk
-      value: /dev/sda
+      value: /dev/nvme0n1
     - op: add
       path: /machine/install/extraKernelArgs
       value:
@@ -38,5 +48,5 @@ spec:
       path: /machine/install/extensions
       value:
         - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4@sha256:3ab305068aa28513b26ab3c5b1f2937dbe3f63b9c50abe290287cc58eb454bb9
-        - image: ghcr.io/siderolabs/i915-ucode:20230310
-        - image: ghcr.io/siderolabs/intel-ucode:20230214
+        - image: ghcr.io/siderolabs/amd-ucode:20230804
+        - image: ghcr.io/siderolabs/amdgpu-firmware:20230804
