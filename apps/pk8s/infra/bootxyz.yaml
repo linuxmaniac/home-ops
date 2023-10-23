@@ -1,4 +1,3 @@
----
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -95,7 +94,7 @@ spec:
               value: Europe/Madrid
             - name: SUBFOLDER
               value: /bootxyz/
-          image: lscr.io/linuxserver/netbootxyz:0.6.8 # {"$imagepolicy": "infra:netbootxyz"}
+          image: lscr.io/linuxserver/netbootxyz:0.6.9 # {"$imagepolicy": "infra:netbootxyz"}
           name: bootxyz
           ports:
             - name: config
