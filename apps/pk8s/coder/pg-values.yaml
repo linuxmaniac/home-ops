@@ -1,5 +1,0 @@
----
-global:
-  storageClass: freenas-iscsi-csi
-persistence:
-  size: 10Gi
