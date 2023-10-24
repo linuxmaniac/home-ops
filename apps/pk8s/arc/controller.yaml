@@ -1,0 +1,22 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: arc
+  namespace: flux-system
+spec:
+  interval: 30m
+  releaseName: arc
+  targetNamespace: arc-systems
+  serviceAccountName: helm-controller
+  chart:
+    spec:
+      chart: gha-runner-scale-set-controller
+      version: 0.6.x
+      sourceRef:
+        kind: HelmRepository
+        name: arc
+        namespace: flux-system
+      interval: 12h
+  values:
+    replicaCount: 1
