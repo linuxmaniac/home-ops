@@ -9,15 +9,24 @@ resources:
   - traefik.yaml
   - storage.yaml
   - wordpress.yaml
+  - kimai.yaml
 secretGenerator:
   - name: wp-sipwork-config
     namespace: flux-system
     files:
       - values.yaml=wp-secret-values.enc.yaml
+  - name: sipwork-kimai-config
+    namespace: flux-system
+    files:
+      - values.yaml=kimai-secret-values.enc.yaml
 configMapGenerator:
   - name: wp-sipwork-values
     namespace: flux-system
     files:
       - values-wp.yaml=wp-values.yaml
+  - name: sipwork-kimai-values
+    namespace: flux-system
+    files:
+      - values-kimai.yaml=kimai-values.yaml
 configurations:
   - kustomizeconfig.yaml

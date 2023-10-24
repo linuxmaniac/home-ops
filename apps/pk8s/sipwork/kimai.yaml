@@ -1,0 +1,35 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: robjuz
+  namespace: flux-system
+spec:
+  interval: 24h
+  url: https://robjuz.github.io/helm-charts/
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: sipwork-kimai
+  namespace: flux-system
+spec:
+  interval: 30m
+  releaseName: sipwork-kimai
+  targetNamespace: sipwork
+  serviceAccountName: helm-controller
+  chart:
+    spec:
+      chart: kimai2
+      version: 3.1.x
+      sourceRef:
+        kind: HelmRepository
+        name: robjuz
+        namespace: flux-system
+      interval: 12h
+  valuesFrom:
+    - kind: ConfigMap
+      name: sipwork-kimai-values
+      valuesKey: values-kimai.yaml
+    - kind: Secret
+      name: sipwork-kimai-config
