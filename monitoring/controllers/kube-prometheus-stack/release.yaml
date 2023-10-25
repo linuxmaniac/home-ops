@@ -1,3 +1,4 @@
+---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -6,7 +7,7 @@ spec:
   interval: 1h
   chart:
     spec:
-      version: "51.x"
+      version: 52.x
       chart: kube-prometheus-stack
       sourceRef:
         kind: HelmRepository
@@ -17,9 +18,9 @@ spec:
   upgrade:
     crds: CreateReplace
   valuesFrom:
-  - kind: ConfigMap
-    name: flux-kube-state-metrics-config
-    valuesKey: kube-state-metrics-config.yaml
+    - kind: ConfigMap
+      name: flux-kube-state-metrics-config
+      valuesKey: kube-state-metrics-config.yaml
   # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
   values:
     alertmanager:
@@ -31,7 +32,7 @@ spec:
           requests:
             cpu: 200m
             memory: 200Mi
-        podMonitorNamespaceSelector: { }
+        podMonitorNamespaceSelector: {}
         podMonitorSelector:
           matchLabels:
             app.kubernetes.io/component: monitoring
