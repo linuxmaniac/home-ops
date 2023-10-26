@@ -25,7 +25,7 @@ spec:
     extract: $major.$minor.$patch
   policy:
     semver:
-      range: '>=2.0.0,<2.1'
+      range: '>=2.0.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageUpdateAutomation

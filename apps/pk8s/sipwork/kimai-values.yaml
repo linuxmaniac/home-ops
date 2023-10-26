@@ -1,3 +1,4 @@
+---
 ###
 kimaiAppSecret:
 kimaiAdminPassword:
@@ -5,7 +6,7 @@ kimaiAdminEmail:
 kimaiMailerFrom:
 ###
 image:
-  tag: apache-2.0.35-prod # {"$imagepolicy": "sipwork:kimai2:tag"}
+  tag: apache-2.1.0-prod # {"$imagepolicy": "sipwork:kimai2:tag"}
 existingSecret: kimai
 updateStrategy:
   type: Recreate
