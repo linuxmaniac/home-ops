@@ -1,4 +1,3 @@
----
 ###
 kimaiAppSecret:
 kimaiAdminPassword:
@@ -6,7 +5,7 @@ kimaiAdminEmail:
 kimaiMailerFrom:
 ###
 image:
-  tag: apache-2.0.26-prod # {"$imagepolicy": "sipwork:kimai2:tag"}
+  tag: apache-2.1.0-prod # {"$imagepolicy": "sipwork:kimai2:tag"}
 existingSecret: kimai
 updateStrategy:
   type: Recreate
@@ -21,7 +20,6 @@ ingress:
     traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd,traefik-internal-ipwhitelist@kubernetescrd
   extraTls:
     - secretName: sipwork.pro-tls
-
 persistence:
   enabled: true
   size: 5Gi
@@ -30,7 +28,6 @@ persistence:
       org.democratic-csi.manual: sipwork-kimai
   # until https://github.com/robjuz/helm-charts/issues/67 gets merged
   existingClaim: sipwork-kimai-kimai2
-
 mariadb:
   enabled: true
   auth:
