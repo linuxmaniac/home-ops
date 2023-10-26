@@ -10,6 +10,7 @@ resources:
   - storage.yaml
   - wordpress.yaml
   - kimai.yaml
+  - images.yaml
 secretGenerator:
   - name: wp-sipwork-config
     namespace: flux-system
