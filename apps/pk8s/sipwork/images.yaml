@@ -1,0 +1,72 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: kimai2
+  namespace: sipwork
+spec:
+  image: kimai/kimai2
+  interval: 12h
+  exclusionList:
+    - .*-dev
+    - ^fpm.*
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: kimai2
+  namespace: sipwork
+spec:
+  imageRepositoryRef:
+    name: kimai2
+    namespace: sipwork
+  filterTags:
+    pattern: ^apache-(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)-prod$
+    extract: $major.$minor.$patch
+  policy:
+    semver:
+      range: '>=2.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: sipwork
+  namespace: sipwork
+spec:
+  interval: 30m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
+      messageTemplate: |
+        pk8s: [sipwork] Automated image update
+
+        Automation name: {{ .AutomationObject }}
+
+        Files:
+        {{ range $filename, $_ := .Updated.Files -}}
+        - {{ $filename }}
+        {{ end -}}
+
+        Objects:
+        {{ range $resource, $_ := .Updated.Objects -}}
+        - {{ $resource.Kind }} {{ $resource.Name }}
+        {{ end -}}
+
+        Images:
+        {{ range .Updated.Images -}}
+        - {{.}}
+        {{ end -}}
+    push:
+      branch: flux-image-updates-sipwork
+  update:
+    path: ./apps/pk8s/sipwork
+    strategy: Setters
