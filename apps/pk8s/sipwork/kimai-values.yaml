@@ -27,8 +27,6 @@ persistence:
   selector:
     matchLabels:
       org.democratic-csi.manual: sipwork-kimai
-  # until https://github.com/robjuz/helm-charts/issues/67 gets merged
-  existingClaim: sipwork-kimai-kimai2
 mariadb:
   enabled: true
   auth:

@@ -117,22 +117,6 @@ spec:
   volumeMode: Filesystem
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: sipwork-kimai-kimai2
-  namespace: sipwork
-spec:
-  accessModes:
-    - ReadWriteOnce
-  selector:
-    matchLabels:
-      org.democratic-csi.manual: sipwork-kimai
-  resources:
-    requests:
-      storage: 5Gi
-  volumeMode: Filesystem
----
-apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: sipwork-kimai-db
