@@ -56,6 +56,31 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
+  name: nginx
+  namespace: tw
+spec:
+  image: lscr.io/linuxserver/nginx
+  interval: 12h
+  exclusionList:
+    - ^develop.*
+    - ^nightly-.*
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: nginx
+  namespace: tw
+spec:
+  imageRepositoryRef:
+    name: nginx
+    namespace: tw
+  policy:
+    semver:
+      range: '>=1.24.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
   name: freshrss
   namespace: tw
 spec:
