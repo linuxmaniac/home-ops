@@ -14,3 +14,8 @@ spec:
           - trigkey
           - rpi.8gb
           - gigabyte
+  configPatches:
+    - op: add
+      path: /machine/nodeLabels
+      value:
+        node-role.kubernetes.io/worker: yes

@@ -21,7 +21,7 @@ spec:
   chart:
     spec:
       chart: descheduler
-      version: "0.28.x"
+      version: 0.28.x
       sourceRef:
         kind: HelmRepository
         name: descheduler
@@ -34,47 +34,48 @@ spec:
     serviceMonitor:
       enabled: true
     deschedulerPolicy:
+      nodeSelector: node-role.kubernetes.io/worker=yes
       profiles:
         - name: ProfileName
           pluginConfig:
-            - name: "DefaultEvictor"
+            - name: DefaultEvictor
               args:
                 nodeFit: true
-            - name: "RemovePodsViolatingInterPodAntiAffinity"
-            - name: "RemovePodsHavingTooManyRestarts"
+            - name: RemovePodsViolatingInterPodAntiAffinity
+            - name: RemovePodsHavingTooManyRestarts
               args:
                 podRestartThreshold: 50
                 includingInitContainers: true
-            - name: "LowNodeUtilization"
+            - name: LowNodeUtilization
               args:
                 thresholds:
-                  "cpu": 20
-                  "memory": 20
-                  "pods": 20
+                  cpu: 20
+                  memory: 20
+                  pods: 20
                 targetThresholds:
-                  "cpu": 50
-                  "memory": 50
-                  "pods": 50
-            - name: "HighNodeUtilization"
+                  cpu: 50
+                  memory: 50
+                  pods: 50
+            - name: HighNodeUtilization
               args:
                 thresholds:
-                  "cpu": 20
-                  "memory": 20
-                  "pods": 20
-            - name: "PodLifeTime"
+                  cpu: 20
+                  memory: 20
+                  pods: 20
+            - name: PodLifeTime
               args:
                 maxPodLifeTimeSeconds: 86400
                 states:
-                  - "Pending"
-                  - "PodInitializing"
+                  - Pending
+                  - PodInitializing
           plugins:
             balance:
               enabled:
-                - "HighNodeUtilization"
-                - "LowNodeUtilization"
-                - "RemoveDuplicates"
+                - HighNodeUtilization
+                - LowNodeUtilization
+                - RemoveDuplicates
             deschedule:
               enabled:
-                - "RemovePodsViolatingInterPodAntiAffinity"
-                - "RemovePodsHavingTooManyRestarts"
-                - "PodLifeTime"
+                - RemovePodsViolatingInterPodAntiAffinity
+                - RemovePodsHavingTooManyRestarts
+                - PodLifeTime
