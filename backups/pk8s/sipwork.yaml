@@ -1,0 +1,16 @@
+---
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: sipwork
+  namespace: velero
+spec:
+  schedule: '@every 24h'
+  template:
+    csiSnapshotTimeout: 15s
+    includedNamespaces:
+      - sipwork
+    itemOperationTimeout: 5s
+    ttl: 360h00m00s
+    snapshotVolumes: true
+  useOwnerReferencesInBackup: false
