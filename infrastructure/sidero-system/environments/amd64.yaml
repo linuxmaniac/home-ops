@@ -24,5 +24,6 @@ spec:
       - pti=on
       - slab_nomerge=
       - talos.platform=metal
+      - net.ifnames=0
     url: https://github.com/talos-systems/talos/releases/download/v1.5.4/vmlinuz-amd64
     sha512: 220518494e7344b16f360a52e720ebaaa2abc6d16afcd5c8d332b6e5fdec52e90ec8df586d43263c4f487a64ce95fb33f48ead3567bb91c924ec0fba7e7d40f1

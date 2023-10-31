@@ -34,9 +34,6 @@ spec:
           - deviceSelector:
               hardwareAddr: b0:41:6f:09:e6:60
             dhcp: true
-            vlans:
-              - vlanId: 200
-                dhcp: false
     - op: replace
       path: /machine/install/disk
       value: /dev/sda
