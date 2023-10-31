@@ -1,0 +1,17 @@
+---
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: tw
+  namespace: velero
+spec:
+  schedule: '@every 24h'
+  template:
+    csiSnapshotTimeout: 15s
+    labelSelector:
+      matchLabels:
+        velero.io/backup: tw
+    itemOperationTimeout: 5s
+    ttl: 360h00m00s
+    snapshotVolumes: true
+  useOwnerReferencesInBackup: false
