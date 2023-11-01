@@ -1,7 +1,10 @@
+---
 name: flux-image-updates Auto-PR
 on:
   create:
-    branches-ignore: master
+    branches-ignore:
+      - main
+      - dev
 permissions:
   contents: read # to fetch code (actions/checkout)
   pull-requests: write
