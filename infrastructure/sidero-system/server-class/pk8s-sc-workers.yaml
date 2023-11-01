@@ -12,10 +12,18 @@ spec:
         operator: In
         values:
           - trigkey
-          - rpi.8gb
-          - gigabyte
   configPatches:
     - op: add
-      path: /machine/nodeLabels
+      path: /machine/kubelet
       value:
-        node-role.kubernetes.io/worker: yes
+        extraArgs:
+          rotate-server-certificates: true
+    - op: add
+      path: /machine/install/extraKernelArgs/-
+      value:
+        - console=ttyUSB0,115200
+        - net.ifnames=0
+    - op: add
+      path: /machine/install/extensions/-
+      value:
+        - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4@sha256:3ab305068aa28513b26ab3c5b1f2937dbe3f63b9c50abe290287cc58eb454bb9

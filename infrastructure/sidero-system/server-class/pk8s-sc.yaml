@@ -11,5 +11,10 @@ spec:
       - key: metal.sidero.dev/serverclass
         operator: In
         values:
-          - trigkey
           - rpi.8gb
+  configPatches:
+    - op: add
+      path: /machine/install/extraKernelArgs/-
+      value:
+        - console=ttyUSB0,115200
+        - net.ifnames=0
