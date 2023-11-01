@@ -18,12 +18,3 @@ spec:
             - manufacturer: Advanced Micro Devices, Inc.
               productName: AMD Ryzen 5 5560U with Radeon Graphics
   bootFromDiskMethod: ipxe-sanboot
-  configPatches:
-    - op: replace
-      path: /machine/install/disk
-      value: /dev/nvme0n1
-    - op: add
-      path: /machine/install/extensions/-
-      value:
-        - image: ghcr.io/siderolabs/amd-ucode:20230310
-        - image: ghcr.io/siderolabs/amdgpu-firmware:20230804

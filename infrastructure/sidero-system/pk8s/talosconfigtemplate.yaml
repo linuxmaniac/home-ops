@@ -7,15 +7,5 @@ metadata:
 spec:
   template:
     spec:
-      generateType: join
-      talosVersion: v1.5.3
-      configPatches:
-        - op: add
-          path: /machine/install/extensions
-          value:
-            - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
-        - op: add
-          path: /machine/kubelet
-          value:
-            extraArgs:
-              rotate-server-certificates: true
+      generateType: worker
+      talosVersion: v1.5

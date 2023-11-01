@@ -23,7 +23,7 @@ spec:
           path: /cluster/apiServer/admissionControl/0/configuration/exemptions/namespaces/-
           value: monitoring
       generateType: controlplane
-      talosVersion: v1.5.5
+      talosVersion: v1.5
   infrastructureTemplate:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
     kind: MetalMachineTemplate

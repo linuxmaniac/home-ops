@@ -11,5 +11,4 @@ spec:
       - key: metal.sidero.dev/serverclass
         operator: In
         values:
-          - trigkey
           - rpi.8gb

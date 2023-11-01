@@ -38,12 +38,10 @@ spec:
       path: /machine/install/disk
       value: /dev/sda
     - op: add
-      path: /machine/install/extraKernelArgs
+      path: /machine/install/extensions/-
       value:
-        - console=ttyUSB0,115200
+        image: ghcr.io/siderolabs/amd-ucode:20230919
     - op: add
-      path: /machine/install/extensions
+      path: /machine/install/extensions/-
       value:
-        - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4@sha256:8bc04a227b188fb94af94b75c1fa47824c4b6a506dd2c0a7c38a098edbff703a
-        - image: ghcr.io/siderolabs/amd-ucode:20230804
-        - image: ghcr.io/siderolabs/amdgpu-firmware:20230804
+        image: ghcr.io/siderolabs/amdgpu-firmware:20230919
