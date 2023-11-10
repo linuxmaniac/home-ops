@@ -5,7 +5,7 @@ kimaiAdminEmail:
 kimaiMailerFrom:
 ###
 image:
-  tag: apache-2.2.1-prod # {"$imagepolicy": "sipwork:kimai2:tag"}
+  tag: apache-2.3.0-prod # {"$imagepolicy": "sipwork:kimai2:tag"}
 existingSecret: kimai
 updateStrategy:
   type: Recreate
