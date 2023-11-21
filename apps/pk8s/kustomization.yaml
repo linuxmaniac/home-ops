@@ -8,5 +8,4 @@ resources:
   - infra
   - umh
   - sipwork
-  - arc
   - ../base/velero
