@@ -1,4 +1,3 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -35,7 +34,7 @@ spec:
               value: Europe/Madrid
             - name: USER
               value: transmission
-          image: lscr.io/linuxserver/transmission:4.0.4 # {"$imagepolicy": "plex:transmission"}
+          image: lscr.io/linuxserver/transmission:4.0.5 # {"$imagepolicy": "plex:transmission"}
           name: transmission
           ports:
             - containerPort: 9091
