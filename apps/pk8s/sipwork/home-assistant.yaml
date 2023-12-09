@@ -1,17 +1,59 @@
 ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: home-assistant
+  name: home-assistant
+  namespace: sipwork
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: home-assistant
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: home-assistant
+    spec:
+      containers:
+        - env:
+            - name: PGID
+              value: '1000'
+            - name: PUID
+              value: '1000'
+            - name: TZ
+              value: Europe/Madrid
+          image: lscr.io/linuxserver/homeassistant:2023.12.1 # {"$imagepolicy": "sipwork:home-assistant"}
+          name: home-assistant
+          ports:
+            - containerPort: 8123
+          resources: {}
+          volumeMounts:
+            - mountPath: /config
+              name: home-assistant-config
+      restartPolicy: Always
+      volumes:
+        - name: home-assistant-config
+          persistentVolumeClaim:
+            claimName: home-assistant-config
+---
 apiVersion: v1
 kind: Service
 metadata:
   name: homeassistant
   namespace: sipwork
 spec:
-  type: ExternalName
-  externalName: home.lab
+  type: ClusterIP
   ports:
     - port: 8123
       targetPort: 8123
       name: http
       protocol: TCP
+  selector:
+    io.kompose.service: home-assistant
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress

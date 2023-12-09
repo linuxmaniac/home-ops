@@ -154,3 +154,57 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: home-assistant-config
+  namespace: sipwork
+spec:
+  accessModes:
+    - ReadWriteOnce
+  selector:
+    matchLabels:
+      org.democratic-csi.manual: sipwork-home-assistant-config
+  resources:
+    requests:
+      storage: 500Mi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: sipwork-home-assistant-config
+  labels:
+    org.democratic-csi.manual: sipwork-home-assistant-config
+spec:
+  capacity:
+    storage: 500Mi
+  csi:
+    driver: org.democratic-csi.node-manual
+    volumeHandle: pvc-a1e3c59e-77ca-49d2-9026-d709ffbf232c
+    fsType: ext4
+    volumeAttributes:
+      interface: ''
+      iqn: >-
+        iqn.2005-10.org.freenas.ctl:csi-pvc-a1e3c59e-77ca-49d2-9026-d709ffbf232c-cluster
+      lun: '0'
+      node_attach_driver: iscsi
+      portal: 192.168.4.5:3260
+      portals: ''
+      provisioner_driver: node-manual
+    controllerPublishSecretRef:
+      name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    nodeStageSecretRef:
+      name: node-stage-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    nodePublishSecretRef:
+      name: node-publish-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    controllerExpandSecretRef:
+      name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
