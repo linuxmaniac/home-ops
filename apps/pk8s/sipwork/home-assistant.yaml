@@ -45,8 +45,11 @@ kind: Service
 metadata:
   name: homeassistant
   namespace: sipwork
+  annotations:
+    metallb.universe.tf/address-pool: internal-pool
+    metallb.universe.tf/loadBalancerIPs: 192.168.4.248
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
     - port: 8123
       targetPort: 8123
