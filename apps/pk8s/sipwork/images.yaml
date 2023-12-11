@@ -74,6 +74,28 @@ spec:
     semver:
       range: '>=2.0.18'
 ---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: zigbee2mqtt
+  namespace: sipwork
+spec:
+  image: koenkk/zigbee2mqtt
+  interval: 12h
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: zigbee2mqtt
+  namespace: sipwork
+spec:
+  imageRepositoryRef:
+    name: zigbee2mqtt
+    namespace: sipwork
+  policy:
+    semver:
+      range: '>=1.34.0'
+---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageUpdateAutomation
 metadata:
