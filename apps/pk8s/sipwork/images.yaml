@@ -52,6 +52,28 @@ spec:
     semver:
       range: '>=2023.0.0'
 ---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: mosquitto
+  namespace: sipwork
+spec:
+  image: eclipse-mosquitto
+  interval: 12h
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: mosquitto
+  namespace: sipwork
+spec:
+  imageRepositoryRef:
+    name: mosquitto
+    namespace: sipwork
+  policy:
+    semver:
+      range: '>=2.0.18'
+---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageUpdateAutomation
 metadata:
