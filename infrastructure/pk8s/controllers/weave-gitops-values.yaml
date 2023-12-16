@@ -1,5 +1,5 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: weave-gitops
@@ -10,7 +10,7 @@ spec:
       enabled: true
       className: traefik
       annotations:
-        traefik.ingress.kubernetes.io/router.tls: "true"
+        traefik.ingress.kubernetes.io/router.tls: 'true'
         traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
         traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd,traefik-internal-ipwhitelist@kubernetescrd
       hosts:

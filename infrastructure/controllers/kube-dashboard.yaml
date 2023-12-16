@@ -8,7 +8,7 @@ spec:
   interval: 24h
   url: https://kubernetes.github.io/dashboard/
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: kube-dashboard
@@ -21,7 +21,7 @@ spec:
   chart:
     spec:
       chart: kubernetes-dashboard
-      version: "*"
+      version: '*'
       sourceRef:
         kind: HelmRepository
         name: kube-dashboard

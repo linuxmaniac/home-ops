@@ -8,7 +8,7 @@ spec:
   interval: 24h
   url: https://dl.gitea.io/charts/
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: gitea
@@ -21,7 +21,7 @@ spec:
   chart:
     spec:
       chart: gitea
-      version: "8.3.x"
+      version: 8.3.x
       sourceRef:
         kind: HelmRepository
         name: gitea-charts

@@ -8,7 +8,7 @@ spec:
   interval: 24h
   url: https://nextcloud.github.io/helm/
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: nextcloud
@@ -21,7 +21,7 @@ spec:
   chart:
     spec:
       chart: nextcloud
-      version: "4.3.x"
+      version: 4.3.x
       sourceRef:
         kind: HelmRepository
         name: nextcloud
@@ -33,4 +33,3 @@ spec:
       valuesKey: values-nextcloud.yaml
     - kind: Secret
       name: nextcloud-config
-

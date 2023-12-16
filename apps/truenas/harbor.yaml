@@ -7,7 +7,7 @@ metadata:
     toolkit.fluxcd.io/tenant: sre-team
     app: kubed
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: harbor
@@ -20,7 +20,7 @@ spec:
   chart:
     spec:
       chart: harbor
-      version: "16.6.x"
+      version: 16.6.x
       sourceRef:
         kind: HelmRepository
         name: bitnami

@@ -9,7 +9,7 @@ spec:
   interval: 60m0s
   url: oci://ghcr.io/weaveworks/charts
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: weave-gitops
@@ -19,7 +19,7 @@ spec:
   chart:
     spec:
       chart: weave-gitops
-      version: "*"
+      version: '*'
       sourceRef:
         kind: HelmRepository
         name: weave-gitops
@@ -42,4 +42,4 @@ spec:
     adminUser:
       create: true
       username: admin
-      passwordHash: "$2y$10$G/nX1/DEwVAu1LbtcB7pqO0Lkv6eS1Kr/HvqzcnIBz3NPHLn7dCNW"
+      passwordHash: $2y$10$G/nX1/DEwVAu1LbtcB7pqO0Lkv6eS1Kr/HvqzcnIBz3NPHLn7dCNW

@@ -1,4 +1,5 @@
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: loki-stack
@@ -8,7 +9,7 @@ spec:
     - name: kube-prometheus-stack
   chart:
     spec:
-      version: "2.x"
+      version: 2.x
       chart: loki-stack
       sourceRef:
         kind: HelmRepository
