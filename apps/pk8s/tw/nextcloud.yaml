@@ -21,7 +21,7 @@ spec:
   chart:
     spec:
       chart: nextcloud
-      version: 4.3.x
+      version: 4.5.x
       sourceRef:
         kind: HelmRepository
         name: nextcloud
