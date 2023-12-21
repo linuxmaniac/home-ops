@@ -14,7 +14,14 @@ Flash USB SSD with Talos image, (found here.)[https://github.com/siderolabs/talo
 ## Creating management cluster
 ```bash
 export SIDERO_ENDPOINT=192.168.4.4
+```
 
+Be sure ``iscssi-tools`` extension is installed
+```bash
+talosctl -e ${SIDERO_ENDPOINT} -n ${SIDERO_ENDPOINT} get extensions
+```
+
+```bash
 sops --decrypt integrations/sidero/secrets.enc.yaml > integrations/sidero/secrets.yaml
 
 talosctl gen config sidero https://sidero.lab:6443 --with-secrets integrations/sidero/secrets.yaml --config-patch-control-plane @integrations/sidero/sidero.lab.yaml --output  integrations/sidero/
@@ -30,6 +37,26 @@ talosctl --context sidero apply-config -e ${SIDERO_ENDPOINT} -n ${SIDERO_ENDPOIN
 talosctl --context sidero -e ${SIDERO_ENDPOINT} -n ${SIDERO_ENDPOINT} bootstrap
 ```
 
+## install flux
+
+```bash
+flux --context admin@sidero bootstrap github --owner=linuxmaniac --repository=home-ops --path=clusters/sidero --personal
+```
+
+### age config
+```bash
+cat ~/.config/sops/age/keys.txt | \
+kubectl --context admin@sidero create secret generic sops-age \
+  --namespace=flux-system \
+  --from-file=age.agekey=/dev/stdin
+```
+
+### add flux-system kustomization
+```bash
+kubectl --context admin@sidero apply -f clusters/sidero/flux-system/gotk-sync.yaml
+flux reconcile kustomization flux-system --with-source flux-system
+```
+
 ## Install sidero
 ```bash
 SIDERO_CONTROLLER_MANAGER_AUTO_BMC_SETUP=false \
@@ -41,30 +68,12 @@ clusterctl init -b talos -c talos -i sidero
 
 ## Prepare rpi4 customization
 ```bash
-kubectl -n sidero-system scale deployment sidero-controller-manager --replicas 0
+kubectl --context admin@sidero -n sidero-system scale deployment sidero-controller-manager --replicas 0
 
-kubectl -n sidero-system patch deployments.apps sidero-controller-manager \
+kubectl --context admin@sidero -n sidero-system patch deployments.apps sidero-controller-manager \
 --patch "$(cat integrations/sidero/deployment.patch.yaml)"
 
-kubectl -n sidero-system scale deployment sidero-controller-manager --replicas 1
-```
-
-## install flux
-```bash
-flux --context admin@sidero bootstrap github --owner=linuxmaniac --repository=home-ops --path=clusters/sidero --personal
-```
-
-### age config
-```bash
-cat ~/.config/sops/age/keys.txt | kubectl create secret generic sops-age \
-  --namespace=flux-system \
-  --from-file=age.agekey=/dev/stdin
-```
-
-### add flux-system kustomization
-```bash
-kubectl apply -f clusters/sidero/flux-system/gotk-sync.yaml
-flux reconcile kustomization flux-system --with-source flux-system
+kubectl --context admin@sidero -n sidero-system scale deployment sidero-controller-manager --replicas 1
 ```
 ## Initial pk8s controlplane
 ```bash
