@@ -1,3 +1,4 @@
+---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
@@ -16,4 +17,14 @@ patches:
         value: --requeue-dependency=5s
     target:
       kind: Deployment
-      name: "(kustomize-controller|helm-controller|source-controller)"
+      name: (kustomize-controller|helm-controller|source-controller)
+  - patch: |
+      - op: add
+        path: /spec/decryption
+        value:
+          provider: sops
+          secretRef:
+            name: sops-age
+    target:
+      kind: Kustomization
+      name: flux-system
