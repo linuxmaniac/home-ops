@@ -32,7 +32,7 @@ spec:
               ip: 192.168.4.201
     - op: replace
       path: /machine/install/disk
-      value: /dev/mmcblk0
+      value: /dev/sda
     - op: add
       path: /machine/sysctls
       value:
