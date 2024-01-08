@@ -1,5 +1,8 @@
+---
 nodeSelector:
   kubernetes.io/arch: amd64
+postgresql-ha:
+  enabled: false
 postgresql:
   auth:
     password:
@@ -15,6 +18,8 @@ postgresql:
           app: tw-gitea-pg
 memcached:
   enabled: true
+redis-cluster:
+  enabled: false
 service:
   ssh:
     type: LoadBalancer
@@ -37,15 +42,25 @@ gitea:
       SSH_PORT: 2223
     service:
       DISABLE_REGISTRATION: true
+    cache:
+      HOST: memcached.tw.svc.cluster.local:11211
+      ADAPTER: memcache
+    session:
+      PROVIDER_CONFIG: memcached.tw.svc.cluster.local:11211
+      PROVIDER: memcache
+    queue:
+      CONN_STR: memcached.tw.svc.cluster.local:11211
+      TYPE: channel
 persistence:
   enabled: true
   create: false
-  existingClaim: gitea-data
+  claimName: gitea-data
+  mount: true
 ingress:
   enabled: true
   className: traefik
   annotations:
-    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.tls: 'true'
     traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
     traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd
   hosts:

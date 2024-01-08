@@ -8,6 +8,7 @@ resources:
   - certificate.yaml
   - traefik.yaml
   - storage.yaml
+  - memcached.yaml
   - nextcloud.yaml
   - gitea.yaml
   - sipwise-mirror.yaml
