@@ -37,6 +37,11 @@ talosctl --context sidero apply-config -e ${SIDERO_ENDPOINT} -n ${SIDERO_ENDPOIN
 talosctl --context sidero -e ${SIDERO_ENDPOINT} -n ${SIDERO_ENDPOINT} bootstrap
 ```
 
+Get ``iscssi-tools`` extension installed
+```bash
+talosctl --context sidero upgrade --image ghcr.io/siderolabs/installer:v1.5.5 --preserve --force
+```
+
 ## install flux
 
 ```bash

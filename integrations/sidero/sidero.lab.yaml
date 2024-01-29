@@ -1,5 +1,8 @@
 ---
 machine:
+  kubelet:
+    extraArgs:
+      rotate-server-certificates: true
   install:
     disk: /dev/sda
     extensions:
@@ -14,3 +17,5 @@ cluster:
             namespaces:
               - democratic-csi
               - monitoring
+  extraManifests:
+    - https://raw.githubusercontent.com/linuxmaniac/home-ops/main/infrastructure/controllers/kubelet-serving-cert-approver.yaml
