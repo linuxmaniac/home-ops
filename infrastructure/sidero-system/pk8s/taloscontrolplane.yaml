@@ -22,6 +22,9 @@ spec:
         - op: add
           path: /cluster/apiServer/admissionControl/0/configuration/exemptions/namespaces/-
           value: monitoring
+        - op: add
+          path: /cluster/extraManifests/-
+          value: https://raw.githubusercontent.com/linuxmaniac/home-ops/main/infrastructure/controllers/kubelet-serving-cert-approver.yaml
       generateType: controlplane
       talosVersion: v1.5
   infrastructureTemplate:
@@ -29,4 +32,4 @@ spec:
     kind: MetalMachineTemplate
     name: pk8s-cp
   replicas: 3
-  version: v1.28.2
+  version: v1.28.6
