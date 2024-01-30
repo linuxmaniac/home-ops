@@ -383,7 +383,7 @@ kind: PersistentVolume
 metadata:
   name: plex-lidarr-config
   labels:
-    org.democratic-csi.manual: plex-radarr-config
+    org.democratic-csi.manual: plex-lidarr-config
 spec:
   capacity:
     storage: 500Mi
@@ -427,7 +427,7 @@ spec:
     - ReadWriteOnce
   selector:
     matchLabels:
-      org.democratic-csi.manual: plex-radarr-config
+      org.democratic-csi.manual: plex-lidarr-config
   resources:
     requests:
       storage: 500Mi
