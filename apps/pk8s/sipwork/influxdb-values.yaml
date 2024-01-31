@@ -1,0 +1,22 @@
+---
+influxdb:
+  service:
+    type: ClusterIP
+persistence:
+  enabled: true
+  size: 2Gbi
+  existingClaim: influxdb-data
+ingress:
+  enabled: true
+  hostname: panel.sipwork.pro
+  pathType: Prefix
+  path: /influxdb
+  ingressClassName: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: 'true'
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd,traefik-internal-ipwhitelist@kubernetescrd,sipwork-influxdb-cookie-path@kubernetescrd,sipwork-influxdb-rewrite-body@kubernetescrd,sipwork-influxdb@kubernetescrd
+  extraTls:
+    - hosts:
+        - panel.sipwork.pro
+      secretName: sipwork.pro-tls
