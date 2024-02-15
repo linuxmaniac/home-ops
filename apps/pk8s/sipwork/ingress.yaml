@@ -1,0 +1,27 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: panel
+  namespace: sipwork
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: 'true'
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd,traefik-internal-ipwhitelist@kubernetescrd,sipwork-motioneye@kubernetescrd
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - panel.sipwork.pro
+      secretName: sipwork.pro-tls
+  rules:
+    - host: panel.sipwork.pro
+      http:
+        paths:
+          - path: /motioneye
+            pathType: Prefix
+            backend:
+              service:
+                name: motioneye
+                port:
+                  name: http

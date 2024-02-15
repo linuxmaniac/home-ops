@@ -11,6 +11,7 @@ resources:
   - wordpress.yaml
   - images.yaml
   - home-assistant.yaml
+  - ingress.yaml
 secretGenerator:
   - name: wp-sipwork-config
     namespace: flux-system

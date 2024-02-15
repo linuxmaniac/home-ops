@@ -283,3 +283,14 @@ spec:
       protocol: TCP
   selector:
     io.kompose.service: motioneye
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: motioneye
+  namespace: sipwork
+spec:
+  stripPrefix:
+    prefixes:
+      - /motioneye
+    forceSlash: true
