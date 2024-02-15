@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -224,3 +225,61 @@ spec:
       protocol: TCP
   selector:
     io.kompose.service: zigbee2mqtt
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: motioneye
+  name: motioneye
+  namespace: sipwork
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: motioneye
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: motioneye
+    spec:
+      containers:
+        - env:
+            - name: TIMEZONE
+              value: Europe/Madrid
+          # https://github.com/motioneye-project/motioneye/issues/2924
+          image: ghcr.io/motioneye-project/motioneye:edge
+          name: motioneye
+          ports:
+            - containerPort: 8765
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/lib/motioneye
+              name: motioneye-data
+            - mountPath: /etc/motioneye
+              name: motioneye-conf
+      restartPolicy: Always
+      volumes:
+        - name: motioneye-data
+          persistentVolumeClaim:
+            claimName: motioneye-data
+        - name: motioneye-conf
+          persistentVolumeClaim:
+            claimName: motioneye-conf
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: motioneye
+  namespace: sipwork
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 8765
+      name: http
+      protocol: TCP
+  selector:
+    io.kompose.service: motioneye
