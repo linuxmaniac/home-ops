@@ -32,4 +32,4 @@ spec:
     kind: MetalMachineTemplate
     name: pk8s-cp
   replicas: 3
-  version: v1.28.7
+  version: v1.29.1

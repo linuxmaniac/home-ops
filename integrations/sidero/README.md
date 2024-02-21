@@ -1,15 +1,15 @@
 # 🪙 Sidero
 
-The following applies to sidero v1.3.0
+The following applies to sidero v1.6.4
 ## Dependencies
 
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
 - [clusterctl](https://cluster-api.sigs.k8s.io/user/quick-start.html#install-clusterctl)
-- [talosctl](https://www.talos.dev/v1.3/introduction/getting-started/#talosctl)
+- [talosctl](https://www.talos.dev/v1.6/introduction/getting-started/#talosctl)
 
 ## Install Talos on RPI4
 
-Flash USB SSD with Talos image, (found here.)[https://github.com/siderolabs/talos/releases/latest/download/metal-rpi_4-arm64.img.xz]
+Flash USB SSD with Talos image, (found here.)[https://github.com/siderolabs/talos/releases/download/v1.6.4/metal-rpi_generic-arm64.raw.xz]
 
 ## Creating management cluster
 ```bash
@@ -39,7 +39,7 @@ talosctl --context sidero -e ${SIDERO_ENDPOINT} -n ${SIDERO_ENDPOINT} bootstrap
 
 Get ``iscssi-tools`` extension installed
 ```bash
-talosctl --context sidero upgrade --image ghcr.io/siderolabs/installer:v1.5.5 --preserve --force
+talosctl --context sidero upgrade --image factory.talos.dev/installer/c9078f9419961640c712a8bf2bb9174933dfcf1da383fd8ea2b7dc21493f8bac:v1.6.4 --preserve --force
 ```
 
 ## install flux

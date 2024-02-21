@@ -22,7 +22,3 @@ spec:
       path: /machine/nodeLabels
       value:
         node-role.kubernetes.io/worker: yes
-    - op: replace
-      path: /machine/install/extensions
-      value:
-        - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
