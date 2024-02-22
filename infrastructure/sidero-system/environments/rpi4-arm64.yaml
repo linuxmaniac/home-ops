@@ -5,9 +5,9 @@ metadata:
   name: rpi4
 spec:
   initrd:
-    url: https://github.com/siderolabs/talos/releases/download/v1.6.4/initramfs-arm64.xz
+    url: https://github.com/siderolabs/talos/releases/download/v1.6.5/initramfs-arm64.xz
   kernel:
-    url: https://github.com/siderolabs/talos/releases/download/v1.6.4/vmlinuz-arm64
+    url: https://github.com/siderolabs/talos/releases/download/v1.6.5/vmlinuz-arm64
     args:
       - console=tty0
       - console=ttyS0
