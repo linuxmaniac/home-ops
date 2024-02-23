@@ -34,6 +34,15 @@ spec:
           - deviceSelector:
               hardwareAddr: b0:41:6f:09:e6:60
             dhcp: true
+          - deviceSelector:
+              hardwareAddr: 00:e0:4c:68:00:d2
+            mtu: 9000
+            addresses:
+              - 192.168.10.2/30
+    - op: add
+      path: /machine/kubelet/nodeIP/validSubnets
+      value:
+        - 192.168.4.0/24
     - op: replace
       path: /machine/install/disk
       value: /dev/sda
