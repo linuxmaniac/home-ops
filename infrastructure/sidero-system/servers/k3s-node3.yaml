@@ -39,6 +39,9 @@ spec:
             mtu: 9000
             addresses:
               - 192.168.10.6/30
+            routes:
+              - network: 192.168.10.12/30
+                gateway: 192.168.10.5
     - op: add
       path: /machine/kubelet/nodeIP/validSubnets
       value:
