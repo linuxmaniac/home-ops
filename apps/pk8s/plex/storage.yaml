@@ -21,7 +21,7 @@ spec:
     fsType: nfs
     volumeHandle: plex-media
     volumeAttributes:
-      server: 192.168.4.5
+      server: 192.168.10.13
       share: /mnt/main/media
       node_attach_driver: nfs
       provisioner_driver: node-manual
