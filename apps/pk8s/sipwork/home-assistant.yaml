@@ -267,7 +267,7 @@ spec:
         - env:
             - name: TZ
               value: Europe/Madrid
-          image: koenkk/zigbee2mqtt:1.35.3 # {"$imagepolicy": "sipwork:zigbee2mqtt"}
+          image: koenkk/zigbee2mqtt:1.36.0 # {"$imagepolicy": "sipwork:zigbee2mqtt"}
           name: zigbee2mqtt
           ports:
             - containerPort: 8080
