@@ -46,3 +46,21 @@ spec:
     grafana:
       defaultDashboardsEnabled: false
       adminPassword: flux
+    # https://github.com/lensapp/lens/blob/master/troubleshooting/custom-prometheus.md
+    kubelet:
+      serviceMonitor:
+        metricRelabelings:
+          - action: replace
+            sourceLabels:
+              - node
+            targetLabel: instance
+    prometheus-node-exporter:
+      prometheus:
+        monitor:
+          metricRelabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels:
+                - __meta_kubernetes_pod_node
+              targetLabel: kubernetes_node
