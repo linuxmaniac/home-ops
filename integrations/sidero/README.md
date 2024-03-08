@@ -39,7 +39,7 @@ talosctl --context sidero -e ${SIDERO_ENDPOINT} -n ${SIDERO_ENDPOINT} bootstrap
 
 Get ``iscssi-tools`` extension installed
 ```bash
-talosctl --context sidero upgrade --image factory.talos.dev/installer/c9078f9419961640c712a8bf2bb9174933dfcf1da383fd8ea2b7dc21493f8bac:v1.6.5 --preserve --force
+talosctl --context sidero upgrade --image factory.talos.dev/installer/c9078f9419961640c712a8bf2bb9174933dfcf1da383fd8ea2b7dc21493f8bac:v1.6.6 --preserve --force
 ```
 
 ## install flux
