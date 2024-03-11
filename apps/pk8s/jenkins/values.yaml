@@ -1,0 +1,66 @@
+---
+nodeSelector:
+  kubernetes.io/arch: amd64
+jenkinsUser: vseva
+jenkinsHost: jenkins.torreviejawireless.org
+agentListenerService:
+  enabled: true
+  # this is needed in order make it work, jenkins URL ==>
+  # http://jenkins-agent-listener.jenkins.svc.cluster.local
+  extraPorts:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: http
+agent:
+  enabled: true
+  image:
+    registry: docker.io
+    repository: bitnami/jenkins-inbound-agent
+    tag: latest
+    pullPolicy: Always
+plugins:
+  - kubernetes:4193.vded98e56cc25
+  - proxmox:0.7.1
+extraPlugins: []
+overridePlugins: true
+rbac:
+  create: true
+  rules:
+    - apiGroups: ['']
+      resources: [pods]
+      verbs: [create, delete, get, list, patch, update, watch]
+    - apiGroups: ['']
+      resources: [pods/exec]
+      verbs: [create, delete, get, list, patch, update, watch]
+    - apiGroups: ['']
+      resources: [pods/log]
+      verbs: [get, list, watch]
+    - apiGroups: ['']
+      resources: [events]
+      verbs: [watch]
+    - apiGroups: ['']
+      resources: [secrets]
+      verbs: [get]
+serviceAccount:
+  create: true
+  automountServiceAccountToken: true
+ingress:
+  enabled: true
+  ingressClassName: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: 'true'
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd
+  hostname: jenkins.torreviejawireless.org
+  path: /
+  pathType: Prefix
+  extraTls:
+    - secretName: tw-tls
+      hosts:
+        - jenkins.torreviejawireless.org
+persistence:
+  enabled: true
+  existingClaim: config
+updateStrategy:
+  type: Recreate

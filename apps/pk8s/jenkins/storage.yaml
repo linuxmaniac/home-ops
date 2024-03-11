@@ -1,0 +1,54 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: config
+  namespace: jenkins
+spec:
+  accessModes:
+    - ReadWriteOnce
+  selector:
+    matchLabels:
+      org.democratic-csi.manual: jenkins-config
+  resources:
+    requests:
+      storage: 8Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jenkins-config
+  labels:
+    org.democratic-csi.manual: jenkins-config
+spec:
+  capacity:
+    storage: 8Gi
+  csi:
+    driver: org.democratic-csi.node-manual
+    volumeHandle: pvc-75c0b281-89ab-4d3f-ae18-73062849675a
+    fsType: ext4
+    volumeAttributes:
+      interface: ''
+      iqn: >-
+        iqn.2005-10.org.freenas.ctl:csi-pvc-75c0b281-89ab-4d3f-ae18-73062849675a-cluster
+      lun: '0'
+      node_attach_driver: iscsi
+      portal: 192.168.4.5:3260
+      portals: ''
+      provisioner_driver: node-manual
+    controllerPublishSecretRef:
+      name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    nodeStageSecretRef:
+      name: node-stage-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    nodePublishSecretRef:
+      name: node-publish-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    controllerExpandSecretRef:
+      name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem

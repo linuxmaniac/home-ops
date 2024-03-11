@@ -1,0 +1,26 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: jenkins
+  namespace: flux-system
+spec:
+  interval: 30m
+  releaseName: jenkins
+  targetNamespace: jenkins
+  serviceAccountName: helm-controller
+  chart:
+    spec:
+      chart: jenkins
+      version: 12.11.x
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+      interval: 12h
+  valuesFrom:
+    - kind: ConfigMap
+      name: jenkins-values
+      valuesKey: values-jenkins.yaml
+    - kind: Secret
+      name: jenkins-config
