@@ -5,6 +5,10 @@ jenkinsUser: vseva
 jenkinsHost: jenkins.torreviejawireless.org
 agentListenerService:
   enabled: true
+  annotations:
+    metallb.universe.tf/address-pool: internal-pool
+    metallb.universe.tf/loadBalancerIPs: 192.168.4.244
+  type: LoadBalancer
   # this is needed in order make it work, jenkins URL ==>
   # http://jenkins-agent-listener.jenkins.svc.cluster.local
   extraPorts:
