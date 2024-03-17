@@ -42,7 +42,7 @@ spec:
               value: "1000"
             - name: TZ
               value: Europe/Madrid
-          image: lscr.io/linuxserver/prowlarr:1.13.3 # {"$imagepolicy": "plex:prowlarr"}
+          image: lscr.io/linuxserver/prowlarr:1.14.3 # {"$imagepolicy": "plex:prowlarr"}
           name: prowlarr
           ports:
             - containerPort: 9696
