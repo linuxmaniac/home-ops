@@ -13,5 +13,6 @@ resources:
   - plex-deployment.yaml
   - plex-service.yaml
   - tautulli.yaml
+  - sabnzbd.yaml
   - ingress.yaml
   - images.yaml

@@ -1,0 +1,64 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: sabnzbd
+  name: sabnzbd
+  namespace: plex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: sabnzbd
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: sabnzbd
+    spec:
+      containers:
+        - env:
+            - name: PGID
+              value: '1000'
+            - name: PUID
+              value: '1000'
+            - name: TZ
+              value: Europe/Madrid
+          image: lscr.io/linuxserver/sabnzbd:4.2.3 # {"$imagepolicy": "plex:sabnzbd"}
+          name: sabnzbd
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - mountPath: /config
+              name: sabnzbd-config
+            - mountPath: /config/Downloads
+              name: sabnzbd-downloads
+              subPath: sabnzbd
+      restartPolicy: Always
+      volumes:
+        - name: sabnzbd-config
+          persistentVolumeClaim:
+            claimName: sabnzbd-config
+        - name: sabnzbd-downloads
+          persistentVolumeClaim:
+            claimName: plex-media
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: sabnzbd
+  name: sabnzbd
+  namespace: plex
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+  type: ClusterIP
+  selector:
+    io.kompose.service: sabnzbd
