@@ -27,6 +27,11 @@ nextcloud:
         ),
         'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
       );
+lifecycle:
+  postStartCommand:
+    - /bin/bash
+    - -c
+    - apt update -y && apt install ffmpeg -y
 internalDatabase:
   enabled: false
 postgresql:
