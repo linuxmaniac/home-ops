@@ -25,6 +25,9 @@ nextcloud:
           0 => '127.0.0.1',
           1 => '10.0.0.0/8',
         ),
+        'default_timezone' => 'Europe/Madrid',
+        'default_phone_region' => 'ES',
+        'maintenance_window_start' => 1,
         'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
       );
 lifecycle:
