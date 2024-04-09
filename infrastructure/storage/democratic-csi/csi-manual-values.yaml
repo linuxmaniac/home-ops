@@ -1,6 +1,6 @@
 ---
 csiDriver:
-  name: "org.democratic-csi.node-manual"
+  name: org.democratic-csi.node-manual
 driver:
   config:
     driver: node-manual
@@ -21,4 +21,4 @@ node:
       - name: ISCSIADM_HOST_PATH
         value: /usr/local/sbin/iscsiadm
     iscsiDirHostPath: /usr/local/etc/iscsi
-    iscsiDirHostPathType: ""
+    iscsiDirHostPathType: ''

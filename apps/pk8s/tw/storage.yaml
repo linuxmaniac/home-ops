@@ -48,7 +48,7 @@ metadata:
     app: tw-nextcloud-data
 spec:
   capacity:
-    storage: 8Gi
+    storage: 150Gi
   csi:
     driver: org.democratic-csi.node-manual
     volumeHandle: pvc-97609815-3116-4c38-b8f5-86cc77492b9c
@@ -132,7 +132,7 @@ spec:
       app: tw-nextcloud-data
   resources:
     requests:
-      storage: 8Gi
+      storage: 150Gi
   volumeMode: Filesystem
 ---
 apiVersion: v1
