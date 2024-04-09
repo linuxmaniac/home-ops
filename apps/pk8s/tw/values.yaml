@@ -1,3 +1,4 @@
+---
 ## secrets values
 global:
   postgresql:
@@ -16,6 +17,16 @@ nextcloud:
     secretName: nextcloud
     mail:
       enabled: false
+  configs:
+    proxy.config.php: |-
+      <?php
+      $CONFIG = array (
+        'trusted_proxies' => array(
+          0 => '127.0.0.1',
+          1 => '10.0.0.0/8',
+        ),
+        'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
+      );
 internalDatabase:
   enabled: false
 postgresql:
@@ -42,7 +53,7 @@ ingress:
   enabled: true
   className: traefik
   annotations:
-    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.tls: 'true'
     traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
     traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd
   tls:
