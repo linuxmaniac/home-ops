@@ -14,6 +14,8 @@ metadata:
   name: nextcloud
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: tw-memcached
   interval: 30m
   releaseName: nextcloud
   targetNamespace: tw

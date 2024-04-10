@@ -17,7 +17,17 @@ nextcloud:
     secretName: nextcloud
     mail:
       enabled: false
+  defaultConfigs:
+    redis.config.php: false
   configs:
+    cache.config.php: |-
+      <?php
+      $CONFIG = array (
+        'memcache.distributed' => '\OC\Memcache\Memcached',
+        'memcached_servers' => [
+            [ 'memcached.tw.svc.cluster.local', 11211 ],
+        ],
+      );
     proxy.config.php: |-
       <?php
       $CONFIG = array (
