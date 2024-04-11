@@ -39,13 +39,6 @@ spec:
                 name: sonarr
                 port:
                   name: http
-          - path: /sabnzbd
-            pathType: Prefix
-            backend:
-              service:
-                name: sabnzbd
-                port:
-                  name: http
           - path: /radarr
             pathType: Prefix
             backend:
