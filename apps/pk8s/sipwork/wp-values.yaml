@@ -8,6 +8,7 @@ wordpressLastName:
 wordpressBlogName:
 #
 existingSecret: wp-wordpress
+smtpExistingSecret: wp-wordpress
 #
 replicaCount: 1
 updateStrategy:
