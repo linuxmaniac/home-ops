@@ -4,13 +4,8 @@ kind: Kustomization
 resources:
   - metallb.yaml
   - ../../controllers/weave-gitops.yaml
-  - ../../controllers/kubed.yaml
   - ../../controllers/traefik.yaml
 patches:
-  - path: kubed-values.yaml
-    target:
-      kind: HelmRelease
-      name: kubed
   - path: traefik-values.yaml
     target:
       kind: HelmRelease

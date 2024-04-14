@@ -23,7 +23,6 @@ metadata:
   name: default
   labels:
     toolkit.fluxcd.io/tenant: sre-team
-    app: kubed
 ---
 apiVersion: v1
 kind: Namespace
@@ -31,7 +30,6 @@ metadata:
   name: tw
   labels:
     toolkit.fluxcd.io/tenant: sre-team
-    app: kubed
 ---
 apiVersion: v1
 kind: Namespace
@@ -42,7 +40,6 @@ metadata:
     pod-security.kubernetes.io/enforce: privileged
     pod-security.kubernetes.io/audit: privileged
     pod-security.kubernetes.io/warn: privileged
-    app: kubed
 ---
 apiVersion: v1
 kind: Namespace
@@ -57,7 +54,6 @@ metadata:
   name: umh
   labels:
     toolkit.fluxcd.io/tenant: sre-team
-    app: kubed
 ---
 apiVersion: v1
 kind: Namespace
@@ -72,7 +68,6 @@ metadata:
   name: sipwork
   labels:
     toolkit.fluxcd.io/tenant: sre-team
-    app: kubed
 ---
 apiVersion: v1
 kind: Namespace

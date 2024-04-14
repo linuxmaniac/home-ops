@@ -6,15 +6,10 @@ resources:
   - multus.yaml
   - descheduler.yaml
   - ../../controllers/weave-gitops.yaml
-  - ../../controllers/kubed.yaml
   - ../../controllers/traefik.yaml
   - ../../controllers/cert-manager-csi-driver.yaml
   - images.yaml
 patches:
-  - path: kubed-values.yaml
-    target:
-      kind: HelmRelease
-      name: kubed
   - path: traefik-values.yaml
     target:
       kind: HelmRelease

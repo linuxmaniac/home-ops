@@ -12,8 +12,7 @@ spec:
   duration: 2160h # 90d
   renewBefore: 720h # 30d before SSL will expire, renew it
   dnsNames:
-    - "sidero.torreviejawireless.org"
-    - "*.sidero.torreviejawireless.org"
+    - sidero.torreviejawireless.org
+    - '*.sidero.torreviejawireless.org'
   secretTemplate:
-    annotations:
-      kubed.appscode.com/sync: app=kubed
+    annotations: {}
