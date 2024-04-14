@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: phpmyadmin
-      version: 11.1.x
+      version: 16.0.x
       sourceRef:
         kind: HelmRepository
         name: bitnami
