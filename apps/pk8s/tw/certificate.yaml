@@ -3,15 +3,20 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: torreviejawireless.org
-  namespace: tw
+  namespace: traefik
 spec:
   secretName: tw-tls
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt
-
   duration: 2160h # 90d
   renewBefore: 720h # 30d before SSL will expire, renew it
   dnsNames:
-    - "torreviejawireless.org"
-    - "*.torreviejawireless.org"
+    - torreviejawireless.org
+    - '*.torreviejawireless.org'
+  secretTemplate:
+    annotations:
+      reflector.v1.k8s.emberstack.com/reflection-allowed: 'true'
+      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: flux-system,tw,plex,jenkins,infra,monitoring
+      reflector.v1.k8s.emberstack.com/reflection-auto-enabled: 'true'
+      reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: flux-system,tw,plex,jenkins,infra,monitoring
