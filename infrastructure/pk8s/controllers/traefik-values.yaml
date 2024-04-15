@@ -20,16 +20,31 @@ spec:
         externalTrafficPolicy: Local
       loadBalancerSourceRanges: []
       externalIPs: []
-      internal:
-        type: LoadBalancer
-        labels: {}
-        annotations:
-          metallb.universe.tf/address-pool: internal-pool
-          metallb.universe.tf/loadBalancerIPs: 192.168.4.240
-        spec:
-          externalTrafficPolicy: Local
-        loadBalancerSourceRanges: []
-        externalIPs: []
+      additionalServices:
+        internal:
+          type: LoadBalancer
+          labels:
+            traefik-service-label: internal
+          annotations:
+            metallb.universe.tf/address-pool: internal-pool
+            metallb.universe.tf/loadBalancerIPs: 192.168.4.240
+          spec:
+            externalTrafficPolicy: Local
+          loadBalancerSourceRanges: []
+          externalIPs: []
+    ports:
+      traefik:
+        expose:
+          default: false
+          internal: true
+      web:
+        expose:
+          default: true
+          internal: true
+      websecure:
+        expose:
+          default: true
+          internal: true
     experimental:
       plugins:
         rewrite-body:
