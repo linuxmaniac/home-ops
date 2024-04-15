@@ -1,3 +1,4 @@
+---
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -24,7 +25,7 @@ spec:
     - kind: Secret
       name: influxdb-sipwork-config
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: influxdb-cookie-path
@@ -34,7 +35,7 @@ spec:
     cookiePathPrefix:
       prefix: influxdb
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: influxdb
@@ -45,7 +46,7 @@ spec:
       - /influxdb
     forceSlash: true
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: influxdb-rewrite-body
@@ -357,7 +358,7 @@ spec:
   selector:
     io.kompose.service: motioneye
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: motioneye
