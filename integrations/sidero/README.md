@@ -14,6 +14,7 @@ Flash USB SSD with Talos image, (found here.)[https://github.com/siderolabs/talo
 ## Creating management cluster
 ```bash
 export SIDERO_ENDPOINT=192.168.4.4
+export SIDERO_WORKER=192.168.4.13
 ```
 
 Be sure ``iscssi-tools`` extension is installed
@@ -24,7 +25,11 @@ talosctl -e ${SIDERO_ENDPOINT} -n ${SIDERO_ENDPOINT} get extensions
 ```bash
 sops --decrypt integrations/sidero/secrets.enc.yaml > integrations/sidero/secrets.yaml
 
-talosctl gen config sidero https://sidero.lab:6443 --with-secrets integrations/sidero/secrets.yaml --config-patch-control-plane @integrations/sidero/sidero.lab.yaml --output  integrations/sidero/
+talosctl gen config sidero https://sidero.lab:6443 --with-secrets integrations/sidero/secrets.yaml \
+  --config-patch @integrations/sidero/common.yaml \
+  --config-patch-worker @integrations/sidero/sidero-node0.lab.yaml \
+  --config-patch-control-plane @integrations/sidero/sidero.lab.yaml \
+  --output  integrations/sidero/
 
 mkdir -p ~/.talos/
 cp integrations/sidero/talosconfig ~/.talos/config
@@ -40,6 +45,10 @@ talosctl --context sidero -e ${SIDERO_ENDPOINT} -n ${SIDERO_ENDPOINT} bootstrap
 Get ``iscssi-tools`` extension installed
 ```bash
 talosctl --context sidero upgrade --image factory.talos.dev/installer/c9078f9419961640c712a8bf2bb9174933dfcf1da383fd8ea2b7dc21493f8bac:v1.6.6 --preserve --force
+```
+
+```bash
+talosctl --context sidero -e ${SIDERO_ENDPOINT} -n ${SIDERO_WORKER} apply-config --file integrations/sidero/worker.yaml --insecure
 ```
 
 ## install flux
