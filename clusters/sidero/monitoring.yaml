@@ -19,6 +19,34 @@ spec:
         apiVersion: helm.toolkit.fluxcd.io/v2beta2
         kind: HelmRelease
         metadata:
+          name: kube-prometheus-stack
+          namespace: monitoring
+        spec:
+          values:
+            grafana:
+              defaultDashboardsEnabled: true
+              ingress:
+                enabled: true
+                ingressClassName: traefik
+                annotations:
+                  traefik.ingress.kubernetes.io/router.tls: "true"
+                  traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+                  traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd,traefik-internal-ipwhitelist@kubernetescrd
+                hosts:
+                  - monitor.sidero.torreviejawireless.org
+                tls:
+                  - secretName: sidero.torreviejawireless.org-tls
+                    hosts:
+                      - monitor.sidero.torreviejawireless.org
+                labels: {}
+                path: /
+      target:
+        kind: HelmRelease
+        name: kube-prometheus-stack
+    - patch: |-
+        apiVersion: helm.toolkit.fluxcd.io/v2beta2
+        kind: HelmRelease
+        metadata:
           name: loki
           namespace: monitoring
         spec:
