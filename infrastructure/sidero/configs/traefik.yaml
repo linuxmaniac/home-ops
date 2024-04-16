@@ -13,7 +13,7 @@ spec:
     - match: Host(`traefik.sidero.torreviejawireless.org`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
       kind: Rule
       middlewares:
-        - name: internal-ipwhitelist
+        - name: internal-ipallowlist
           namespace: traefik
       services:
         - kind: TraefikService

@@ -15,7 +15,7 @@ ingress:
   annotations:
     traefik.ingress.kubernetes.io/router.tls: 'true'
     traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd,traefik-internal-ipwhitelist@kubernetescrd,sipwork-influxdb-cookie-path@kubernetescrd,sipwork-influxdb-rewrite-body@kubernetescrd,sipwork-influxdb@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd,traefik-internal-ipallowlist@kubernetescrd,sipwork-influxdb-cookie-path@kubernetescrd,sipwork-influxdb-rewrite-body@kubernetescrd,sipwork-influxdb@kubernetescrd
   extraTls:
     - hosts:
         - panel.sipwork.pro

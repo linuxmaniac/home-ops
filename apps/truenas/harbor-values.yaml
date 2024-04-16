@@ -18,9 +18,9 @@ service:
 ingress:
   core:
     annotations:
-      traefik.ingress.kubernetes.io/router.tls: "true"
+      traefik.ingress.kubernetes.io/router.tls: 'true'
       traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
-      traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd,traefik-internal-ipwhitelist@kubernetescrd
+      traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd,traefik-internal-ipallowlist@kubernetescrd
     hostname: harbor.lab.sipwork.pro
     ingressClassName: traefik
     extraTls:
@@ -29,9 +29,9 @@ ingress:
         secretName: lab.sipwork.pro-tls
   notary:
     annotations:
-      traefik.ingress.kubernetes.io/router.tls: "true"
+      traefik.ingress.kubernetes.io/router.tls: 'true'
       traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
-      traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd,traefik-internal-ipwhitelist@kubernetescrd
+      traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd,traefik-internal-ipallowlist@kubernetescrd
     hostname: notary.lab.sipwork.pro
     ingressClassName: traefik
     extraTls:

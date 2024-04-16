@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -50,7 +51,7 @@ spec:
             - name: TZ
               value: Europe/Madrid
             - name: PUBLIC_KEY
-              value: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDP7oLGyDPF39xT7g0hqETizWwQ801U6f4/zdJTy/zU7G/IB1RQnhtfQzvpAuYM+/b7o7vofTdmShZs6uj+XbDLsHmSwned8Eid1vJGiORFjpuYxtvjeOtaQrQ41OSkTuNuChw8rxTSFO+0qJ0gNowFT6derwh8/VY3SZClK8a+WV5QQq6Txsu0cm1jBtTz8NCWxIoMhgUi4qNenLebpb5VS8FFI8r7CFax5ey5h6E/Y6YgQ7s6J3EM9139EFfomws19tuKgCJs+BgU80oW2Zrj08l2NdGSJRsX0epMhjqOnsuOF2yTceLQIqEGKgXRoLGb6Bmp991ZsVdnZxa/57CJxa3aL3geamZGJ4hZgPXa+14RV2BFuZLwM/yCwjyCfjs0dV5EsQal27Pbto7hEQIyglhI7X5toxdfnIrI0O10XB80A/845yDKsnRukgj3Ch13qFZjeewlCKTJjl0cBuH3kH7GQYvhntTOPn2XwXMjqPpLPqnFslDQZIrKnEZFknqlHSN2GsyLeGj30tG4KXZ3CshovkiBDJuHR5wf3Uj7HD5NHKdOB0MkZ5gpTpzw8Oo4uYw7XN44RSHcUkvg5N7p9fQQ5X3qY2WXXeUGtOxC1RUok0yPAn5sVOKV2G8aOJewqsuZzwU3Y/w7jJ8q94FzmnkSEvzIhCNQtr9rH2rimw== root@10fe3ed58d5f
+              value: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDP7oLGyDPF39xT7g0hqETizWwQ801U6f4/zdJTy/zU7G/IB1RQnhtfQzvpAuYM+/b7o7vofTdmShZs6uj+XbDLsHmSwned8Eid1vJGiORFjpuYxtvjeOtaQrQ41OSkTuNuChw8rxTSFO+0qJ0gNowFT6derwh8/VY3SZClK8a+WV5QQq6Txsu0cm1jBtTz8NCWxIoMhgUi4qNenLebpb5VS8FFI8r7CFax5ey5h6E/Y6YgQ7s6J3EM9139EFfomws19tuKgCJs+BgU80oW2Zrj08l2NdGSJRsX0epMhjqOnsuOF2yTceLQIqEGKgXRoLGb6Bmp991ZsVdnZxa/57CJxa3aL3geamZGJ4hZgPXa+14RV2BFuZLwM/yCwjyCfjs0dV5EsQal27Pbto7hEQIyglhI7X5toxdfnIrI0O10XB80A/845yDKsnRukgj3Ch13qFZjeewlCKTJjl0cBuH3kH7GQYvhntTOPn2XwXMjqPpLPqnFslDQZIrKnEZFknqlHSN2GsyLeGj30tG4KXZ3CshovkiBDJuHR5wf3Uj7HD5NHKdOB0MkZ5gpTpzw8Oo4uYw7XN44RSHcUkvg5N7p9fQQ5X3qY2WXXeUGtOxC1RUok0yPAn5sVOKV2G8aOJewqsuZzwU3Y/w7jJ8q94FzmnkSEvzIhCNQtr9rH2rimw==
             - name: USER_NAME
               value: jenkins
             - name: SUDO_ACCESS
@@ -138,7 +139,7 @@ metadata:
   namespace: tw
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-internal-ipwhitelist@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-internal-ipallowlist@kubernetescrd
 spec:
   ingressClassName: traefik
   tls:

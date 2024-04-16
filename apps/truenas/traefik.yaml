@@ -13,7 +13,7 @@ spec:
     - match: Host(`traefik.lab.sipwork.pro`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
       kind: Rule
       middlewares:
-        - name: internal-ipwhitelist
+        - name: internal-ipallowlist
           namespace: traefik
       services:
         - kind: TraefikService

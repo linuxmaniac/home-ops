@@ -161,7 +161,7 @@ metadata:
   annotations:
     traefik.ingress.kubernetes.io/router.tls: 'true'
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-internal-ipwhitelist@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-internal-ipallowlist@kubernetescrd
 spec:
   ingressClassName: traefik
   tls:
@@ -187,7 +187,7 @@ metadata:
   namespace: infra
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web
-    traefik.ingress.kubernetes.io/router.middlewares: infra-bootxyz-assets@kubernetescrd,traefik-internal-ipwhitelist@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: infra-bootxyz-assets@kubernetescrd,traefik-internal-ipallowlist@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
