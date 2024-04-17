@@ -15,4 +15,8 @@ spec:
     - sidero.torreviejawireless.org
     - '*.sidero.torreviejawireless.org'
   secretTemplate:
-    annotations: {}
+    annotations:
+      reflector.v1.k8s.emberstack.com/reflection-allowed: 'true'
+      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: flux-system,monitoring
+      reflector.v1.k8s.emberstack.com/reflection-auto-enabled: 'true'
+      reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: flux-system,monitoring
