@@ -10,3 +10,4 @@ resources:
   - sipwork
   - jenkins
   - ../base/velero
+  - ../base/velero/images.yaml

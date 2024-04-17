@@ -1,0 +1,88 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: plugin-csi
+  namespace: velero
+spec:
+  image: velero/velero-plugin-for-csi
+  interval: 12h
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: plugin-csi
+  namespace: velero
+spec:
+  imageRepositoryRef:
+    name: plugin-csi
+    namespace: velero
+  policy:
+    semver:
+      range: '>=0.7.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: plugin-aws
+  namespace: velero
+spec:
+  image: velero/velero-plugin-for-aws
+  interval: 12h
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: plugin-aws
+  namespace: velero
+spec:
+  imageRepositoryRef:
+    name: plugin-aws
+    namespace: velero
+  policy:
+    semver:
+      range: '>=1.9.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: velero
+  namespace: velero
+spec:
+  interval: 30m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
+      messageTemplate: |
+        velero: Automated image update
+
+        Automation name: {{ .AutomationObject }}
+
+        Files:
+        {{ range $filename, $_ := .Updated.Files -}}
+        - {{ $filename }}
+        {{ end -}}
+
+        Objects:
+        {{ range $resource, $_ := .Updated.Objects -}}
+        - {{ $resource.Kind }} {{ $resource.Name }}
+        {{ end -}}
+
+        Images:
+        {{ range .Updated.Images -}}
+        - {{.}}
+        {{ end -}}
+    push:
+      branch: flux-velero-updates
+  update:
+    path: ./apps/base/velero
+    strategy: Setters
