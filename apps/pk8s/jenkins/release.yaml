@@ -12,7 +12,7 @@ spec:
   chart:
     spec:
       chart: jenkins
-      version: 12.11.x
+      version: 13.0.x
       sourceRef:
         kind: HelmRepository
         name: bitnami
