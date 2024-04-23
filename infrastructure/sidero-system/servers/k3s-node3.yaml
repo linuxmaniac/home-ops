@@ -43,9 +43,10 @@ spec:
               - network: 192.168.10.12/30
                 gateway: 192.168.10.5
     - op: add
-      path: /machine/kubelet/nodeIP/validSubnets
+      path: /machine/kubelet/nodeIP
       value:
-        - 192.168.4.0/24
+        validSubnets:
+          - 192.168.4.0/24
     - op: replace
       path: /machine/install/disk
       value: /dev/nvme0n1
