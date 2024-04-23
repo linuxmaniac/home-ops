@@ -1,15 +1,7 @@
 ---
 machine:
-  kubelet:
-    extraArgs:
-      rotate-server-certificates: true
   install:
     disk: /dev/nvme0n1
-    extensions:
-      - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
-      - image: ghcr.io/siderolabs/amd-ucode:20240115
-      - image: ghcr.io/siderolabs/amdgpu-firmware:20240115
-      - image: ghcr.io/siderolabs/realtek-firmware:20240115
   network:
     interfaces:
       - deviceSelector:

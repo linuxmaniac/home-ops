@@ -42,13 +42,19 @@ talosctl --context sidero apply-config -e ${SIDERO_ENDPOINT} -n ${SIDERO_ENDPOIN
 talosctl --context sidero -e ${SIDERO_ENDPOINT} -n ${SIDERO_ENDPOINT} bootstrap
 ```
 
-Get ``iscssi-tools`` extension installed
-```bash
-talosctl --context sidero upgrade --image factory.talos.dev/installer/c9078f9419961640c712a8bf2bb9174933dfcf1da383fd8ea2b7dc21493f8bac:v1.6.6 --preserve --force
-```
-
 ```bash
 talosctl --context sidero -e ${SIDERO_ENDPOINT} -n ${SIDERO_WORKER} apply-config --file integrations/sidero/worker.yaml --insecure
+```
+## upgrade talos
+
+control-plane
+```bash
+talosctl --context sidero upgrade -e ${SIDERO_ENDPOINT} -n ${SIDERO_ENDPOINT} --image factory.talos.dev/installer/f47e6cd2634c7a96988861031bcc4144468a1e3aef82cca4f5b5ca3fffef778a:v1.7.0 --preserve --force
+```
+
+worker
+```bash
+talosctl --context sidero upgrade -e ${SIDERO_ENDPOINT} -n ${SIDERO_WORKER} --image factory.talos.dev/installer/3a63f33668ebef01b36969fc2dddb391e357110169ae287954f2e3b34407e094:v1.7.0
 ```
 
 ## install flux
