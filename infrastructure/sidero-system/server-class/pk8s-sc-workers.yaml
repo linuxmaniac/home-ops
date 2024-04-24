@@ -18,3 +18,7 @@ spec:
       value:
         extraArgs:
           rotate-server-certificates: true
+    - op: replace
+      path: /machine/install/extensions
+      value:
+        - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
