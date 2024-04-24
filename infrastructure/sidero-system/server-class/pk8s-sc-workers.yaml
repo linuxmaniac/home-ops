@@ -18,7 +18,3 @@ spec:
       value:
         extraArgs:
           rotate-server-certificates: true
-    - op: add
-      path: /machine/nodeLabels
-      value:
-        node-role.kubernetes.io/worker: yes
