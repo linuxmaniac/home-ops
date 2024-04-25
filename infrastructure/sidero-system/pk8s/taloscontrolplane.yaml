@@ -25,6 +25,9 @@ spec:
         - op: add
           path: /cluster/extraManifests/-
           value: https://raw.githubusercontent.com/linuxmaniac/home-ops/main/infrastructure/controllers/kubelet-serving-cert-approver.yaml
+        - op: add
+          path: /cluster/extraManifests/-
+          value: https://raw.githubusercontent.com/linuxmaniac/home-ops/main/monitoring/controllers/metrics-server.yaml
       generateType: controlplane
       talosVersion: v1.5
   infrastructureTemplate:

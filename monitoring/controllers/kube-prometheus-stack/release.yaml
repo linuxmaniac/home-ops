@@ -39,6 +39,10 @@ spec:
           requests:
             cpu: 200m
             memory: 200Mi
+        # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/README.md#prometheusioscrape
+        podMonitorSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        ##
         podMonitorNamespaceSelector: {}
         podMonitorSelector:
           matchLabels:
@@ -55,6 +59,16 @@ spec:
               - node
             targetLabel: instance
     prometheus-node-exporter:
+      prometheus:
+        monitor:
+          metricRelabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels:
+                - __meta_kubernetes_pod_node
+              targetLabel: kubernetes_node
+    kube-state-metrics:
       prometheus:
         monitor:
           metricRelabelings:
