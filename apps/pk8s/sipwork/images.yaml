@@ -87,7 +87,8 @@ spec:
     name: node-red
     namespace: sipwork
   filterTags:
-    pattern: .*-debian
+    pattern: ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)-debian$
+    extract: $major.$minor.$patch
   policy:
     semver:
       range: '>=3.1.0'
