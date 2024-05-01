@@ -56,12 +56,20 @@ spec:
                   cpu: 50
                   memory: 50
                   pods: 50
+                evictableNamespaces:
+                  exclude:
+                    - kube-system
+                    - democratic-csi
             - name: HighNodeUtilization
               args:
                 thresholds:
                   cpu: 20
                   memory: 20
                   pods: 20
+                evictableNamespaces:
+                  exclude:
+                    - kube-system
+                    - democratic-csi
             - name: PodLifeTime
               args:
                 maxPodLifeTimeSeconds: 86400
