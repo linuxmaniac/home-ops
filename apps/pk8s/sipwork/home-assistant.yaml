@@ -399,7 +399,7 @@ spec:
         - env:
             - name: TIMEZONE
               value: Europe/Madrid
-          image: nodered/node-red:3.1.8-debian # {"$imagepolicy": "sipwork:node-red"}
+          image: nodered/node-red:3.1.9-debian # {"$imagepolicy": "sipwork:node-red"}
           name: node-red
           ports:
             - containerPort: 1880
