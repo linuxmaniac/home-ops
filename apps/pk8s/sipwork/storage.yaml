@@ -359,3 +359,57 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: node-red-data
+  namespace: sipwork
+spec:
+  accessModes:
+    - ReadWriteOnce
+  selector:
+    matchLabels:
+      org.democratic-csi.manual: sipwork-node-red-data
+  resources:
+    requests:
+      storage: 250Mi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: sipwork-node-red-data
+  labels:
+    org.democratic-csi.manual: sipwork-node-red-data
+spec:
+  capacity:
+    storage: 250Mi
+  csi:
+    driver: org.democratic-csi.node-manual
+    volumeHandle: pvc-a60ffeb5-6e25-44b2-b62e-65a6fd024281
+    fsType: ext4
+    volumeAttributes:
+      interface: ''
+      iqn: >-
+        iqn.2005-10.org.freenas.ctl:csi-pvc-a60ffeb5-6e25-44b2-b62e-65a6fd024281-cluster
+      lun: '0'
+      node_attach_driver: iscsi
+      portal: 192.168.4.5:3260
+      portals: ''
+      provisioner_driver: node-manual
+    controllerPublishSecretRef:
+      name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    nodeStageSecretRef:
+      name: node-stage-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    nodePublishSecretRef:
+      name: node-publish-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+    controllerExpandSecretRef:
+      name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
+      namespace: democratic-csi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem

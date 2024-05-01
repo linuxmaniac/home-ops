@@ -1,3 +1,4 @@
+---
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -366,4 +367,67 @@ spec:
   stripPrefix:
     prefixes:
       - /motioneye
+    forceSlash: true
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: node-red
+  name: node-red
+  namespace: sipwork
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: node-red
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: node-red
+    spec:
+      containers:
+        - env:
+            - name: TIMEZONE
+              value: Europe/Madrid
+          image: nodered/node-red:3.1.8-debian # {"$imagepolicy": "sipwork:node-red"}
+          name: node-red
+          ports:
+            - containerPort: 1880
+          resources: {}
+          volumeMounts:
+            - mountPath: /data
+              name: node-red-data
+      restartPolicy: Always
+      volumes:
+        - name: node-red-data
+          persistentVolumeClaim:
+            claimName: node-red-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-red
+  namespace: sipwork
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 1880
+      name: http
+      protocol: TCP
+  selector:
+    io.kompose.service: node-red
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: node-red
+  namespace: sipwork
+spec:
+  stripPrefix:
+    prefixes:
+      - /node-red
     forceSlash: true

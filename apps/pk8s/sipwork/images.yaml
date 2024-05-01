@@ -68,6 +68,28 @@ spec:
     semver:
       range: '>=1.34.0'
 ---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: node-red
+  namespace: sipwork
+spec:
+  image: nodered/node-red
+  interval: 12h
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: node-red
+  namespace: sipwork
+spec:
+  imageRepositoryRef:
+    name: node-red
+    namespace: sipwork
+  policy:
+    semver:
+      range: '>=3.1.0'
+---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageUpdateAutomation
 metadata:
