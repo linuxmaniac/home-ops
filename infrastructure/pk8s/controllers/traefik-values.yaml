@@ -7,8 +7,7 @@ metadata:
 spec:
   values:
     persistence:
-      enabled: true
-      storageClass: freenas-iscsi-csi
+      enabled: false
     service:
       enabled: true
       type: LoadBalancer
