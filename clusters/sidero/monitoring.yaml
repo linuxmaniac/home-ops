@@ -23,6 +23,12 @@ spec:
           namespace: monitoring
         spec:
           values:
+            kubeEtcd:
+              endpoints:
+                - 192.168.4.4
+              service:
+                port: 2381
+                targetPort: 2381
             grafana:
               defaultDashboardsEnabled: true
               ingress:
