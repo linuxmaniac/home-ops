@@ -65,7 +65,27 @@ spec:
                     hosts:
                       - monitor.sidero.torreviejawireless.org
                 labels: {}
-                path: /
+                paths:
+                  - /
+                pathType: Prefix
+            prometheus:
+              ingress:
+                enabled: true
+                ingressClassName: traefik
+                annotations:
+                  traefik.ingress.kubernetes.io/router.tls: "true"
+                  traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+                  traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd,traefik-internal-ipallowlist@kubernetescrd
+                hosts:
+                  - prometheus.sidero.torreviejawireless.org
+                tls:
+                  - secretName: sidero.torreviejawireless.org-tls
+                    hosts:
+                      - prometheus.sidero.torreviejawireless.org
+                labels: {}
+                paths:
+                  - /
+                pathType: Prefix
       target:
         kind: HelmRelease
         name: kube-prometheus-stack
