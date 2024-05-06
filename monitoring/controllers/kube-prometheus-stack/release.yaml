@@ -32,6 +32,11 @@ spec:
   values:
     alertmanager:
       enabled: false
+    prometheusOperator:
+      namespaces:
+        releaseNamespace: true
+        additional:
+          - kube-system
     prometheus:
       prometheusSpec:
         retention: 24h
