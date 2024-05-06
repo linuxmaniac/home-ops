@@ -29,6 +29,22 @@ spec:
               service:
                 port: 2381
                 targetPort: 2381
+            kubeScheduler:
+              service:
+                selector:
+                  k8s-app: kube-scheduler
+              serviceMonitor:
+                selector:
+                  matchLabels:
+                    k8s-app: kube-scheduler
+            kubeControllerManager:
+              service:
+                selector:
+                  k8s-app: kube-controller-manager
+              serviceMonitor:
+                selector:
+                  matchLabels:
+                    k8s-app: kube-controller-manager
             grafana:
               defaultDashboardsEnabled: true
               ingress:
