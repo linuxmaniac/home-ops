@@ -9,3 +9,9 @@ cluster:
   proxy:
     extraArgs:
       metrics-bind-address: 0.0.0.0:10249
+  controllerManager:
+    extraArgs:
+      bind-address: 0.0.0.0
+  scheduler:
+    extraArgs:
+      bind-address: 0.0.0.0

@@ -25,6 +25,14 @@ spec:
           value:
             metrics-bind-address: 0.0.0.0:10249
         - op: add
+          path: /cluster/controllerManager/extraArgs
+          value:
+            bind-address: 0.0.0.0
+        - op: add
+          path: /cluster/scheduler/extraArgs
+          value:
+            bind-address: 0.0.0.0
+        - op: add
           path: /cluster/apiServer/admissionControl/0/configuration/exemptions/namespaces/-
           value: democratic-csi
         - op: add
