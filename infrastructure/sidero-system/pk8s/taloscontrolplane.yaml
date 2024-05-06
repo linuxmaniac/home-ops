@@ -21,6 +21,10 @@ spec:
           value:
             listen-metrics-urls: http://0.0.0.0:2381
         - op: add
+          path: /cluster/proxy/extraArgs
+          value:
+            metrics-bind-address: 0.0.0.0:10249
+        - op: add
           path: /cluster/apiServer/admissionControl/0/configuration/exemptions/namespaces/-
           value: democratic-csi
         - op: add
