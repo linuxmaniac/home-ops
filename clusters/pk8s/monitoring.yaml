@@ -32,6 +32,10 @@ spec:
                 port: 2381
                 targetPort: 2381
             kubeScheduler:
+              endpoints:
+                - 192.168.4.6
+                - 192.168.4.7
+                - 192.168.4.8
               service:
                 selector:
                   k8s-app: kube-scheduler
@@ -40,6 +44,10 @@ spec:
                   matchLabels:
                     k8s-app: kube-scheduler
             kubeControllerManager:
+              endpoints:
+                - 192.168.4.6
+                - 192.168.4.7
+                - 192.168.4.8
               service:
                 selector:
                   k8s-app: kube-controller-manager
