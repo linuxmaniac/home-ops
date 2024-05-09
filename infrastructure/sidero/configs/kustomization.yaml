@@ -5,3 +5,4 @@ resources:
   - ../../configs/cluster-issuers.yaml
   - certificate.yaml
   - traefik.yaml
+  - capacitor.yaml

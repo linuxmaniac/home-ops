@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ../../configs/cluster-issuers.yaml
   - kube-dashboard.yaml
+  - capacitor.yaml

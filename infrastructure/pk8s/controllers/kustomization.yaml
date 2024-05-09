@@ -5,6 +5,7 @@ resources:
   - metallb.yaml
   - multus.yaml
   - descheduler.yaml
+  - ../../controllers/capacitor.yaml
   - ../../controllers/traefik.yaml
   - ../../controllers/cert-manager-csi-driver.yaml
   - images.yaml
