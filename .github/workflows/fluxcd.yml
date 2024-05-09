@@ -4,7 +4,7 @@ name: update-flux
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: 0 0 * * *
 
 permissions:
   contents: write
@@ -28,15 +28,14 @@ jobs:
             --components-extra=image-reflector-controller,image-automation-controller \
             --export > ./clusters/pk8s/flux-system/gotk-components.yaml
           flux install \
+            --components-extra=image-reflector-controller,image-automation-controller \
             --export > ./clusters/sidero/flux-system/gotk-components.yaml
-          flux install \
-            --export > ./clusters/truenas/flux-system/gotk-components.yaml
           VERSION="$(flux -v)"
           echo "flux_version=$VERSION" >> $GITHUB_OUTPUT
       - name: Commit and push changes
         uses: devops-infra/action-commit-push@v0.9.2
         with:
-          github_token: "${{ secrets.GITHUB_TOKEN }}"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           commit_message: Update to ${{ steps.update.outputs.flux_version }}
       - name: Create pull request
         uses: devops-infra/action-pull-request@v0.5.5
