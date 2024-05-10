@@ -5,6 +5,12 @@ metadata:
   name: democratic-csi-nfs
   namespace: flux-system
 spec:
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+  driftDetection:
+    mode: warn
   interval: 10m
   releaseName: democratic-csi-nfs
   targetNamespace: democratic-csi
