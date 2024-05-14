@@ -1,9 +1,24 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: vmware-tanzu
   namespace: flux-system
 spec:
   interval: 24h
-  url: https://vmware-tanzu.github.io/helm-charts
+  type: oci
+  url: oci://ghcr.io/vmware-tanzu/charts
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmChart
+metadata:
+  name: velero
+  namespace: flux-system
+spec:
+  interval: 12h
+  chart: velero
+  reconcileStrategy: ChartVersion
+  sourceRef:
+    kind: HelmRepository
+    name: vmware-tanzu
+  version: 6.1.x

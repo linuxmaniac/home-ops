@@ -1,23 +1,24 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: velero
   namespace: flux-system
 spec:
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+  driftDetection:
+    mode: enabled
   interval: 30m
   releaseName: velero
   targetNamespace: velero
   serviceAccountName: helm-controller
-  chart:
-    spec:
-      chart: velero
-      version: 6.0.x
-      sourceRef:
-        kind: HelmRepository
-        name: vmware-tanzu
-        namespace: flux-system
-      interval: 12h
+  chartRef:
+    kind: HelmChart
+    name: velero
+    namespace: flux-system
   valuesFrom:
     - kind: ConfigMap
       name: velero-values
