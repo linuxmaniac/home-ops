@@ -25,9 +25,11 @@ metadata:
   namespace: flux-system
 spec:
   install:
-    crds: CreateReplace
+    crds: Create
   upgrade:
     crds: CreateReplace
+  driftDetection:
+    mode: enabled
   interval: 30m
   releaseName: traefik
   targetNamespace: traefik
