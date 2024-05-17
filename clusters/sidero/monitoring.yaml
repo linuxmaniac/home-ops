@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: infra-sidero-configs
+    - name: storage
   interval: 1h
   retryInterval: 2m
   timeout: 10m
