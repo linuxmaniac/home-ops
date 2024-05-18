@@ -109,6 +109,11 @@ talosctl --context pk8s -e ${PK8S_ENDPOINT} -n ${PK8S_ENDPOINT} bootstrap
 talosctl --context pk8s -e ${PK8S_ENDPOINT} -n ${PK8S_ENDPOINT} kubeconfig
 kubectl config use-context admin@pk8s
 ```
+# check certificates and approve if any is pending
+```bash
+kubectl --context admin@sidero get -A certificatesigningrequests.certificates.k8s.io
+kubectl --context admin@sidero certificate approve <name>
+```
 
 ## install flux
 ```bash
