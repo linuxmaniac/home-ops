@@ -12,9 +12,9 @@ spec:
       "plugins": [
         {
           "name": "vext",
-          "type": "vlan",
-          "master": "eth1",
-          "vlanId": 110,
+          "type": "macvlan",
+          "master": "bond0",
+          "mode": "vepa",
           "linkInContainer": false,
           "ipam": {
             "type": "whereabouts",
