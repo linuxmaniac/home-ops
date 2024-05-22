@@ -31,6 +31,15 @@ spec:
       path: /machine/network
       value:
         interfaces:
+          - interface: bond0
+            dhcp: false
+            bond:
+              deviceSelectors:
+                - hardwareAddr: 20:7b:d2:af:5c:28
+              mode: 802.3ad
+          - deviceSelector:
+              hardwareAddr: 20:7b:d2:af:5c:28
+            dhcp: false
           - deviceSelector:
               hardwareAddr: b0:41:6f:09:e6:60
             dhcp: true
