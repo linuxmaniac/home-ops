@@ -1,3 +1,4 @@
+---
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -90,6 +91,8 @@ spec:
     metadata:
       labels:
         io.kompose.service: home-assistant
+      annotations:
+        k8s.v1.cni.cncf.io/networks: default/vlan-home
     spec:
       containers:
         - env:
@@ -390,7 +393,7 @@ spec:
       initContainers:
         - name: data-ownership
           image: busybox:1.28
-          command: [chown, -R, '1000:1000', /data]
+          command: [chown, -R, 1000:1000, /data]
           resources: {}
           volumeMounts:
             - mountPath: /data
