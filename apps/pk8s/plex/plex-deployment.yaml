@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,20 +17,22 @@ spec:
     metadata:
       labels:
         io.kompose.service: plex
+      annotations:
+        k8s.v1.cni.cncf.io/networks: default/vlan-home
     spec:
       nodeSelector:
         kubernetes.io/arch: amd64
       containers:
         - env:
             - name: PGID
-              value: "1000"
+              value: '1000'
             - name: PLEX_CLAIM
               valueFrom:
                 secretKeyRef:
                   name: flexget
                   key: PLEX_CLAIM
             - name: PUID
-              value: "1000"
+              value: '1000'
             - name: VERSION
               value: docker
           image: lscr.io/linuxserver/plex:1.40.2 # {"$imagepolicy": "plex:plex"}
