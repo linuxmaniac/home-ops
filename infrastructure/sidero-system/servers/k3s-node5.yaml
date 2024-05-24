@@ -35,16 +35,18 @@ spec:
             dhcp: false
             bond:
               deviceSelectors:
-                - hardwareAddr: 20:7b:d2:af:5c:28
+                - hardwareAddr: 20:7b:d2:*
+                  driver: cdc_ncm
               mode: 802.3ad
           - deviceSelector:
-              hardwareAddr: 20:7b:d2:af:5c:28
+              hardwareAddr: 20:7b:d2:*
+              driver: cdc_ncm
             dhcp: false
           - deviceSelector:
-              hardwareAddr: b0:41:6f:09:e6:60
+              hardwareAddr: b0:41:6f:*
             dhcp: true
           - deviceSelector:
-              hardwareAddr: 00:e0:4c:68:00:d2
+              hardwareAddr: 00:e0:4c:*
             mtu: 9000
             addresses:
               - 192.168.10.2/30
