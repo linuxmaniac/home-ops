@@ -27,6 +27,7 @@ plugins:
   - git:5.2.2
   - kubernetes:4233.vb_67a_0e11a_039
   - proxmox:0.7.1
+skipImagePlugins: true
 extraPlugins: []
 overridePlugins: true
 rbac:
