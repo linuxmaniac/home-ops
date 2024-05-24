@@ -23,11 +23,14 @@ agent:
     repository: bitnami/jenkins-inbound-agent
     tag: latest
     pullPolicy: Always
-plugins:
-  - git:5.2.2
-  - kubernetes:4233.vb_67a_0e11a_039
-  - proxmox:0.7.1
+# plugins:
+#   - git:5.2.2
+#   - kubernetes:4233.vb_67a_0e11a_039
+#   - proxmox:0.7.1
 skipImagePlugins: true
+extraEnvVars:
+  - name: LOG_LEVEL
+    value: DEBUG
 extraPlugins: []
 overridePlugins: true
 rbac:
@@ -70,3 +73,8 @@ persistence:
   existingClaim: config
 updateStrategy:
   type: Recreate
+configAsCode:
+  enabled: true
+tls:
+  usePemCerts: true
+  existingSecret: tw-tls
