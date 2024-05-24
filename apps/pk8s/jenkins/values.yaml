@@ -24,7 +24,8 @@ agent:
     tag: latest
     pullPolicy: Always
 plugins:
-  - kubernetes:4203.v1dd44f5b_1cf9
+  - git:5.2.2
+  - kubernetes:4233.vb_67a_0e11a_039
   - proxmox:0.7.1
 extraPlugins: []
 overridePlugins: true
