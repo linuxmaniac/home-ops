@@ -26,6 +26,9 @@ agent:
 plugins:
   - kubernetes:4203.v1dd44f5b_1cf9
   - proxmox:0.7.1
+extraEnvVars:
+  - name: LOG_LEVEL
+    value: DEBUG
 extraPlugins: []
 overridePlugins: true
 rbac:
@@ -68,3 +71,8 @@ persistence:
   existingClaim: config
 updateStrategy:
   type: Recreate
+configAsCode:
+  enabled: false
+tls:
+  usePemCerts: true
+  existingSecret: tw-tls
