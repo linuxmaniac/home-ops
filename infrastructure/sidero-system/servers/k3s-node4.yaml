@@ -2,7 +2,7 @@
 apiVersion: metal.sidero.dev/v1alpha2
 kind: Server
 metadata:
-  name: 256d7580-71d4-11ee-94a0-239cc2696b02
+  name: 80756d25-d471-ee11-94a0-239cc2696b02
   labels:
     metal.sidero.dev/serverclass: trigkey
     metal.sidero.dev/machine.type: worker
@@ -31,12 +31,43 @@ spec:
       path: /machine/network
       value:
         interfaces:
+          - interface: bond0
+            dhcp: false
+            bond:
+              deviceSelectors:
+                - hardwareAddr: 20:7b:d2:af:5c:27
+              mode: 802.3ad
           - deviceSelector:
-              hardwareAddr: b0:41:6f:0c:c9:d7
+              hardwareAddr: 20:7b:d2:af:5c:27
+            dhcp: false
+          - deviceSelector:
+              hardwareAddr: b0:41:6f:0d:fc:0a
             dhcp: true
+          - deviceSelector:
+              hardwareAddr: 00:e0:4c:68:00:f7
+            mtu: 9000
+            addresses:
+              - 192.168.10.10/30
+            routes:
+              - network: 192.168.10.12/30
+                gateway: 192.168.10.9
+    - op: add
+      path: /machine/kubelet/nodeIP
+      value:
+        validSubnets:
+          - 192.168.4.0/24
+    - op: add
+      path: /machine/kernel
+      value:
+        modules:
+          - name: cdc_ncm
     - op: replace
       path: /machine/install/disk
       value: /dev/nvme0n1
+    - op: add
+      path: /machine/install/extensions/-
+      value:
+        image: ghcr.io/siderolabs/usb-modem-drivers:v1.7.2
     - op: add
       path: /machine/install/extensions/-
       value:
