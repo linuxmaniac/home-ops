@@ -26,6 +26,7 @@ agent:
 plugins:
   - kubernetes:4203.v1dd44f5b_1cf9
   - proxmox:0.7.1
+skipImagePlugins: true
 extraEnvVars:
   - name: LOG_LEVEL
     value: DEBUG
