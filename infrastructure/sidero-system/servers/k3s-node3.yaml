@@ -2,7 +2,7 @@
 apiVersion: metal.sidero.dev/v1alpha2
 kind: Server
 metadata:
-  name: 03000200-0400-0500-0006-000700080009
+  name: d92c1c15-a61d-e53c-f392-a0f566506566
   labels:
     metal.sidero.dev/serverclass: trigkey
     metal.sidero.dev/machine.type: worker
