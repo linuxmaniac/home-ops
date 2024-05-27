@@ -18,6 +18,7 @@ agentListenerService:
       targetPort: http
 agent:
   enabled: true
+  resourcesPreset: none
   image:
     registry: docker.io
     repository: bitnami/jenkins-inbound-agent
@@ -81,7 +82,7 @@ persistence:
 updateStrategy:
   type: Recreate
 configAsCode:
-  enabled: false
+  enabled: true
 tls:
   usePemCerts: true
   existingSecret: tw-tls
