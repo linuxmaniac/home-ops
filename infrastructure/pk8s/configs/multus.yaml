@@ -13,13 +13,46 @@ spec:
         {
           "name": "vext",
           "type": "macvlan",
-          "master": "bond0",
+          "master": "bond0.110",
           "mode": "vepa",
           "linkInContainer": false,
           "ipam": {
             "type": "whereabouts",
             "range": "192.168.1.200-192.168.1.216/24"
           }
+        }
+      ]
+    }
+---
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: vlan-sip
+  namespace: default
+spec:
+  config: |-
+    {
+      "cniVersion": "1.0.0",
+      "name": "sip",
+      "plugins": [
+        {
+          "name": "sip",
+          "type": "macvlan",
+          "master": "bond0.200",
+          "mode": "vepa",
+          "linkInContainer": false,
+          "ipam": {
+            "type": "static",
+            "addresses": [
+              {
+                "address": "192.168.5.100/24",
+                "gateway": "192.168.5.1"
+              }
+            ]
+          }
+        },
+        {
+          "type": "sbr"
         }
       ]
     }
