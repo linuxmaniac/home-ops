@@ -30,6 +30,12 @@ skipImagePlugins: true
 extraEnvVars:
   - name: LOG_LEVEL
     value: DEBUG
+  - name: JENKINS_UC
+    value: http://localhost:3000
+  - name: JENKINS_UC_EXPERIMENTAL
+    value: http://localhost:3000/experimental
+  - name: JENKINS_PLUGIN_INFO
+    value: http://localhost:3000/current/plugin-versions.json
 extraPlugins: []
 overridePlugins: true
 rbac:
@@ -77,3 +83,18 @@ configAsCode:
 tls:
   usePemCerts: true
   existingSecret: tw-tls
+sidecars:
+  - name: jenkins-update-center-proxy
+    image: onigoetz/jenkins-update-center-proxy:0.13.0
+    imagePullPolicy: IfNotPresent
+    env:
+      - name: LOCAL_UPDATE_CENTER
+        value: http://localhost:3000
+    ports:
+      - name: update-mirror
+        containerPort: 3000
+        protocol: TCP
+    volumeMounts:
+      - name: jenkins-data
+        mountPath: /cache
+        subPath: cache
