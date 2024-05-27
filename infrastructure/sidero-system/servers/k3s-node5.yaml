@@ -38,6 +38,11 @@ spec:
                 - hardwareAddr: 20:7b:d2:*
                   driver: cdc_ncm
               mode: 802.3ad
+            vlans:
+              - vlanId: 200
+                dhcp: false
+              - vlanId: 110
+                dhcp: false
           - deviceSelector:
               hardwareAddr: 20:7b:d2:*
               driver: cdc_ncm
