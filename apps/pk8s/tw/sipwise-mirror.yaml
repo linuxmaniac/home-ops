@@ -66,7 +66,7 @@ spec:
             - mountPath: /custom-cont-init.d
               name: sipwise-mirror-custom
         - name: sipwise-mirror-nginx
-          image: lscr.io/linuxserver/nginx:1.24.0 # {"$imagepolicy": "tw:nginx"}
+          image: lscr.io/linuxserver/nginx:1.26.1 # {"$imagepolicy": "tw:nginx"}
           env:
             - name: TZ
               value: Europe/Madrid
