@@ -5,7 +5,7 @@ metadata:
   name: amd64
 spec:
   initrd:
-    url: https://factory.talos.dev/image/5a078ed3c6f1a3f3bcf461943f4b15f65b3da48041b241ea03ce32a3a7900582/v1.7.2/initramfs-amd64.xz
+    url: https://factory.talos.dev/image/5a078ed3c6f1a3f3bcf461943f4b15f65b3da48041b241ea03ce32a3a7900582/v1.7.4/initramfs-amd64.xz
   kernel:
     args:
       - console=tty0
@@ -24,4 +24,4 @@ spec:
       - slab_nomerge=
       - talos.platform=metal
       - net.ifnames=0
-    url: https://factory.talos.dev/image/5a078ed3c6f1a3f3bcf461943f4b15f65b3da48041b241ea03ce32a3a7900582/v1.7.2/kernel-amd64
+    url: https://factory.talos.dev/image/5a078ed3c6f1a3f3bcf461943f4b15f65b3da48041b241ea03ce32a3a7900582/v1.7.4/kernel-amd64
