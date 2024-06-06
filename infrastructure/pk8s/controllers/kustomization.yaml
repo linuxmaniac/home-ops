@@ -9,6 +9,7 @@ resources:
   - ../../controllers/traefik.yaml
   - ../../controllers/cert-manager-csi-driver.yaml
   - images.yaml
+  - kubevirt-operator.yaml
 patches:
   - path: traefik-values.yaml
     target:

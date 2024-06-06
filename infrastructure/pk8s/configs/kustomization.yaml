@@ -6,3 +6,4 @@ resources:
   - kube-dashboard.yaml
   - capacitor.yaml
   - multus.yaml
+  - kubevirt-cr.yaml
