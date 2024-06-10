@@ -18,8 +18,12 @@ spec:
           "linkInContainer": false,
           "ipam": {
             "type": "whereabouts",
-            "range": "192.168.1.200-192.168.1.216/24"
+            "range": "192.168.1.200-192.168.1.216/24",
+            "gateway": "192.168.1.1"
           }
+        },
+        {
+          "type":"tuning"
         }
       ]
     }
