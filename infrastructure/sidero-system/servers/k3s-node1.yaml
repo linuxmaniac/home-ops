@@ -2,7 +2,7 @@
 apiVersion: metal.sidero.dev/v1alpha2
 kind: Server
 metadata:
-  name: 00d03114-0000-0000-0000-e45f01496eb7
+  name: 00d03114-0000-0000-0000-e45f0135fbb2
   labels:
     metal.sidero.dev/serverclass: rpi.8gb
     metal.sidero.dev/machine.type: controlplane
@@ -19,14 +19,14 @@ spec:
       manufacturer: Raspberry Pi Foundation
       productName: Raspberry Pi 4 Model B
       version: D03114
-      serialNumber: 0000E45F01496EB7
+      serialNumber: 0000E45F0135FBB2
   configPatches:
     - op: add
       path: /machine/network
       value:
         interfaces:
           - deviceSelector:
-              hardwareAddr: e4:5f:01:49:6e:b7
+              hardwareAddr: e4:5f:01:35:fb:b2
             dhcp: true
             vip:
               ip: 192.168.4.201
