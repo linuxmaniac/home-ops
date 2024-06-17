@@ -1,0 +1,123 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: bastion-config
+  namespace: infra
+spec:
+  storageClassName: freenas-iscsi-csi
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vseva-workspace-remote
+  namespace: infra
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Ti
+  selector:
+    matchLabels:
+      org.democratic-csi.manual: vseva-workspace-remote
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: vseva-workspace-remote
+  labels:
+    org.democratic-csi.manual: vseva-workspace-remote
+spec:
+  capacity:
+    storage: 1Ti
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - nfsvers=4
+    - nolock
+    - noatime
+  csi:
+    driver: org.democratic-csi.node-manual
+    readOnly: false
+    fsType: nfs
+    volumeHandle: vseva-workspace-remote
+    volumeAttributes:
+      server: 192.168.4.5
+      share: /mnt/main/home/vseva/workspace
+      node_attach_driver: nfs
+      provisioner_driver: node-manual
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: bootxyz-config
+  namespace: infra
+spec:
+  storageClassName: freenas-iscsi-csi
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: bootxyz-assets
+  namespace: infra
+spec:
+  storageClassName: freenas-iscsi-csi
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: bootxyz-tftp
+  labels:
+    org.democratic-csi.manual: bootxyz-tftp
+spec:
+  capacity:
+    storage: 50Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - nfsvers=4
+    - nolock
+    - noatime
+  csi:
+    driver: org.democratic-csi.node-manual
+    readOnly: false
+    fsType: nfs
+    volumeHandle: bootxyz-tftp
+    volumeAttributes:
+      server: 192.168.4.5
+      share: /mnt/main/tftp
+      node_attach_driver: nfs
+      provisioner_driver: node-manual
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: bootxyz-tftp
+  namespace: infra
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Mi
+  selector:
+    matchLabels:
+      org.democratic-csi.manual: bootxyz-tftp
