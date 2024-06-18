@@ -408,7 +408,7 @@ spec:
         - env:
             - name: TZ
               value: Europe/Madrid
-          image: nodered/node-red:3.1.10-debian # {"$imagepolicy": "sipwork:node-red"}
+          image: nodered/node-red:3.1.11-debian # {"$imagepolicy": "sipwork:node-red"}
           name: node-red
           ports:
             - containerPort: 1880
