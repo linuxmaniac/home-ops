@@ -21,4 +21,4 @@ spec:
   sourceRef:
     kind: HelmRepository
     name: vmware-tanzu
-  version: 6.4.x
+  version: 6.7.x
