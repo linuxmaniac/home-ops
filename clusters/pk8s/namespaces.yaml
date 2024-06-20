@@ -75,17 +75,3 @@ metadata:
   name: jenkins
   labels:
     toolkit.fluxcd.io/tenant: sre-team
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: arc-systems
-  labels:
-    toolkit.fluxcd.io/tenant: sre-team
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: arc-runners
-  labels:
-    toolkit.fluxcd.io/tenant: sre-team
