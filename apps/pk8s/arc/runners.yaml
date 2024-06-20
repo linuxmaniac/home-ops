@@ -23,3 +23,9 @@ spec:
     githubConfigSecret: arc-gh-tw
     maxRunners: 5
     minRunners: 0
+    template:
+      spec:
+        containers:
+          - name: runner
+            image: mobilecoin/gha-runner:latest
+            command: [/home/runner/run.sh]
