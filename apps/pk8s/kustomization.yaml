@@ -9,5 +9,6 @@ resources:
   - umh
   - sipwork
   - jenkins
+  - arc
   - ../base/velero
   - ../base/velero/images.yaml
