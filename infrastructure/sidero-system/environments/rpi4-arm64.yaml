@@ -5,9 +5,9 @@ metadata:
   name: rpi4
 spec:
   initrd:
-    url: https://factory.talos.dev/image/f47e6cd2634c7a96988861031bcc4144468a1e3aef82cca4f5b5ca3fffef778a/v1.7.5/initramfs-arm64.xz
+    url: https://factory.talos.dev/image/736bd725ab9f13cee4828afa632281ef420a901deb7a95eaf8d0a69bd6485937/v1.7.5/initramfs-arm64.xz
   kernel:
-    url: https://factory.talos.dev/image/f47e6cd2634c7a96988861031bcc4144468a1e3aef82cca4f5b5ca3fffef778a/v1.7.5/kernel-arm64
+    url: https://factory.talos.dev/image/736bd725ab9f13cee4828afa632281ef420a901deb7a95eaf8d0a69bd6485937/v1.7.5/kernel-arm64
     args:
       - console=tty0
       - console=ttyS0

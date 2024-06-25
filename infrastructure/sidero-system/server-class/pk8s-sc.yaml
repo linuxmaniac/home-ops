@@ -12,3 +12,8 @@ spec:
         operator: In
         values:
           - rpi.8gb
+  configPatches:
+    - op: replace
+      path: /machine/install/extensions
+      value:
+        - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
