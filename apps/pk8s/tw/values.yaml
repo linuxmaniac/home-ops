@@ -49,6 +49,8 @@ internalDatabase:
   enabled: false
 postgresql:
   enabled: true
+  image:
+    tag: 15.7.0
   primary:
     persistence:
       enabled: true
