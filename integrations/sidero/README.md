@@ -49,7 +49,7 @@ talosctl --context sidero -e ${SIDERO_ENDPOINT} -n ${SIDERO_WORKER} apply-config
 
 control-plane
 ```bash
-talosctl --context sidero upgrade -e ${SIDERO_ENDPOINT} -n ${SIDERO_ENDPOINT} --image factory.talos.dev/installer/f47e6cd2634c7a96988861031bcc4144468a1e3aef82cca4f5b5ca3fffef778a:v1.7.5 --preserve --force
+talosctl --context sidero upgrade -e ${SIDERO_ENDPOINT} -n ${SIDERO_ENDPOINT} --image factory.talos.dev/installer/736bd725ab9f13cee4828afa632281ef420a901deb7a95eaf8d0a69bd6485937:v1.7.5 --preserve --force
 ```
 
 worker

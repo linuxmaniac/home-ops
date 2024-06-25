@@ -1,0 +1,37 @@
+---
+# 736bd725ab9f13cee4828afa632281ef420a901deb7a95eaf8d0a69bd6485937
+overlay:
+  image: siderolabs/sbc-raspberrypi
+  name: rpi_generic
+customization:
+  extraKernelArgs:
+    - console=tty0
+    - console=ttyS0
+    - console=ttyUSB0,115200
+    - consoleblank=0
+    - earlyprintk=ttyAMA0,115200
+    - ima_appraise=fix
+    - ima_hash=sha512
+    - ima_template=ima-ng
+    - init_on_alloc=1
+    - initrd=initramfs.xz
+    - nvme_core.io_timeout=4294967295
+    - printk.devkmsg=on
+    - pti=on
+    - random.trust_cpu=on
+    - slab_nomerge=
+    - talos.platform=metal
+    - net.ifnames=0
+  systemExtensions:
+    officialExtensions:
+      - siderolabs/iscsi-tools
+---
+# 5a078ed3c6f1a3f3bcf461943f4b15f65b3da48041b241ea03ce32a3a7900582
+customization:
+  systemExtensions:
+    officialExtensions:
+      - siderolabs/amd-ucode
+      - siderolabs/amdgpu-firmware
+      - siderolabs/iscsi-tools
+      - siderolabs/realtek-firmware
+      - siderolabs/usb-modem-drivers
