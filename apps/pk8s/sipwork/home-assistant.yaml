@@ -108,7 +108,7 @@ spec:
               value: '1000'
             - name: TZ
               value: Europe/Madrid
-          image: lscr.io/linuxserver/homeassistant:2024.6.3 # {"$imagepolicy": "sipwork:home-assistant"}
+          image: lscr.io/linuxserver/homeassistant:2024.6.4 # {"$imagepolicy": "sipwork:home-assistant"}
           name: home-assistant
           ports:
             - containerPort: 8123
@@ -408,7 +408,7 @@ spec:
         - env:
             - name: TZ
               value: Europe/Madrid
-          image: nodered/node-red:3.1.11-debian # {"$imagepolicy": "sipwork:node-red"}
+          image: nodered/node-red:4.0.0-debian # {"$imagepolicy": "sipwork:node-red"}
           name: node-red
           ports:
             - containerPort: 1880
