@@ -74,7 +74,7 @@ spec:
     - op: add
       path: /machine/install/extensions/-
       value:
-        image: ghcr.io/siderolabs/usb-modem-drivers:v1.7.4
+        image: ghcr.io/siderolabs/usb-modem-drivers:v1.7.5
     - op: add
       path: /machine/install/extensions/-
       value:

@@ -1,6 +1,6 @@
 # 🪙 Sidero
 
-The following applies to sidero v1.7.2
+The following applies to sidero v1.7.5
 ## Dependencies
 
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
@@ -9,7 +9,7 @@ The following applies to sidero v1.7.2
 
 ## Install Talos on RPI4
 
-Flash USB/SSD with Talos image, (found here.)[https://github.com/siderolabs/talos/releases/download/v1.7.2/metal-rpi_generic-arm64.raw.xz]
+Flash USB/SSD with Talos image, (found here.)[https://github.com/siderolabs/talos/releases/download/v1.7.5/metal-rpi_generic-arm64.raw.xz]
 
 ## Creating management cluster
 ```bash
@@ -49,12 +49,12 @@ talosctl --context sidero -e ${SIDERO_ENDPOINT} -n ${SIDERO_WORKER} apply-config
 
 control-plane
 ```bash
-talosctl --context sidero upgrade -e ${SIDERO_ENDPOINT} -n ${SIDERO_ENDPOINT} --image factory.talos.dev/installer/f47e6cd2634c7a96988861031bcc4144468a1e3aef82cca4f5b5ca3fffef778a:v1.7.2 --preserve --force
+talosctl --context sidero upgrade -e ${SIDERO_ENDPOINT} -n ${SIDERO_ENDPOINT} --image factory.talos.dev/installer/f47e6cd2634c7a96988861031bcc4144468a1e3aef82cca4f5b5ca3fffef778a:v1.7.5 --preserve --force
 ```
 
 worker
 ```bash
-talosctl --context sidero upgrade -e ${SIDERO_ENDPOINT} -n ${SIDERO_WORKER} --image factory.talos.dev/installer/3a63f33668ebef01b36969fc2dddb391e357110169ae287954f2e3b34407e094:v1.7.2
+talosctl --context sidero upgrade -e ${SIDERO_ENDPOINT} -n ${SIDERO_WORKER} --image factory.talos.dev/installer/3a63f33668ebef01b36969fc2dddb391e357110169ae287954f2e3b34407e094:v1.7.5
 ```
 
 ## install flux
