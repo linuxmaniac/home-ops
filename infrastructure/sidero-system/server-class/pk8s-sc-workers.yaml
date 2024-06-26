@@ -22,3 +22,7 @@ spec:
       path: /machine/install/extensions
       value:
         - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
+    - op: add
+      path: /machine/install/extensions/-
+      value:
+        image: ghcr.io/siderolabs/util-linux-tools:2.39.3
