@@ -8,9 +8,9 @@ spec:
   image: lscr.io/linuxserver/netbootxyz
   interval: 12h
   exclusionList:
-    - '^develop.*'
-    - '^nightly-.*'
-    - '.*tftp.*'
+    - ^develop.*
+    - ^nightly-.*
+    - .*tftp.*
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
@@ -34,9 +34,9 @@ spec:
   image: lscr.io/linuxserver/openssh-server
   interval: 12h
   exclusionList:
-    - '^develop.*'
-    - '^nightly-.*'
-    - '^2021\..*'
+    - ^develop.*
+    - ^nightly-.*
+    - ^2021\..*
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
@@ -48,11 +48,36 @@ spec:
     name: openssh-server
     namespace: infra
   filterTags:
-    pattern: '^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)_p(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
-    extract: '$major.$minor.$patch-$prerelease'
+    pattern: ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)_p(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+    extract: $major.$minor.$patch-$prerelease
   policy:
     semver:
       range: '>=9-0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: nginx
+  namespace: infra
+spec:
+  image: lscr.io/linuxserver/nginx
+  interval: 12h
+  exclusionList:
+    - ^develop.*
+    - ^nightly-.*
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: nginx
+  namespace: infra
+spec:
+  imageRepositoryRef:
+    name: nginx
+    namespace: infra
+  policy:
+    semver:
+      range: '>=1.24.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageUpdateAutomation
@@ -74,24 +99,24 @@ spec:
         email: fluxcdbot@users.noreply.github.com
         name: fluxcdbot
       messageTemplate: |
-          pk8s: [infra] Automated image update
+        pk8s: [infra] Automated image update
 
-          Automation name: {{ .AutomationObject }}
+        Automation name: {{ .AutomationObject }}
 
-          Files:
-          {{ range $filename, $_ := .Updated.Files -}}
-          - {{ $filename }}
-          {{ end -}}
+        Files:
+        {{ range $filename, $_ := .Updated.Files -}}
+        - {{ $filename }}
+        {{ end -}}
 
-          Objects:
-          {{ range $resource, $_ := .Updated.Objects -}}
-          - {{ $resource.Kind }} {{ $resource.Name }}
-          {{ end -}}
+        Objects:
+        {{ range $resource, $_ := .Updated.Objects -}}
+        - {{ $resource.Kind }} {{ $resource.Name }}
+        {{ end -}}
 
-          Images:
-          {{ range .Updated.Images -}}
-          - {{.}}
-          {{ end -}}
+        Images:
+        {{ range .Updated.Images -}}
+        - {{.}}
+        {{ end -}}
     push:
       branch: flux-image-updates-infra
   update:

@@ -1,0 +1,107 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: www-nginx
+  namespace: infra
+data:
+  default.conf: |
+    server {
+      listen                  80;
+      server_name             _;
+      root                    /config/www;
+      location / {
+        autoindex on;
+      }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: www
+  name: www
+  namespace: infra
+spec:
+  selector:
+    matchLabels:
+      io.kompose.service: www
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: www
+    spec:
+      containers:
+        - name: www-nginx
+          image: lscr.io/linuxserver/nginx:1.26.1 # {"$imagepolicy": "tw:nginx"}
+          env:
+            - name: TZ
+              value: Europe/Madrid
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /config/www
+              name: nfs-www
+              readOnly: true
+            - mountPath: /config/nginx
+              name: www-nginx-confs
+            - mountPath: /config/nginx/site-confs/default.conf
+              name: www-nginx
+              subPath: default.conf
+          resources: {}
+      restartPolicy: Always
+      volumes:
+        - name: nfs-www
+          persistentVolumeClaim:
+            claimName: nfs-www
+        - name: www-nginx-confs
+          emptyDir:
+            sizeLimit: 20Mi
+        - name: www-nginx
+          configMap:
+            name: www-nginx
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: www
+  name: www-nginx
+  namespace: infra
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+  selector:
+    io.kompose.service: www
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: www
+  namespace: infra
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: 'true'
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd,traefik-internal-ipallowlist@kubernetescrd
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - panel.sipwork.pro
+      secretName: sipwork.pro-tls
+  rules:
+    - host: panel.sipwork.pro
+      http:
+        paths:
+          - path: /preseed
+            pathType: Prefix
+            backend:
+              service:
+                name: www-nginx
+                port:
+                  name: http

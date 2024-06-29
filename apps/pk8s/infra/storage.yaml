@@ -121,3 +121,47 @@ spec:
   selector:
     matchLabels:
       org.democratic-csi.manual: bootxyz-tftp
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-www
+  labels:
+    io.kompose.service: sipwise-mirror
+spec:
+  capacity:
+    storage: 1Ti
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - nfsvers=4
+    - nolock
+    - noatime
+  csi:
+    driver: org.democratic-csi.node-manual
+    readOnly: false
+    fsType: nfs
+    volumeHandle: nfs-www
+    volumeAttributes:
+      server: 192.168.4.5
+      share: /mnt/main/www
+      node_attach_driver: nfs
+      provisioner_driver: node-manual
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    io.kompose.service: sipwise-mirror
+  name: nfs-www
+  namespace: infra
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Ti
+  selector:
+    matchLabels:
+      io.kompose.service: sipwise-mirror
