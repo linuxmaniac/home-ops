@@ -4,6 +4,5 @@ kind: Kustomization
 resources:
   - storage.yaml
   - bootxyz.yaml
-  - bastion.yaml
   - web.yaml
   - images.yaml
