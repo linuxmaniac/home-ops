@@ -108,7 +108,7 @@ spec:
               value: '1000'
             - name: TZ
               value: Europe/Madrid
-          image: lscr.io/linuxserver/homeassistant:2024.7.1 # {"$imagepolicy": "sipwork:home-assistant"}
+          image: lscr.io/linuxserver/homeassistant:2024.7.2 # {"$imagepolicy": "sipwork:home-assistant"}
           name: home-assistant
           ports:
             - containerPort: 8123
