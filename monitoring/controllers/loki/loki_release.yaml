@@ -17,6 +17,7 @@ spec:
       interval: 60m
   # https://github.com/grafana/loki/blob/main/production/helm/loki/values.yaml
   values:
+    deploymentMode: SingleBinary
     loki:
       auth_enabled: false
       serviceMonitor:
