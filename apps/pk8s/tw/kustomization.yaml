@@ -14,8 +14,6 @@ resources:
   - sipwise-mirror.yaml
   - quassel.yaml
   - freshrss.yaml
-  - code-server.enc.yaml
-  - code-server.yaml
   - images.yaml
 secretGenerator:
   - name: nextcloud-config
