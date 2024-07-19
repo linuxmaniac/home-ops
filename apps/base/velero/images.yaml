@@ -2,28 +2,6 @@
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
-  name: plugin-csi
-  namespace: velero
-spec:
-  image: velero/velero-plugin-for-csi
-  interval: 12h
----
-apiVersion: image.toolkit.fluxcd.io/v1beta2
-kind: ImagePolicy
-metadata:
-  name: plugin-csi
-  namespace: velero
-spec:
-  imageRepositoryRef:
-    name: plugin-csi
-    namespace: velero
-  policy:
-    semver:
-      range: '>=0.7.0'
----
-apiVersion: image.toolkit.fluxcd.io/v1beta2
-kind: ImageRepository
-metadata:
   name: plugin-aws
   namespace: velero
 spec:
