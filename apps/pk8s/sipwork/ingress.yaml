@@ -1,0 +1,28 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: homeassistant
+  namespace: sipwork
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: 'true'
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd
+    traefik.frontend.passHostHeader: 'true'
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - home.sipwork.pro
+      secretName: sipwork.pro-tls
+  rules:
+    - host: home.sipwork.pro
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: homeassistant
+                port:
+                  name: http

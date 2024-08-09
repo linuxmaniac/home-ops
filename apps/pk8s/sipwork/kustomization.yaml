@@ -9,6 +9,8 @@ resources:
   - traefik.yaml
   - storage.yaml
   - wordpress.yaml
+  - home-assistant.yaml
+  - ingress.yaml
   - phpmyadmin.yaml
 secretGenerator:
   - name: wp-sipwork-config
