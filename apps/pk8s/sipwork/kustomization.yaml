@@ -9,27 +9,16 @@ resources:
   - traefik.yaml
   - storage.yaml
   - wordpress.yaml
-  - images.yaml
-  - home-assistant.yaml
-  - ingress.yaml
   - phpmyadmin.yaml
 secretGenerator:
   - name: wp-sipwork-config
     namespace: flux-system
     files:
       - values.yaml=wp-secret-values.enc.yaml
-  - name: influxdb-sipwork-config
-    namespace: flux-system
-    files:
-      - values.yaml=influxdb-secret-values.enc.yaml
 configMapGenerator:
   - name: wp-sipwork-values
     namespace: flux-system
     files:
       - values-wp.yaml=wp-values.yaml
-  - name: influxdb-sipwork-values
-    namespace: flux-system
-    files:
-      - values-influxdb.yaml=influxdb-values.yaml
 configurations:
   - kustomizeconfig.yaml
