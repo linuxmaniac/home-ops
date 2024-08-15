@@ -9,7 +9,7 @@ resources:
   - traefik.yaml
   - storage.yaml
   - wordpress.yaml
-  - home-assistant.yaml
+  - services_ext.yaml
   - ingress.yaml
   - phpmyadmin.yaml
 secretGenerator:
