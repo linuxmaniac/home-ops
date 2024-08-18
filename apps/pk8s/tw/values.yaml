@@ -49,6 +49,8 @@ lifecycle:
     - /bin/bash
     - -c
     - apt update -y && apt install ffmpeg -y
+readinessProbe:
+  enabled: false
 internalDatabase:
   enabled: false
 postgresql:
