@@ -15,8 +15,12 @@ nextcloud:
   existingSecret:
     enabled: true
     secretName: nextcloud
-    mail:
-      enabled: false
+  mail:
+    enabled: true
+    fromAddress: no-reply
+    domain: torreviejawireless.org
+    smtp:
+      port: 587
   defaultConfigs:
     redis.config.php: false
   configs:
