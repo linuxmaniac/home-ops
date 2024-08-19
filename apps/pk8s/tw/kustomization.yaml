@@ -12,7 +12,6 @@ resources:
   - nextcloud.yaml
   - gitea.yaml
   - sipwise-mirror.yaml
-  - quassel.yaml
   - freshrss.yaml
   - images.yaml
 secretGenerator:

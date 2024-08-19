@@ -154,60 +154,6 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: quassel-core-config
-  labels:
-    app: tw-quassel-core-config
-spec:
-  capacity:
-    storage: 250Mi
-  csi:
-    driver: org.democratic-csi.node-manual
-    volumeHandle: pvc-1fb89fc7-4bad-4591-b994-292e0677b778
-    fsType: ext4
-    volumeAttributes:
-      interface: ''
-      iqn: >-
-        iqn.2005-10.org.freenas.ctl:csi-pvc-1fb89fc7-4bad-4591-b994-292e0677b778-cluster
-      lun: '0'
-      node_attach_driver: iscsi
-      portal: 192.168.4.5:3260
-      portals: ''
-      provisioner_driver: node-manual
-    controllerPublishSecretRef:
-      name: controller-publish-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    nodeStageSecretRef:
-      name: node-stage-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    nodePublishSecretRef:
-      name: node-publish-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-    controllerExpandSecretRef:
-      name: controller-expand-secret-freenas-iscsi-csi-democratic-csi
-      namespace: democratic-csi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  volumeMode: Filesystem
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: quassel-core-config
-  namespace: tw
-spec:
-  accessModes:
-    - ReadWriteOnce
-  selector:
-    matchLabels:
-      app: tw-quassel-core-config
-  resources:
-    requests:
-      storage: 250Mi
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
   name: nfs-sipwise-mirror
   labels:
     io.kompose.service: sipwise-mirror
