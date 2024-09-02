@@ -26,4 +26,3 @@ spec:
       - slab_nomerge=
       - talos.platform=metal
       - net.ifnames=0
-      - ipv6.disable_ipv6=1
