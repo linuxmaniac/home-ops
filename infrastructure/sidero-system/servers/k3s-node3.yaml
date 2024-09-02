@@ -31,22 +31,6 @@ spec:
       path: /machine/network
       value:
         interfaces:
-          - interface: bond0
-            dhcp: false
-            bond:
-              deviceSelectors:
-                - hardwareAddr: 20:7b:d2:*
-                  driver: cdc_ncm
-              mode: 802.3ad
-            vlans:
-              - vlanId: 200
-                dhcp: false
-              - vlanId: 110
-                dhcp: false
-          - deviceSelector:
-              hardwareAddr: 20:7b:d2:*
-              driver: cdc_ncm
-            dhcp: false
           - deviceSelector:
               hardwareAddr: b0:41:6f:*
             dhcp: true
@@ -63,18 +47,9 @@ spec:
       value:
         validSubnets:
           - 192.168.4.0/24
-    - op: add
-      path: /machine/kernel
-      value:
-        modules:
-          - name: cdc_ncm
     - op: replace
       path: /machine/install/disk
       value: /dev/nvme0n1
-    - op: add
-      path: /machine/install/extensions/-
-      value:
-        image: ghcr.io/siderolabs/usb-modem-drivers:v1.7.6
     - op: add
       path: /machine/install/extensions/-
       value:
