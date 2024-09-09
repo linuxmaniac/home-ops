@@ -203,6 +203,32 @@ spec:
     semver:
       range: '>=2.13.0'
 ---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: mylar3
+  namespace: plex
+spec:
+  image: lscr.io/linuxserver/mylar3
+  interval: 12h
+  exclusionList:
+    - ^[1-9]\.[0-9]\.[0-9]{4}.*
+    - ^develop.*
+    - ^nightly-.*
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: mylar3
+  namespace: plex
+spec:
+  imageRepositoryRef:
+    name: mylar3
+    namespace: plex
+  policy:
+    semver:
+      range: '>=0.8.0'
+---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageUpdateAutomation
 metadata:
