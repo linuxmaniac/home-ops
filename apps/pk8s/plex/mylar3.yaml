@@ -1,0 +1,87 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mylar3-custom
+  namespace: plex
+data:
+  serverConfig: |
+    #!/usr/bin/with-contenv bash
+    CONFIG=/config/mylarr/config.ini
+
+    if [ -f ${CONFIG} ]; then
+      sed -i 's#http_root = /$#http_root = /mylarr#' ${CONFIG}
+    EOF
+    fi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: mylar3
+  name: mylar3
+  namespace: plex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: mylar3
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: mylar3
+    spec:
+      containers:
+        - env:
+            - name: PGID
+              value: '1000'
+            - name: PUID
+              value: '1000'
+            - name: TZ
+              value: Europe/Madrid
+          image: lscr.io/linuxserver/mylar3:0.8.0 # {"$imagepolicy": "plex:mylar3"}
+          name: mylar3
+          ports:
+            - containerPort: 8686
+          resources: {}
+          volumeMounts:
+            - mountPath: /custom-cont-init.d
+              name: mylar3-custom
+              readOnly: true
+            - mountPath: /config
+              name: mylar3-config
+            - mountPath: /comics
+              name: plex-media
+              subPath: comics
+            - mountPath: /downloads
+              name: plex-media
+              subPath: transmission
+      restartPolicy: Always
+      volumes:
+        - name: mylar3-custom
+          configMap:
+            name: mylar3-custom
+        - name: plex-media
+          persistentVolumeClaim:
+            claimName: plex-media
+        - name: mylar3-config
+          persistentVolumeClaim:
+            claimName: mylar3-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: mylar3
+  name: mylar3
+  namespace: plex
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8090
+  type: ClusterIP
+  selector:
+    io.kompose.service: mylar3
