@@ -7,10 +7,11 @@ metadata:
 data:
   serverConfig: |
     #!/usr/bin/with-contenv bash
-    CONFIG=/config/mylarr/config.ini
+    CONFIG=/config/mylar/config.ini
 
     if [ -f ${CONFIG} ]; then
       sed -i 's#http_root = /$#http_root = /mylarr#' ${CONFIG}
+      sed -i 's#cache_dir = None$#cache_dir = /downloads/complete/comics#' ${CONFIG}
     EOF
     fi
 ---
