@@ -53,12 +53,12 @@ spec:
     - op: add
       path: /machine/install/extensions/-
       value:
-        image: ghcr.io/siderolabs/amd-ucode:20240513
+        image: ghcr.io/siderolabs/amd-ucode:20240909
     - op: add
       path: /machine/install/extensions/-
       value:
-        image: ghcr.io/siderolabs/amdgpu-firmware:20240513
+        image: ghcr.io/siderolabs/amdgpu-firmware:20240909
     - op: add
       path: /machine/install/extensions/-
       value:
-        image: ghcr.io/siderolabs/realtek-firmware:20240513
+        image: ghcr.io/siderolabs/realtek-firmware:20240909
