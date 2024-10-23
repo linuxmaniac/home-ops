@@ -39,7 +39,7 @@ gitea:
       ROOT_URL: https://git.torreviejawireless.org/
       DOMAIN: git.torreviejawireless.org
       START_SSH_SERVER: true
-      SSH_PORT: 2223
+      SSH_LISTEN_PORT: 2223
     service:
       DISABLE_REGISTRATION: true
     cache:
