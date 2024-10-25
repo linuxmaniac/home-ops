@@ -33,7 +33,7 @@ spec:
               value: '1000'
             - name: VERSION
               value: docker
-          image: lscr.io/linuxserver/plex:1.41.0 # {"$imagepolicy": "plex:plex"}
+          image: lscr.io/linuxserver/plex:1.41.1 # {"$imagepolicy": "plex:plex"}
           name: plex
           ports:
             - containerPort: 32400
