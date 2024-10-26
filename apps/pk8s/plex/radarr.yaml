@@ -42,7 +42,7 @@ spec:
               value: "1000"
             - name: TZ
               value: Europe/Madrid
-          image: lscr.io/linuxserver/radarr:5.12.2 # {"$imagepolicy": "plex:radarr"}
+          image: lscr.io/linuxserver/radarr:5.13.1 # {"$imagepolicy": "plex:radarr"}
           name: radarr
           ports:
             - containerPort: 7878
