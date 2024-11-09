@@ -88,7 +88,7 @@ tls:
   existingSecret: tw-tls
 sidecars:
   - name: jenkins-update-center-proxy
-    image: onigoetz/jenkins-update-center-proxy:0.13.0
+    image: onigoetz/jenkins-update-center-proxy:0.14.0
     imagePullPolicy: IfNotPresent
     env:
       - name: LOCAL_UPDATE_CENTER
