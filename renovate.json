@@ -1,8 +1,41 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    "docker:enableMajor",
+    "replacements:k8s-registry-move",
+    ":automergeBranch",
+    ":disableRateLimiting",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":timezone(Europe/Madrid)"
   ],
-  "timezone": "Europe/Madrid",
-  "ignorePaths": ["**/*.enc.*", "**/integrations/**", "**/scripts/**"]
+  "ignorePaths": ["**/*.enc.*", "**/integrations/**", "**/scripts/**"],
+  "flux": {
+    "fileMatch": [
+      "(^|/)apps/.+\\.ya?ml$",
+      "(^|/)backups/.+\\.ya?ml$",
+      "(^|/)clusters/.+\\.ya?ml$",
+      "(^|/)infrastructure/.+\\.ya?ml$",
+      "(^|/)monitoring/.+\\.ya?ml$"
+    ]
+  },
+  "helm-values": {
+    "fileMatch": [
+      "(^|/)apps/.+\\.ya?ml$",
+      "(^|/)backups/.+\\.ya?ml$",
+      "(^|/)clusters/.+\\.ya?ml$",
+      "(^|/)infrastructure/.+\\.ya?ml$",
+      "(^|/)monitoring/.+\\.ya?ml$"
+    ]
+  },
+  "kubernetes": {
+    "fileMatch": [
+      "(^|/)apps/.+\\.ya?ml$",
+      "(^|/)backups/.+\\.ya?ml$",
+      "(^|/)clusters/.+\\.ya?ml$",
+      "(^|/)infrastructure/.+\\.ya?ml$",
+      "(^|/)monitoring/.+\\.ya?ml$"
+    ]
+  }
 }
