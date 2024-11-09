@@ -35,7 +35,7 @@ spec:
       debug: true
     initContainers:
       - name: clean-multus-conf
-        image: busybox:1.28
+        image: busybox:1.37
         command: [rm, -rf, /bitnami/multus-cni/host/etc/cni/net.d/00-multus.conflist]
         resources: {}
         volumeMounts:
