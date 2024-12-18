@@ -61,4 +61,4 @@ spec:
     - op: add
       path: /machine/install/extensions/-
       value:
-        image: ghcr.io/siderolabs/realtek-firmware:20240909
+        image: ghcr.io/siderolabs/realtek-firmware:20241210
