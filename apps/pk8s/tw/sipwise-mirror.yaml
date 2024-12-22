@@ -55,7 +55,7 @@ spec:
               value: jenkins
             - name: SUDO_ACCESS
               value: 'false'
-          image: lscr.io/linuxserver/openssh-server:9.7_p1-r4-ls181 # {"$imagepolicy": "tw:openssh-server"}
+          image: lscr.io/linuxserver/openssh-server:9.7_p1-r4-ls182 # {"$imagepolicy": "tw:openssh-server"}
           name: sipwise-mirror
           resources: {}
           ports:
