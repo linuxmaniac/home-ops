@@ -1,11 +1,11 @@
 # 🪙 Sidero
 
-The following applies to sidero v1.7.6
+The following applies to sidero v1.9.0
 ## Dependencies
 
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
 - [clusterctl](https://cluster-api.sigs.k8s.io/user/quick-start.html#install-clusterctl)
-- [talosctl](https://www.talos.dev/v1.7/introduction/getting-started/#talosctl)
+- [talosctl](https://www.talos.dev/v1.9/introduction/getting-started/#talosctl)
 
 ## Install Talos on RPI4
 
@@ -14,7 +14,6 @@ Flash USB/SSD with Talos image, (found here.)[https://github.com/siderolabs/talo
 ## Creating management cluster
 ```bash
 export SIDERO_ENDPOINT=192.168.4.4
-export SIDERO_WORKER=192.168.4.13
 ```
 
 Be sure ``iscssi-tools`` extension is installed
@@ -42,19 +41,17 @@ talosctl --context sidero apply-config -e ${SIDERO_ENDPOINT} -n ${SIDERO_ENDPOIN
 talosctl --context sidero -e ${SIDERO_ENDPOINT} -n ${SIDERO_ENDPOINT} bootstrap
 ```
 
-```bash
-talosctl --context sidero -e ${SIDERO_ENDPOINT} -n ${SIDERO_WORKER} apply-config --file integrations/sidero/worker.yaml --insecure
-```
 ## upgrade talos
+
+get ID
+```bash
+curl -X POST -H "Content-type: text/x-yaml" --data-binary @integrations/sidero/bare-metal-node.yaml https://factory.talos.dev/schematics
+{"id":"e5b5d80afe73ad7a39e9c3813f8a27d160b95bd96d3cc7524e7c78186f14d390"}
+```
 
 control-plane
 ```bash
-talosctl --context sidero upgrade -e ${SIDERO_ENDPOINT} -n ${SIDERO_ENDPOINT} --image factory.talos.dev/installer/736bd725ab9f13cee4828afa632281ef420a901deb7a95eaf8d0a69bd6485937:v1.7.6 --preserve --force
-```
-
-worker
-```bash
-talosctl --context sidero upgrade -e ${SIDERO_ENDPOINT} -n ${SIDERO_WORKER} --image factory.talos.dev/installer/3a63f33668ebef01b36969fc2dddb391e357110169ae287954f2e3b34407e094:v1.7.6
+talosctl --context sidero upgrade -e ${SIDERO_ENDPOINT} -n ${SIDERO_ENDPOINT} --image factory.talos.dev/installer/e5b5d80afe73ad7a39e9c3813f8a27d160b95bd96d3cc7524e7c78186f14d390:v1.9.0 --preserve --force
 ```
 
 ## install flux
