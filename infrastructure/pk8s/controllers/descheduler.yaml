@@ -59,6 +59,8 @@ spec:
                   cpu: 50
                   memory: 50
                   pods: 50
+                metricsUtilization:
+                  metricsServer: true
                 evictableNamespaces:
                   exclude:
                     - kube-system
@@ -66,9 +68,9 @@ spec:
             - name: HighNodeUtilization
               args:
                 thresholds:
-                  cpu: 20
-                  memory: 20
-                  pods: 20
+                  cpu: 60
+                  memory: 80
+                  pods: 50
                 evictableNamespaces:
                   exclude:
                     - kube-system
