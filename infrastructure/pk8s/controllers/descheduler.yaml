@@ -35,6 +35,8 @@ spec:
       enabled: true
     deschedulerPolicy:
       nodeSelector: node-role.kubernetes.io/worker=true
+      metricsCollector:
+        enabled: true
       profiles:
         - name: ProfileName
           pluginConfig:
