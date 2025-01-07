@@ -1,14 +1,20 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: sipwise-mirror-nginx
   namespace: tw
 data:
+  config: |
+    #!/bin/sh
+    cp /tmp/default.conf /config/nginx/site-confs/
   default.conf: |
     server {
       listen                  80;
       server_name             _;
-      root                    /config/www/vmbuilder;
+      root                    /var/www/vmbuilder;
+      access_log /dev/stdout main;
+      error_log /dev/stderr;
       location / {
         autoindex on;
       }
@@ -73,14 +79,17 @@ spec:
           ports:
             - containerPort: 80
           volumeMounts:
-            - mountPath: /config/www
+            - mountPath: /var/www
               name: nfs-sipwise-mirror
               readOnly: true
             - mountPath: /config/nginx
               name: sipwise-mirror-nginx-confs
-            - mountPath: /config/nginx/site-confs/default.conf
+            - mountPath: /tmp/default.conf
               name: sipwise-mirror-nginx
               subPath: default.conf
+            - mountPath: /custom-cont-init.d/config
+              name: sipwise-mirror-nginx
+              subPath: config
       restartPolicy: Always
       volumes:
         - name: nfs-sipwise-mirror
