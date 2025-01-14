@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -12,8 +13,6 @@ data:
       listen                  80;
       server_name             _;
       root                    /var/www/vmbuilder;
-      access_log /dev/stdout main;
-      error_log /dev/stderr;
       location / {
         autoindex on;
       }
