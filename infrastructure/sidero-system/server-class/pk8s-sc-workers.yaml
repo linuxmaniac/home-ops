@@ -21,7 +21,7 @@ spec:
     - op: replace
       path: /machine/install/extensions
       value:
-        - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
+        - image: ghcr.io/siderolabs/iscsi-tools:v0.2.0
     - op: add
       path: /machine/install/extensions/-
       value:
