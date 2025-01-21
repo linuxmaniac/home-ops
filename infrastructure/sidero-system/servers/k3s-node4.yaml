@@ -53,7 +53,7 @@ spec:
     - op: add
       path: /machine/install/extensions/-
       value:
-        image: ghcr.io/siderolabs/amd-ucode:20240909
+        image: ghcr.io/siderolabs/amd-ucode:20250109
     - op: add
       path: /machine/install/extensions/-
       value:
