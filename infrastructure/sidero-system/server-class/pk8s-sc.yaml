@@ -20,4 +20,4 @@ spec:
     - op: add
       path: /machine/install/extensions/-
       value:
-        image: ghcr.io/siderolabs/util-linux-tools:2.39.3
+        image: ghcr.io/siderolabs/util-linux-tools:2.40.4
