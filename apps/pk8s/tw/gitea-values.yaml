@@ -26,8 +26,8 @@ service:
     externalTrafficPolicy: Local
     port: 2223
     annotations:
-      metallb.universe.tf/address-pool: external-pool
-      metallb.universe.tf/loadBalancerIPs: 192.168.5.243
+      metallb.io/address-pool: external-pool
+      metallb.io/loadBalancerIPs: 192.168.5.243
 image:
   rootless: true
 gitea:

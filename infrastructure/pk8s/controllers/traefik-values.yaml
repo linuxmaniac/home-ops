@@ -12,8 +12,8 @@ spec:
       enabled: true
       type: LoadBalancer
       annotations:
-        metallb.universe.tf/address-pool: external-pool
-        metallb.universe.tf/loadBalancerIPs: 192.168.5.240
+        metallb.io/address-pool: external-pool
+        metallb.io/loadBalancerIPs: 192.168.5.240
       labels: {}
       spec:
         externalTrafficPolicy: Local
@@ -25,8 +25,8 @@ spec:
           labels:
             traefik-service-label: internal
           annotations:
-            metallb.universe.tf/address-pool: internal-pool
-            metallb.universe.tf/loadBalancerIPs: 192.168.4.240
+            metallb.io/address-pool: internal-pool
+            metallb.io/loadBalancerIPs: 192.168.4.240
           spec:
             externalTrafficPolicy: Local
           loadBalancerSourceRanges: []
