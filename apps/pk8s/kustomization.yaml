@@ -8,6 +8,5 @@ resources:
   - infra
   - umh
   - sipwork
-  - jenkins
   - ../base/velero
   - ../base/velero/images.yaml
