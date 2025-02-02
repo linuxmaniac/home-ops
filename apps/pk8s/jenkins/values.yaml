@@ -1,4 +1,7 @@
 ---
+global:
+  security:
+    allowInsecureImages: true
 nodeSelector:
   kubernetes.io/arch: amd64
 jenkinsUser: vseva
