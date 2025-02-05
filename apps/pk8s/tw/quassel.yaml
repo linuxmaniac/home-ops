@@ -1,0 +1,64 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quassel-core
+  namespace: tw
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: quassel-core
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: quassel-core
+    spec:
+      containers:
+        - env:
+            - name: PGID
+              value: "1001"
+            - name: PUID
+              value: "1001"
+            - name: TZ
+              value: Europe/Madrid
+            - name: DB_BACKEND
+              value: SQLite
+            - name: AUTH_AUTHENTICATOR
+              value: Database
+            - name: RUN_OPTS
+              value: --config-from-environment
+          image: lscr.io/linuxserver/quassel-core:0.14.0 # {"$imagepolicy": "tw:quassel-core"}
+          name: quassel-core
+          resources: {}
+          ports:
+            - containerPort: 4242
+          volumeMounts:
+            - mountPath: /config
+              name: quassel-core-config
+      restartPolicy: Always
+      volumes:
+        - name: quassel-core-config
+          persistentVolumeClaim:
+            claimName: quassel-core-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/address-pool: internal-pool
+    metallb.universe.tf/loadBalancerIPs: 192.168.4.245
+  labels:
+    io.kompose.service: quassel-core
+  name: quassel-core
+  namespace: tw
+spec:
+  ports:
+    - name: quassel
+      port: 4242
+      targetPort: 4242
+  type: LoadBalancer
+  selector:
+    io.kompose.service: quassel-core
