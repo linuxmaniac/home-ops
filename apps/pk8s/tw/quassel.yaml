@@ -19,9 +19,9 @@ spec:
       containers:
         - env:
             - name: PGID
-              value: "1001"
+              value: '1001'
             - name: PUID
-              value: "1001"
+              value: '1001'
             - name: TZ
               value: Europe/Madrid
             - name: DB_BACKEND
@@ -48,8 +48,8 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    metallb.universe.tf/address-pool: internal-pool
-    metallb.universe.tf/loadBalancerIPs: 192.168.4.245
+    metallb.io/address-pool: internal-pool
+    metallb.io/loadBalancerIPs: 192.168.4.245
   labels:
     io.kompose.service: quassel-core
   name: quassel-core
