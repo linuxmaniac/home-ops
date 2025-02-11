@@ -38,7 +38,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           commit_message: Update to ${{ steps.update.outputs.flux_version }}
       - name: Create pull request
-        uses: devops-infra/action-pull-request@v0.5.5
+        uses: devops-infra/action-pull-request@v0.6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           title: Update to ${{ steps.update.outputs.flux_version }}
