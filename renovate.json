@@ -13,5 +13,8 @@
   "ignorePaths": ["**/*.enc.*", "**/integrations/**", "**/scripts/**"],
   "pre-commit": {
     "enabled": true
+  },
+  "kubernetes": {
+    "fileMatch": ["\\.yaml$"]
   }
 }
