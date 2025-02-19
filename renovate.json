@@ -10,7 +10,12 @@
     ":semanticCommits",
     ":timezone(Europe/Madrid)"
   ],
-  "ignorePaths": ["**/*.enc.*", "**/integrations/**", "**/scripts/**"],
+  "ignorePaths": [
+    "infrastructure/sidero-system/**",
+    "**/*.enc.*",
+    "**/integrations/**",
+    "**/scripts/**"
+  ],
   "pre-commit": {
     "enabled": true
   },
