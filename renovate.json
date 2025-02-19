@@ -10,5 +10,8 @@
     ":semanticCommits",
     ":timezone(Europe/Madrid)"
   ],
-  "ignorePaths": ["**/*.enc.*", "**/integrations/**", "**/scripts/**"]
+  "ignorePaths": ["**/*.enc.*", "**/integrations/**", "**/scripts/**"],
+  "pre-commit": {
+    "enabled": true
+  }
 }
