@@ -10,6 +10,13 @@
     ":semanticCommits",
     ":timezone(Europe/Madrid)"
   ],
+  "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["lscr.io/linuxserver/"],
+      "dependencyDashboardApproval": true
+    }
+  ],
   "ignorePaths": [
     "infrastructure/sidero-system/**",
     "**/*.enc.*",
