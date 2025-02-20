@@ -18,10 +18,12 @@
     }
   ],
   "ignorePaths": [
-    "infrastructure/sidero-system/**",
     "**/*.enc.*",
-    "**/integrations/**",
-    "**/scripts/**"
+    "infrastructure/sidero-system/**",
+    "clusters/**",
+    "backups/**",
+    "integrations/**",
+    "scripts/**"
   ],
   "pre-commit": {
     "enabled": true
