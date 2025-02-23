@@ -277,7 +277,7 @@ spec:
               value: '1001'
             - name: TZ
               value: Europe/Madrid
-          image: lscr.io/linuxserver/freshrss:1.25.0 # {"$imagepolicy": "tw:freshrss"}
+          image: lscr.io/linuxserver/freshrss:1.26.0 # {"$imagepolicy": "tw:freshrss"}
           name: freshrss
           resources: {}
           ports:
