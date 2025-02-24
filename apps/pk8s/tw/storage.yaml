@@ -353,7 +353,7 @@ metadata:
     org.democratic-csi.manual: tw-freshrss-config
 spec:
   capacity:
-    storage: 500Mi
+    storage: 1Gi
   csi:
     driver: org.democratic-csi.node-manual
     volumeHandle: pvc-0f84f841-224f-41f2-a301-8a86f9d03277
@@ -397,7 +397,7 @@ spec:
       org.democratic-csi.manual: tw-freshrss-config
   resources:
     requests:
-      storage: 500Mi
+      storage: 1Gi
 ---
 apiVersion: v1
 kind: PersistentVolume
