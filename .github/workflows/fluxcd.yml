@@ -29,7 +29,7 @@ jobs:
             --export > ./clusters/pk8s/flux-system/gotk-components.yaml
           flux install \
             --components-extra=image-reflector-controller,image-automation-controller \
-            --export > ./clusters/sidero/flux-system/gotk-components.yaml
+            --export > ./clusters/pk8s-dev/flux-system/gotk-components.yaml
           VERSION="$(flux -v)"
           echo "flux_version=$VERSION" >> $GITHUB_OUTPUT
       - name: Commit and push changes
