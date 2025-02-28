@@ -1,0 +1,11 @@
+---
+secretGenerator:
+  - name: truenas-api-token
+    files:
+      - values.yaml=pk8s-dev/secret-values.enc.yaml
+  - name: truenas-iscsi
+    files:
+      - values-iscsi.yaml=pk8s-dev/csi-secret-values.enc.yaml
+  - name: truenas-nfs
+    files:
+      - values-nfs.yaml=pk8s-dev/csi-nfs-secret-values.enc.yaml

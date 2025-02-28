@@ -15,6 +15,12 @@ secretGenerator:
   - name: truenas-api-token
     files:
       - values.yaml=secret-values.enc.yaml
+  - name: truenas-iscsi
+    files:
+      - values-iscsi.yaml=csi-secret-values.enc.yaml
+  - name: truenas-nfs
+    files:
+      - values-nfs.yaml=csi-nfs-secret-values.enc.yaml
 configMapGenerator:
   - name: zfs-iscsi-values
     files:

@@ -1,7 +1,7 @@
 ---
 csiDriver:
   # should be globally unique for a given cluster
-  name: "org.democratic-csi.nfs"
+  name: org.democratic-csi.nfs
 
 # add note here about volume expansion requirements
 storageClasses:
@@ -29,7 +29,7 @@ driver:
     instance_id:
     httpConnection:
       protocol: https
-      host: truenas.lab
+      host:
       port: 444
       apiKey:
       allowInsecure: true
@@ -73,14 +73,14 @@ driver:
       # 512, 1K, 2K, 4K, 8K, 16K, 64K, 128K default is 16K
       zvolBlocksize:
     nfs:
-      shareHost: 192.168.4.5
+      shareHost:
       shareAlldirs: false
       shareAllowedHosts: []
       shareAllowedNetworks: []
       shareMaprootUser: root
       shareMaprootGroup: root
-      shareMapallUser: ""
-      shareMapallGroup: ""
+      shareMapallUser: ''
+      shareMapallGroup: ''
 # talos config
 # https://github.com/democratic-csi/democratic-csi#talos
 controller:

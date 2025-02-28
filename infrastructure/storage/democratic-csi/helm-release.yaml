@@ -29,3 +29,5 @@ spec:
       valuesKey: values-csi.yaml
     - kind: Secret
       name: truenas-api-token
+    - kind: Secret
+      name: truenas-iscsi
