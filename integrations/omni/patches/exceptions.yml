@@ -1,0 +1,11 @@
+---
+cluster:
+  apiServer:
+    admissionControl:
+      - name: PodSecurity
+        configuration:
+          exemptions:
+            namespaces:
+              - democratic-csi
+              - monitoring
+              - velero
