@@ -1,0 +1,4 @@
+cluster:
+  extraManifests:
+    - https://raw.githubusercontent.com/linuxmaniac/home-ops/omni/integrations/omni/manifests/install-cilium.yaml
+    - https://raw.githubusercontent.com/linuxmaniac/home-ops/main/infrastructure/controllers/kubelet-serving-cert-approver.yaml
