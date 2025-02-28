@@ -10,7 +10,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/storage/democratic-csi/pk8s
+  path: ./infrastructure/storage/democratic-csi/pk8s-dev
   prune: true
   decryption:
     provider: sops

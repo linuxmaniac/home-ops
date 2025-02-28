@@ -36,8 +36,8 @@ driver:
     instance_id:
     httpConnection:
       protocol: https
-      host: truenas.lab
-      port: 444
+      host:
+      port:
       apiKey:
       allowInsecure: true
       # use apiVersion 2 for TrueNAS-12 and up (will work on 11.x in some scenarios as well)
@@ -80,7 +80,7 @@ driver:
       # 512, 1K, 2K, 4K, 8K, 16K, 64K, 128K default is 16K
       zvolBlocksize:
     iscsi:
-      targetPortal: 192.168.4.5:3260
+      targetPortal:
       # for multipath
       targetPortals: [] # [ "server[:port]", "server[:port]", ... ]
       # leave empty to omit usage of -I with iscsiadm
@@ -91,7 +91,7 @@ driver:
       # default is "{{ name }}"
       #nameTemplate: "{{ parameters.[csi.storage.k8s.io/pvc/namespace] }}-{{ parameters.[csi.storage.k8s.io/pvc/name] }}"
       namePrefix: csi-
-      nameSuffix: -cluster
+      nameSuffix:
 
       # add as many as needed
       targetGroups:

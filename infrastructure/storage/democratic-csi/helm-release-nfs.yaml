@@ -29,3 +29,6 @@ spec:
       valuesKey: values-nfs-csi.yaml
     - kind: Secret
       name: truenas-api-token
+    - kind: Secret
+      name: truenas-nfs
+      valuesKey: values-nfs.yaml
