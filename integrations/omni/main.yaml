@@ -1,0 +1,36 @@
+---
+metadata:
+  namespace: default
+  type: MachineClasses.omni.sidero.dev
+  id: omni-pk8s-dev-controlplane
+spec:
+  matchlabels:
+    - omni.sidero.dev/cpu = qemu, pk8s-dev = cp
+---
+metadata:
+  namespace: default
+  type: MachineClasses.omni.sidero.dev
+  id: omni-sipwork-controlplane
+spec:
+  matchlabels:
+    - sipwork = cp
+---
+metadata:
+  namespace: default
+  type: MachineClasses.omni.sidero.dev
+  id: omni-sipwork-workers
+spec:
+  matchlabels:
+    - sipwork = worker
+---
+metadata:
+  namespace: default
+  type: EtcdBackupS3Configs.omni.sidero.dev
+  id: etcd-backup-s3-conf
+spec:
+  bucket: omni
+  region: us-east-1
+  endpoint: http://192.168.4.5:9000
+  accesskeyid: eRQ5fG8vl0BMUY24CIv5
+  secretaccesskey: b4cG03EDDqUx3xX90GN6U9oLhDWKvEdq13CNhXop
+  sessiontoken: ''

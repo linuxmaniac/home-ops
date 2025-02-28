@@ -1,0 +1,66 @@
+---
+kind: Cluster
+name: pk8s-dev
+talos:
+  version: v1.9.5
+kubernetes:
+  version: 1.32.2
+features:
+  enableWorkloadProxy: true
+  backupConfiguration:
+    interval: 1h
+patches:
+  - name: no-cni # we will install cilium in extraManifests
+    file: patches/cni.yml
+  - name: disable-kubeproxy
+    file: patches/disable-kubeproxy.yml
+systemExtensions:
+  - siderolabs/qemu-guest-agent
+  - siderolabs/iscsi-tools
+  - siderolabs/util-linux-tools
+labels:
+  env: dev
+---
+kind: ControlPlane
+machineClass:
+  name: omni-pk8s-dev-controlplane
+  size: 3
+patches:
+  - name: install-cilium
+    file: patches/extraManifests.yml
+  - name: metric-server
+    file: patches/metrics-server.yml
+  - name: monitoring
+    file: patches/monitoring.yml
+  - name: security namespace exceptions
+    file: patches/exceptions.yml
+---
+kind: Workers
+name: workers
+labels:
+  node-role.kubernetes.io/worker: true
+machines:
+  - 8e377305-c07c-49eb-800c-b207397699ea
+  - fc32d22f-f2c0-4922-9b69-1117cebdd79f
+---
+kind: Machine
+name: 8e377305-c07c-49eb-800c-b207397699ea
+labels:
+  pk8s-dev: worker
+locked: false
+patches:
+  - name: network
+    file: patches/k3s-worker0-network.yml
+  - name: kubelet
+    file: patches/kubelet-nodeip.yml
+---
+kind: Machine
+name: fc32d22f-f2c0-4922-9b69-1117cebdd79f
+labels:
+  pk8s-dev: worker
+locked: false
+patches:
+  - name: network
+    file: patches/k3s-worker1-network.yml
+  - name: kubelet
+    file: patches/kubelet-nodeip.yml

@@ -1,0 +1,5 @@
+---
+cluster:
+  extraManifests:
+    - https://raw.githubusercontent.com/linuxmaniac/home-ops/main/infrastructure/controllers/cilium.yaml
+    - https://raw.githubusercontent.com/linuxmaniac/home-ops/main/infrastructure/controllers/kubelet-serving-cert-approver.yaml
