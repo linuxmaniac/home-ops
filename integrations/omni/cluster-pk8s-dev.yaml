@@ -1,0 +1,44 @@
+---
+kind: Cluster
+name: pk8s-dev
+talos:
+  version: v1.9.4
+kubernetes:
+  version: 1.32.2
+features:
+  enableWorkloadProxy: true
+  backupConfiguration:
+    interval: 1h
+patches:
+  - name: no-cni # we will install cilium in extraManifests
+    file: patches/cni.yml
+  - name: disable-kubeproxy
+    file: patches/disable-kubeproxy.yml
+systemExtensions:
+  - siderolabs/qemu-guest-agent
+  - siderolabs/iscsi-tools
+  - siderolabs/util-linux-tools
+labels:
+  env: dev
+---
+kind: ControlPlane
+machineClass:
+  name: omni-pk8s-dev-controlplane
+  size: 1
+patches:
+  - name: install-cilium
+    file: patches/extraManifests.yml
+  - name: metric-server
+    file: patches/metrics-server.yml
+  - name: monitoring
+    file: patches/monitoring.yml
+  - name: security namespace exceptions
+    file: patches/exceptions.yml
+---
+kind: Workers
+name: workers
+labels:
+  node-role.kubernetes.io/worker: true
+machineClass:
+  name: omni-pk8s-dev-workers
+  size: 2
