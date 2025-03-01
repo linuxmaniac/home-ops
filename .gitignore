@@ -1,4 +1,5 @@
 # GitHub actions binaries
 bin/
-
+# files with secrets in plain
+**/*secret-values.yaml
 integrations/sidero/
