@@ -1,0 +1,57 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: overseerr
+  name: overseerr
+  namespace: plex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: overseerr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: overseerr
+    spec:
+      containers:
+        - env:
+            - name: PGID
+              value: '1000'
+            - name: PUID
+              value: '1000'
+            - name: TZ
+              value: Europe/Madrid
+          image: lscr.io/linuxserver/overseerr:1.33.2 # {"$imagepolicy": "plex:overseerr"}
+          name: overseerr
+          ports:
+            - containerPort: 5055
+          resources: {}
+          volumeMounts:
+            - mountPath: /config
+              name: overseerr-config
+      restartPolicy: Always
+      volumes:
+        - name: overseerr-config
+          persistentVolumeClaim:
+            claimName: overseerr-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: overseerr
+  name: overseerr
+  namespace: plex
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 5055
+  type: ClusterIP
+  selector:
+    io.kompose.service: overseerr

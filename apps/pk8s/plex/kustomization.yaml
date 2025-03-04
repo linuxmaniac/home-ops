@@ -14,5 +14,6 @@ resources:
   - plex-service.yaml
   - tautulli.yaml
   - mylar3.yaml
+  - overseerr.yaml
   - ingress.yaml
   - images.yaml
