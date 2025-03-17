@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
         - name: www-nginx
-          image: lscr.io/linuxserver/nginx:1.26.2 # {"$imagepolicy": "tw:nginx"}
+          image: lscr.io/linuxserver/nginx:1.26.3 # {"$imagepolicy": "tw:nginx"}
           env:
             - name: TZ
               value: Europe/Madrid
