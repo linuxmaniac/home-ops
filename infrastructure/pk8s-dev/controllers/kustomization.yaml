@@ -1,0 +1,24 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - cilium.yaml
+  - ../../pk8s/controllers/descheduler.yaml
+  - ../../controllers/capacitor.yaml
+  # this needs a working CiliumLoadBalancerIPPool
+  - ../../controllers/traefik.yaml
+  - ../../controllers/cert-manager-csi-driver.yaml
+  - ../../pk8s/controllers/images.yaml
+patches:
+  - path: traefik-values.yaml
+    target:
+      kind: HelmRelease
+      name: traefik
+  - target:
+      kind: ImageUpdateAutomation
+      name: controllers
+      namespace: flux-system
+    patch: |-
+      - op: replace
+        path: /spec/git/checkout/ref/branch
+        value: dev
