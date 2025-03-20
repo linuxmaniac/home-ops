@@ -5,4 +5,3 @@ resources:
   - kubelet-serving-cert-approver.yaml
   - reflector.yaml
   - cert-manager.yaml
-  - metallb.yaml
