@@ -1,0 +1,52 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: traefik
+  namespace: flux-system
+spec:
+  values:
+    persistence:
+      enabled: false
+    service:
+      enabled: true
+      type: LoadBalancer
+      annotations:
+        io.cilium/lb-ipam-ips: 192.168.5.222
+      labels: {}
+      spec:
+        externalTrafficPolicy: Local
+      loadBalancerSourceRanges: []
+      externalIPs: []
+      additionalServices:
+        internal:
+          type: LoadBalancer
+          labels:
+            traefik-service-label: internal
+          annotations:
+            io.cilium/lb-ipam-ips: 192.168.4.229
+          spec:
+            externalTrafficPolicy: Local
+          loadBalancerSourceRanges: []
+          externalIPs: []
+    ports:
+      traefik:
+        expose:
+          default: false
+          internal: true
+      web:
+        expose:
+          default: true
+          internal: true
+      websecure:
+        expose:
+          default: true
+          internal: true
+    experimental:
+      plugins:
+        rewrite-body:
+          moduleName: github.com/traefik/plugin-rewritebody
+          version: v0.3.1
+        cookiePathPrefix:
+          moduleName: github.com/SchmitzDan/traefik-plugin-cookie-path-prefix
+          version: v0.0.3
