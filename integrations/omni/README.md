@@ -48,6 +48,16 @@ kubectl --context "omni-${CLUSTER}" create secret generic sops-age \
   --from-file=age.agekey=/dev/stdin
 ```
 
+Update Cilium manifest
+======================
+
+```bash
+helm repo add cilium https://helm.cilium.io/
+# if you already have it
+helm repo update
+# produce cilium manifest using our choices
+helm template cilium/cilium -f infrastructure/controllers/cilium-values.yaml --namespace kube-system > infrastructure/controllers/cilium.yaml
+```
 
 TODO
 ====
