@@ -37,8 +37,6 @@ patches:
 ---
 kind: Workers
 name: workers
-labels:
-  node-role.kubernetes.io/worker: true
 machines:
   - 8e377305-c07c-49eb-800c-b207397699ea
   - fc32d22f-f2c0-4922-9b69-1117cebdd79f
