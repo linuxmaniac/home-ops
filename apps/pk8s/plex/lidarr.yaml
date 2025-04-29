@@ -40,7 +40,7 @@ spec:
               value: "1000"
             - name: TZ
               value: Europe/Madrid
-          image: lscr.io/linuxserver/lidarr:2.10.3 # {"$imagepolicy": "plex:lidarr"}
+          image: lscr.io/linuxserver/lidarr:2.11.2 # {"$imagepolicy": "plex:lidarr"}
           name: lidarr
           ports:
             - containerPort: 8686
