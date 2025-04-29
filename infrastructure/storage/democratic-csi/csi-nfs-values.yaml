@@ -1,7 +1,7 @@
 ---
 csiDriver:
   # should be globally unique for a given cluster
-  name: "org.democratic-csi.nfs"
+  name: org.democratic-csi.nfs
 
 # add note here about volume expansion requirements
 storageClasses:
@@ -79,11 +79,14 @@ driver:
       shareAllowedNetworks: []
       shareMaprootUser: root
       shareMaprootGroup: root
-      shareMapallUser: ""
-      shareMapallGroup: ""
+      shareMapallUser: ''
+      shareMapallGroup: ''
 # talos config
 # https://github.com/democratic-csi/democratic-csi#talos
 controller:
+  driver:
+    enabled: true
+    image: docker.io/democraticcsi/democratic-csi:next
   rbac:
     enabled: true
   enabled: true
