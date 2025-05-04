@@ -8,7 +8,7 @@ repos:
         args: [--mapping, '2', --sequence, '4', --offset, '2', --width, '150']
         exclude: .*\.enc\.yaml
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.37.0
+    rev: v1.37.1
     hooks:
       - args:
           - --config-file
