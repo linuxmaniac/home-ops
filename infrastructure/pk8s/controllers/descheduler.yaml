@@ -35,8 +35,8 @@ spec:
       enabled: true
     deschedulerPolicy:
       nodeSelector: node-role.kubernetes.io/worker=true
-      metricsCollector:
-        enabled: true
+      metricsProviders:
+        - source: KubernetesMetrics
       profiles:
         - name: ProfileName
           pluginConfig:
@@ -60,7 +60,7 @@ spec:
                   memory: 50
                   pods: 50
                 metricsUtilization:
-                  metricsServer: true
+                  source: KubernetesMetrics
                 evictableNamespaces:
                   exclude:
                     - kube-system
