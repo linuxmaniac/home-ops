@@ -22,16 +22,8 @@ nextcloud:
     smtp:
       port: 587
   defaultConfigs:
-    redis.config.php: false
+    redis.config.php: true
   configs:
-    cache.config.php: |-
-      <?php
-      $CONFIG = array (
-        'memcache.distributed' => '\OC\Memcache\Memcached',
-        'memcached_servers' => [
-            [ 'memcached.tw.svc.cluster.local', 11211 ],
-        ],
-      );
     proxy.config.php: |-
       <?php
       $CONFIG = array (
@@ -71,6 +63,12 @@ persistence:
     enabled: true
 phpClientHttpsFix:
   enabled: true
+redis:
+  enabled: true
+  global:
+    storageClass: freenas-iscsi-csi
+  auth:
+    password:
 rbac:
   enabled: true
 cronjob:
