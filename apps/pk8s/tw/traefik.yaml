@@ -33,7 +33,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: HostRegexp(`{host:.+}`) && !Host(`mirror.torreviejawireless.org`) && !(Host(`panel.torreviejawireless.org`) && PathPrefix(`/assets`))
+    - match: HostRegexp(`{host:.+}`) && !(Host(`panel.torreviejawireless.org`) && PathPrefix(`/assets`))
       kind: Rule
       middlewares:
         - name: redirectscheme
