@@ -28,7 +28,7 @@ spec:
               value: '3000'
             - name: SUBFOLDER
               value: /bootxyz/
-          image: lscr.io/linuxserver/netbootxyz:0.7.5 # {"$imagepolicy": "infra:netbootxyz"}
+          image: lscr.io/linuxserver/netbootxyz:0.7.6 # {"$imagepolicy": "infra:netbootxyz"}
           name: bootxyz
           ports:
             - name: config
