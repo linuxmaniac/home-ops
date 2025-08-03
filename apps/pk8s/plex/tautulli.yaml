@@ -40,7 +40,7 @@ spec:
           value: '1000'
         - name: TZ
           value: Europe/Madrid
-        image: lscr.io/linuxserver/tautulli:2.15.2 # {"$imagepolicy": "plex:tautulli"}
+        image: lscr.io/linuxserver/tautulli:2.15.3 # {"$imagepolicy": "plex:tautulli"}
         name: tautulli
         ports:
         - containerPort: 8181
