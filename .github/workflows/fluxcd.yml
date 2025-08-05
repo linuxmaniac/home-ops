@@ -33,7 +33,7 @@ jobs:
           VERSION="$(flux -v)"
           echo "flux_version=$VERSION" >> $GITHUB_OUTPUT
       - name: Commit and push changes
-        uses: devops-infra/action-commit-push@v0.11.1
+        uses: devops-infra/action-commit-push@v0.11.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           commit_message: Update to ${{ steps.update.outputs.flux_version }}
