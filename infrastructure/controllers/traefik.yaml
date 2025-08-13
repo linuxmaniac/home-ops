@@ -30,7 +30,7 @@ spec:
   chart:
     spec:
       chart: traefik-crds
-      version: 1.7.x
+      version: 1.10.x
       sourceRef:
         kind: HelmRepository
         name: traefik
@@ -58,7 +58,7 @@ spec:
   chart:
     spec:
       chart: traefik
-      version: 35.1.x
+      version: 37.0.x
       sourceRef:
         kind: HelmRepository
         name: traefik
