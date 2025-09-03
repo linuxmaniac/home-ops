@@ -2,6 +2,13 @@ Prereq
 ======
 download and install omnictl and omniconfig from omni
 
+kubectl and kubelogin (kubectl_oidc_login)
+```bash
+cd /tmp
+wget https://github.com/int128/kubelogin/releases/download/v1.34.1/kubelogin_linux_amd64.zip
+unzip kubelogin_linux_amd64.zip
+mv kubelogin ~/bin/kubectl_oidc_login
+```
 
 Create MachineClasses
 =====================
@@ -30,6 +37,10 @@ tar xzvfC "cilium-linux-${CLI_ARCH}.tar.gz" ~/bin/
 rm "cilium-linux-${CLI_ARCH}.tar.gz" "cilium-linux-${CLI_ARCH}.tar.gz.sha256sum"
 ```
 
+workers lable
+============
+worker nodes need ``node-role.kubernetes.io/worker: 'true'`` label
+
 install flux
 ============
 
@@ -57,6 +68,13 @@ helm repo add cilium https://helm.cilium.io/
 helm repo update
 # produce cilium manifest using our choices
 helm template cilium/cilium -f infrastructure/controllers/cilium-values.yaml --namespace kube-system > infrastructure/controllers/cilium.yaml
+```
+
+Cilium status
+=============
+
+```bash
+cilium  status --context omni-${CLUSTER}
 ```
 
 TODO
