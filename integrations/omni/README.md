@@ -20,6 +20,7 @@ Create cluster
 ==============
 ```bash
 export CLUSTER=pk8s-dev
+export CLUSTER_BRANCH=dev
 omnictl cluster template sync --file cluster-${CLUSTER}.yaml
 ```
 Download talosconfig and kubeconfig from omni and merge it to
@@ -47,7 +48,8 @@ install flux
 ```bash
 flux --context "omni-${CLUSTER}" bootstrap \
   github --owner=linuxmaniac --repository=home-ops \
-  --path="clusters/${CLUSTER}" --personal
+  --path="clusters/${CLUSTER}" --branch=${CLUSTER_BRANCH} --personal \
+  --components-extra image-reflector-controller,image-automation-controller
 ```
 
 age config
