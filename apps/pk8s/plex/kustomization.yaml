@@ -15,5 +15,6 @@ resources:
   - tautulli.yaml
   - mylar3.yaml
   - overseerr.yaml
+  - cleanuparr.yaml
   - ingress.yaml
   - images.yaml
