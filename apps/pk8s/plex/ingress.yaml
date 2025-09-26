@@ -74,6 +74,13 @@ spec:
                 name: cleanuparr
                 port:
                   name: http
+          - path: /profilarr
+            pathType: Prefix
+            backend:
+              service:
+                name: profilarr
+                port:
+                  name: http
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress

@@ -16,5 +16,6 @@ resources:
   - mylar3.yaml
   - overseerr.yaml
   - cleanuparr.yaml
+  - profilarr.yaml
   - ingress.yaml
   - images.yaml

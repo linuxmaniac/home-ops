@@ -282,6 +282,28 @@ spec:
       range: '>=2.3.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: profilarr
+  namespace: plex
+spec:
+  image: santiagosayshey/profilarr
+  interval: 12h
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: profilarr
+  namespace: plex
+spec:
+  imageRepositoryRef:
+    name: profilarr
+    namespace: plex
+  policy:
+    semver:
+      range: '>=1.1.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageUpdateAutomation
 metadata:
   name: plex

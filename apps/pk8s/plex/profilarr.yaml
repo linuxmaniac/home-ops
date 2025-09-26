@@ -1,0 +1,61 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: profilarr
+  name: profilarr
+  namespace: plex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: profilarr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: profilarr
+    spec:
+      containers:
+        - env:
+            - name: PORT
+              value: '11011'
+            - name: BASE_PATH
+              value: /profilarr
+            - name: PGID
+              value: '1000'
+            - name: PUID
+              value: '1000'
+            - name: TZ
+              value: Europe/Madrid
+          image: santiagosayshey/profilarr:v1.1.2 # {"$imagepolicy": "plex:profilarr"}
+          name: profilarr
+          ports:
+            - containerPort: 6868
+          resources: {}
+          volumeMounts:
+            - mountPath: /config
+              name: profilarr-config
+      restartPolicy: Always
+      volumes:
+        - name: profilarr-config
+          persistentVolumeClaim:
+            claimName: profilarr-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: profilarr
+  name: profilarr
+  namespace: plex
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 6868
+  type: ClusterIP
+  selector:
+    io.kompose.service: profilarr
