@@ -1,0 +1,61 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: cleanuparr
+  name: cleanuparr
+  namespace: plex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: cleanuparr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: cleanuparr
+    spec:
+      containers:
+        - env:
+            - name: PORT
+              value: '11011'
+            - name: BASE_PATH
+              value: /cleanuparr
+            - name: PGID
+              value: '1000'
+            - name: PUID
+              value: '1000'
+            - name: TZ
+              value: Europe/Madrid
+          image: ghcr.io/cleanuparr/cleanuparr:v2.3.2 # {"$imagepolicy": "plex:cleanuparr"}
+          name: cleanuparr
+          ports:
+            - containerPort: 11011
+          resources: {}
+          volumeMounts:
+            - mountPath: /config
+              name: cleanuparr-config
+      restartPolicy: Always
+      volumes:
+        - name: cleanuparr-config
+          persistentVolumeClaim:
+            claimName: cleanuparr-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: cleanuparr
+  name: cleanuparr
+  namespace: plex
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 11011
+  type: ClusterIP
+  selector:
+    io.kompose.service: cleanuparr

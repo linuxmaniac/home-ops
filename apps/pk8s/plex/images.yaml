@@ -256,6 +256,32 @@ spec:
       range: '>=1.33.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: cleanuparr
+  namespace: plex
+spec:
+  image: ghcr.io/cleanuparr/cleanuparr
+  interval: 12h
+  exclusionList:
+    - ^2021\..*
+    - ^develop.*
+    - ^nightly-.*
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: cleanuparr
+  namespace: plex
+spec:
+  imageRepositoryRef:
+    name: cleanuparr
+    namespace: plex
+  policy:
+    semver:
+      range: '>=2.3.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageUpdateAutomation
 metadata:
   name: plex
