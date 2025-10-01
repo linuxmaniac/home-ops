@@ -1,5 +1,5 @@
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta2
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: quassel-core
@@ -11,7 +11,7 @@ spec:
     - ^develop.*
     - ^nightly-.*
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta2
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImagePolicy
 metadata:
   name: quassel-core
@@ -24,7 +24,7 @@ spec:
     semver:
       range: '>=0.14.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta2
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: openssh-server
@@ -37,7 +37,7 @@ spec:
     - ^nightly-.*
     - ^2021\..*
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta2
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImagePolicy
 metadata:
   name: openssh-server
@@ -53,7 +53,7 @@ spec:
     semver:
       range: '>=9-0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta2
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: nginx
@@ -65,7 +65,7 @@ spec:
     - ^develop.*
     - ^nightly-.*
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta2
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImagePolicy
 metadata:
   name: nginx
@@ -78,7 +78,7 @@ spec:
     semver:
       range: '>=1.24.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta2
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: freshrss
@@ -91,7 +91,7 @@ spec:
     - ^nightly-.*
     - ^2021\..*
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta2
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImagePolicy
 metadata:
   name: freshrss
@@ -104,7 +104,7 @@ spec:
     semver:
       range: '>=1.22.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta2
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
   name: code-server
@@ -116,7 +116,7 @@ spec:
     - ^develop.*
     - ^nightly-.*
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta2
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImagePolicy
 metadata:
   name: code-server
@@ -129,7 +129,7 @@ spec:
     semver:
       range: '>=4.20.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta2
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageUpdateAutomation
 metadata:
   name: tw

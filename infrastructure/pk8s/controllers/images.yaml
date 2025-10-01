@@ -1,70 +1,70 @@
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta2
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
-    name: kubelet-serving-cert-approver
-    namespace: kubelet-serving-cert-approver
+  name: kubelet-serving-cert-approver
+  namespace: kubelet-serving-cert-approver
 spec:
-    image: ghcr.io/alex1989hu/kubelet-serving-cert-approver
-    interval: 12h
-    accessFrom:
-        namespaceSelectors:
-            - matchLabels:
-                  kubernetes.io/metadata.name: flux-system
+  image: ghcr.io/alex1989hu/kubelet-serving-cert-approver
+  interval: 12h
+  accessFrom:
+    namespaceSelectors:
+      - matchLabels:
+          kubernetes.io/metadata.name: flux-system
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta2
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImagePolicy
 metadata:
-    name: kubelet-serving-cert-approver
-    namespace: flux-system
+  name: kubelet-serving-cert-approver
+  namespace: flux-system
 spec:
-    imageRepositoryRef:
-        name: kubelet-serving-cert-approver
-        namespace: kubelet-serving-cert-approver
-    policy:
-        semver:
-            range: '>=0.7.0'
+  imageRepositoryRef:
+    name: kubelet-serving-cert-approver
+    namespace: kubelet-serving-cert-approver
+  policy:
+    semver:
+      range: '>=0.7.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta2
+apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageUpdateAutomation
 metadata:
-    name: controllers
-    namespace: flux-system
+  name: controllers
+  namespace: flux-system
 spec:
-    interval: 30m
-    sourceRef:
-        kind: GitRepository
-        name: flux-system
-        namespace: flux-system
-    git:
-        checkout:
-            ref:
-                branch: main
-        commit:
-            author:
-                email: fluxcdbot@users.noreply.github.com
-                name: fluxcdbot
-            messageTemplate: |
-                [controllers] Automated image update
+  interval: 30m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
+      messageTemplate: |
+        [controllers] Automated image update
 
-                Automation name: {{ .AutomationObject }}
+        Automation name: {{ .AutomationObject }}
 
-                Files:
-                {{ range $filename, $_ := .Updated.Files -}}
-                - {{ $filename }}
-                {{ end -}}
+        Files:
+        {{ range $filename, $_ := .Updated.Files -}}
+        - {{ $filename }}
+        {{ end -}}
 
-                Objects:
-                {{ range $resource, $_ := .Updated.Objects -}}
-                - {{ $resource.Kind }} {{ $resource.Name }}
-                {{ end -}}
+        Objects:
+        {{ range $resource, $_ := .Updated.Objects -}}
+        - {{ $resource.Kind }} {{ $resource.Name }}
+        {{ end -}}
 
-                Images:
-                {{ range .Updated.Images -}}
-                - {{.}}
-                {{ end -}}
-        push:
-            branch: flux-image-updates-controllers
-    update:
-        path: ./infrastructure/controllers
-        strategy: Setters
+        Images:
+        {{ range .Updated.Images -}}
+        - {{.}}
+        {{ end -}}
+    push:
+      branch: flux-image-updates-controllers
+  update:
+    path: ./infrastructure/controllers
+    strategy: Setters
