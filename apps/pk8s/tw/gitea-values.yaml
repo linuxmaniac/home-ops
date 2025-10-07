@@ -1,8 +1,4 @@
 ---
-global:
-  defaultStorageClass: freenas-iscsi-csi
-  security:
-    allowInsecureImages: true
 nodeSelector:
   kubernetes.io/arch: amd64
 postgresql-ha:
@@ -12,9 +8,6 @@ postgresql:
     password:
     postgresPassword:
   enabled: true
-  image:
-    tag: 17.4.0-debian-12-r2
-    registry: bitnamilegacy
   primary:
     persistence:
       enabled: true
@@ -38,18 +31,16 @@ postgresql:
         volumeMounts:
           - mountPath: /bitnami/postgresql
             name: data
-redis-cluster:
+valkey-cluster:
   enabled: false
-redis:
+valkey:
   enabled: true
   architecture: standalone
-  image:
-    registry: bitnamilegacy
-  global:
-    redis:
-      password:
-  master:
-    count: 1
+  auth:
+    password:
+  primary:
+    persistence:
+      storageClass: freenas-iscsi-csi
 service:
   ssh:
     type: LoadBalancer
