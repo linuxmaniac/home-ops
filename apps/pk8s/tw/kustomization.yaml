@@ -5,6 +5,7 @@ metadata:
   labels:
     app.kubernetes.io/sops: enabled
 resources:
+  - images.yaml
   - certificate.yaml
   - traefik.yaml
   - storage.yaml
@@ -13,7 +14,6 @@ resources:
   - gitea.yaml
   - quassel.yaml
   - freshrss.yaml
-  - images.yaml
 secretGenerator:
   - name: nextcloud-config
     namespace: flux-system

@@ -2,6 +2,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - images.yaml
   - storage.yaml
   - transmission-deployment.yaml
   - transmission-service.yaml
@@ -18,4 +19,3 @@ resources:
   - cleanuparr.yaml
   - profilarr.yaml
   - ingress.yaml
-  - images.yaml
