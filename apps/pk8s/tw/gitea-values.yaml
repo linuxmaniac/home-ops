@@ -1,4 +1,8 @@
 ---
+global:
+  defaultStorageClass: freenas-iscsi-csi
+  security:
+    allowInsecureImages: true
 nodeSelector:
   kubernetes.io/arch: amd64
 postgresql-ha:
@@ -8,6 +12,9 @@ postgresql:
     password:
     postgresPassword:
   enabled: true
+  image:
+    tag: 17.4.0-debian-12-r2
+    registry: bitnamilegacy
   primary:
     persistence:
       enabled: true
@@ -15,7 +22,7 @@ postgresql:
         matchLabels:
           app: tw-gitea-pg
     initContainers:
-      - image: pgautoupgrade/pgautoupgrade:16-trixie
+      - image: pgautoupgrade/pgautoupgrade:17-trixie
         name: upgrade-postgres
         securityContext:
           runAsUser: 0
@@ -31,10 +38,18 @@ postgresql:
         volumeMounts:
           - mountPath: /bitnami/postgresql
             name: data
-memcached:
-  enabled: true
 redis-cluster:
   enabled: false
+redis:
+  enabled: true
+  architecture: standalone
+  image:
+    registry: bitnamilegacy
+  global:
+    redis:
+      password:
+  master:
+    count: 1
 service:
   ssh:
     type: LoadBalancer
@@ -57,15 +72,6 @@ gitea:
       SSH_LISTEN_PORT: 2223
     service:
       DISABLE_REGISTRATION: true
-    cache:
-      HOST: memcached.tw.svc.cluster.local:11211
-      ADAPTER: memcache
-    session:
-      PROVIDER_CONFIG: memcached.tw.svc.cluster.local:11211
-      PROVIDER: memcache
-    queue:
-      CONN_STR: memcached.tw.svc.cluster.local:11211
-      TYPE: channel
 persistence:
   enabled: true
   create: false
