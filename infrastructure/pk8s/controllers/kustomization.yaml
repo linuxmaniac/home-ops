@@ -21,3 +21,8 @@ patches:
       - op: replace
         path: /spec/template/spec/volumes/8/hostPath/path
         value: /var/run/netns/
+      - op: replace
+        path: /spec/template/containers/0/resources/limits
+        value:
+          cpu: 200m
+          memory: 256Mi
