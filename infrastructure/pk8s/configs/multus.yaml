@@ -1,0 +1,29 @@
+---
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: vlan-home
+  namespace: default
+spec:
+  config: |-
+    {
+      "cniVersion": "1.0.0",
+      "name": "home",
+      "plugins": [
+        {
+          "name": "vext",
+          "type": "macvlan",
+          "master": "bond0.110",
+          "mode": "vepa",
+          "linkInContainer": false,
+          "ipam": {
+            "type": "whereabouts",
+            "range": "192.168.1.200-192.168.1.216/24",
+            "gateway": "192.168.1.1"
+          }
+        },
+        {
+          "type":"tuning"
+        }
+      ]
+    }

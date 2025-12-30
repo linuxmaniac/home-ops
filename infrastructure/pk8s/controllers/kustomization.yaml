@@ -7,17 +7,8 @@ resources:
   - ../../controllers/traefik.yaml
   - ../../controllers/cert-manager-csi-driver.yaml
   - images.yaml
-  - multus-cni.yaml
 patches:
   - path: traefik-values.yaml
     target:
       kind: HelmRelease
       name: traefik
-  - target:
-      kind: DaemonSet
-      name: kube-multus-ds
-      namespace: kube-system
-    patch: |-
-      - op: replace
-        path: /spec/template/spec/volumes/8/hostPath/path
-        value: /var/run/netns/

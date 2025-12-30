@@ -1,4 +1,3 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -18,7 +17,6 @@ spec:
       labels:
         io.kompose.service: plex
       annotations:
-        k8s.v1.cni.cncf.io/networks: vlan-home
     spec:
       nodeSelector:
         kubernetes.io/arch: amd64
