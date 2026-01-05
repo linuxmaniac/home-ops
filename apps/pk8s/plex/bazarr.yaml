@@ -25,7 +25,7 @@ spec:
               value: "1000"
             - name: TZ
               value: Europe/Madrid
-          image: lscr.io/linuxserver/bazarr:1.5.3 # {"$imagepolicy": "plex:bazarr"}
+          image: lscr.io/linuxserver/bazarr:1.5.4 # {"$imagepolicy": "plex:bazarr"}
           name: bazarr
           ports:
             - containerPort: 6767
