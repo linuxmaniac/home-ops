@@ -11,16 +11,25 @@ resources:
   - wordpress.yaml
   - services_ext.yaml
   - ingress.yaml
+  - semaphoreui.yaml
   - phpmyadmin.yaml
 secretGenerator:
   - name: wp-sipwork-config
     namespace: flux-system
     files:
       - values.yaml=wp-secret-values.enc.yaml
+  - name: semaphoreui-config
+    namespace: flux-system
+    files:
+      - values-secret-semaphoreui.yaml=semaphoreui-secret-values.enc.yaml
 configMapGenerator:
   - name: wp-sipwork-values
     namespace: flux-system
     files:
       - values-wp.yaml=wp-values.yaml
+  - name: semaphoreui-values
+    namespace: flux-system
+    files:
+      - values-semaphoreui.yaml=semaphoreui-values.yaml
 configurations:
   - kustomizeconfig.yaml
