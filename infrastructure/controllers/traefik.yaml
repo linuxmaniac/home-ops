@@ -31,7 +31,7 @@ spec:
   chart:
     spec:
       chart: traefik-crds
-      version: 1.13.x
+      version: 1.14.x
       sourceRef:
         kind: HelmRepository
         name: traefik
@@ -59,15 +59,16 @@ spec:
   chart:
     spec:
       chart: traefik
-      version: 38.0.1
+      version: 39.0.x
       sourceRef:
         kind: HelmRepository
         name: traefik
         namespace: flux-system
       interval: 12h
   values:
-    globalArguments:
-      - --global.checknewversion
+    global:
+      checkNewVersion: true
+      sendAnonymousUsage: false
     additionalArguments:
       - --serversTransport.insecureSkipVerify=true
     ports:
