@@ -7,7 +7,6 @@ driver:
 controller:
   driver:
     enabled: true
-    image: docker.io/democraticcsi/democratic-csi:next
   externalSnapshotter:
     enabled: false
   externalResizer:

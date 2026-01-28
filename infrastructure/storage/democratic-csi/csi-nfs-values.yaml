@@ -86,7 +86,6 @@ driver:
 controller:
   driver:
     enabled: true
-    image: docker.io/democraticcsi/democratic-csi:next
   rbac:
     enabled: true
   enabled: true
