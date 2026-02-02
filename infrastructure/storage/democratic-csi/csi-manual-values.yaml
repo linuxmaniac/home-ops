@@ -4,6 +4,12 @@ csiDriver:
 driver:
   config:
     driver: node-manual
+    node:
+      mount:
+        checkFileSystem:
+          enabled: true
+          ext4:
+            enabled: true
 controller:
   driver:
     enabled: true
