@@ -21,4 +21,4 @@ spec:
   sourceRef:
     kind: HelmRepository
     name: vmware-tanzu
-  version: 7.1.x
+  version: 11.3.x

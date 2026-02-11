@@ -1,3 +1,4 @@
+---
 initContainers:
   - name: velero-plugin-for-aws
     image: velero/velero-plugin-for-aws:v1.13.2 # {"$imagepolicy": "velero:plugin-aws"}
@@ -33,3 +34,6 @@ configuration:
         s3ForcePathStyle: true
         s3Url: http://truenas.lab:9000
 deployNodeAgent: false
+kubectl:
+  image:
+    repository: public.ecr.aws/bitnami/kubectl
