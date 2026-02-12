@@ -50,12 +50,9 @@ spec:
               readOnly: true
             - mountPath: /config/nginx
               name: www-nginx-confs
-            - mountPath: /tmp/default.conf
+            - mountPath: /config/nginx/site-confs/default.conf
               name: www-nginx
               subPath: default.conf
-            - mountPath: /custom-cont-init.d/config
-              name: www-nginx
-              subPath: config
           resources: {}
       restartPolicy: Always
       volumes:
