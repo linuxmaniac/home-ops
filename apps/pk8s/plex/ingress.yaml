@@ -155,3 +155,30 @@ spec:
                 name: profilarr
                 port:
                   name: http
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jellyfin
+  namespace: plex
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: 'true'
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - jelly.torreviejawireless.org
+      secretName: tw-tls
+  rules:
+    - host: jelly.torreviejawireless.org
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jellyfin
+                port:
+                  name: http

@@ -1,0 +1,91 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: jellyfin
+  name: jellyfin
+  namespace: plex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: jellyfin
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: jellyfin
+      annotations:
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      containers:
+        - env:
+            - name: PGID
+              value: '1000'
+            - name: JELLYFIN_PublishedServerUrl
+              value: https://jelly.torreviejawireless.org
+            - name: PUID
+              value: '1000'
+            - name: TZ
+              value: Europe/Madrid
+          image: lscr.io/linuxserver/jellyfin:10.11.6 # {"$imagepolicy": "plex:jellyfin"}
+          name: jellyfin
+          ports:
+            - containerPort: 8096
+              name: http
+              protocol: TCP
+            - containerPort: 7359
+              name: discovery
+              protocol: UDP
+            - containerPort: 1900
+              name: dlna
+              protocol: UDP
+          resources: {}
+          volumeMounts:
+            - mountPath: /config
+              name: jellyfin-config
+            - mountPath: /data/tvshows
+              name: plex-media
+              subPath: series
+            - mountPath: /data/movies
+              name: plex-media
+              subPath: films
+      restartPolicy: Always
+      volumes:
+        - name: jellyfin-config
+          persistentVolumeClaim:
+            claimName: jellyfin-config
+        - name: plex-media
+          persistentVolumeClaim:
+            claimName: plex-media
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.io/address-pool: internal-pool
+    metallb.io/loadBalancerIPs: 192.168.4.242
+  labels:
+    io.kompose.service: jellyfin
+  name: jellyfin
+  namespace: plex
+spec:
+  ports:
+    - name: http
+      port: 8096
+      protocol: TCP
+      targetPort: http
+    - name: discovery
+      port: 7359
+      protocol: TCP
+      targetPort: discovery
+    - name: dnla
+      port: 1900
+      protocol: UDP
+      targetPort: dnla
+  type: LoadBalancer
+  selector:
+    io.kompose.service: jellyfin
