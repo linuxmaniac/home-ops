@@ -312,6 +312,7 @@ spec:
   image: lscr.io/linuxserver/jellyfin
   interval: 12h
   exclusionList:
+    - ^2021\..*
     - ^develop.*
     - ^nightly-.*
 ---
