@@ -43,7 +43,9 @@ spec:
             - containerPort: 1900
               name: dlna
               protocol: UDP
-          resources: {}
+          resources:
+            limits:
+              squat.ai/video: '1'
           volumeMounts:
             - mountPath: /config
               name: jellyfin-config
