@@ -129,31 +129,6 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
-  name: plex
-  namespace: plex
-spec:
-  image: lscr.io/linuxserver/plex
-  interval: 12h
-  exclusionList:
-    - ^develop.*
-    - ^nightly-.*
----
-apiVersion: image.toolkit.fluxcd.io/v1
-kind: ImagePolicy
-metadata:
-  name: plex
-  namespace: plex
-spec:
-  imageRepositoryRef:
-    name: plex
-    namespace: plex
-  policy:
-    semver:
-      range: '>=1.32.0'
----
-apiVersion: image.toolkit.fluxcd.io/v1
-kind: ImageRepository
-metadata:
   name: transmission
   namespace: plex
 spec:
@@ -176,32 +151,6 @@ spec:
   policy:
     semver:
       range: '>=4.0.0'
----
-apiVersion: image.toolkit.fluxcd.io/v1
-kind: ImageRepository
-metadata:
-  name: tautulli
-  namespace: plex
-spec:
-  image: lscr.io/linuxserver/tautulli
-  interval: 12h
-  exclusionList:
-    - ^2021\..*
-    - ^develop.*
-    - ^nightly-.*
----
-apiVersion: image.toolkit.fluxcd.io/v1
-kind: ImagePolicy
-metadata:
-  name: tautulli
-  namespace: plex
-spec:
-  imageRepositoryRef:
-    name: tautulli
-    namespace: plex
-  policy:
-    semver:
-      range: '>=2.13.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
