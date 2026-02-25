@@ -53,6 +53,9 @@ spec:
             - mountPath: /data/movies
               name: plex-media
               subPath: films
+            - mountPath: /data/music
+              name: plex-media
+              subPath: music
       restartPolicy: Always
       volumes:
         - name: jellyfin-config
