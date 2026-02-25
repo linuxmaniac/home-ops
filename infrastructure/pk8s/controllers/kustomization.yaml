@@ -6,6 +6,7 @@ resources:
   - descheduler.yaml
   - ../../controllers/traefik.yaml
   - ../../controllers/cert-manager-csi-driver.yaml
+  - generic-device-plugin.yaml
   - images.yaml
 patches:
   - path: traefik-values.yaml
