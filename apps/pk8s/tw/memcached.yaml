@@ -1,26 +1,28 @@
 ---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: memcached
+  namespace: flux-system
+spec:
+  interval: 12h
+  url: oci://ghcr.io/kubelauncher/charts/memcached
+  ref:
+    semver: 0.1.x
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: tw-memcached
   namespace: flux-system
 spec:
-  interval: 30m
+  interval: 12h
   releaseName: memcached
   targetNamespace: tw
   serviceAccountName: helm-controller
-  chart:
-    spec:
-      chart: memcached
-      version: 6.7.x
-      sourceRef:
-        kind: HelmRepository
-        name: bitnami
-        namespace: flux-system
-      interval: 12h
-  values:
-    architecture: standalone
-    auth:
-      enabled: false
-    persistence:
-      enabled: false
+  chartRef:
+    kind: OCIRepository
+    name: memcached
