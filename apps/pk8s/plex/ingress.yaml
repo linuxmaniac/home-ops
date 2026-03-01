@@ -81,17 +81,17 @@ spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - overseerr.torreviejawireless.org
+        - seerr.torreviejawireless.org
       secretName: tw-tls
   rules:
-    - host: overseerr.torreviejawireless.org
+    - host: seerr.torreviejawireless.org
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: overseerr
+                name: seerr
                 port:
                   name: http
 ---

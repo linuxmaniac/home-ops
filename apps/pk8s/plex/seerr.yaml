@@ -1,21 +1,22 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    io.kompose.service: overseerr
-  name: overseerr
+    io.kompose.service: seer
+  name: seer
   namespace: plex
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: overseerr
+      io.kompose.service: seer
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        io.kompose.service: overseerr
+        io.kompose.service: seer
     spec:
       containers:
         - env:
@@ -25,26 +26,26 @@ spec:
               value: '1000'
             - name: TZ
               value: Europe/Madrid
-          image: lscr.io/linuxserver/overseerr:1.35.0 # {"$imagepolicy": "plex:overseerr"}
-          name: overseerr
+          image: ghcr.io/seerr-team/seerr:v3.1.0 # {"$imagepolicy": "plex:seerr"}
+          name: seer
           ports:
             - containerPort: 5055
           resources: {}
           volumeMounts:
             - mountPath: /config
-              name: overseerr-config
+              name: seer-config
       restartPolicy: Always
       volumes:
-        - name: overseerr-config
+        - name: seer-config
           persistentVolumeClaim:
-            claimName: overseerr-config
+            claimName: seer-config
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    io.kompose.service: overseerr
-  name: overseerr
+    io.kompose.service: seer
+  name: seer
   namespace: plex
 spec:
   ports:
@@ -53,4 +54,4 @@ spec:
       targetPort: 5055
   type: ClusterIP
   selector:
-    io.kompose.service: overseerr
+    io.kompose.service: seer

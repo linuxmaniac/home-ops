@@ -181,10 +181,10 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository
 metadata:
-  name: overseerr
+  name: seerr
   namespace: plex
 spec:
-  image: lscr.io/linuxserver/overseerr
+  image: ghcr.io/seerr-team/seerr
   interval: 12h
   exclusionList:
     - ^2021\..*
@@ -194,15 +194,15 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImagePolicy
 metadata:
-  name: overseerr
+  name: seerr
   namespace: plex
 spec:
   imageRepositoryRef:
-    name: overseerr
+    name: seerr
     namespace: plex
   policy:
     semver:
-      range: '>=1.33.0'
+      range: '>=3.0.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageRepository

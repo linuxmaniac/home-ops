@@ -13,7 +13,7 @@ resources:
   - prowlarr.yaml
   - jellyfin.yaml
   - mylar3.yaml
-  - overseerr.yaml
+  - seerr.yaml
   - cleanuparr.yaml
   - profilarr.yaml
   - ingress.yaml

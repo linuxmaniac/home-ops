@@ -435,9 +435,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: plex-overseerr-config
+  name: plex-seer-config
   labels:
-    org.democratic-csi.manual: plex-overseerr-config
+    org.democratic-csi.manual: plex-seer-config
 spec:
   capacity:
     storage: 500Mi
@@ -474,14 +474,14 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: overseerr-config
+  name: seer-config
   namespace: plex
 spec:
   accessModes:
     - ReadWriteOnce
   selector:
     matchLabels:
-      org.democratic-csi.manual: plex-overseerr-config
+      org.democratic-csi.manual: plex-seer-config
   resources:
     requests:
       storage: 500Mi
