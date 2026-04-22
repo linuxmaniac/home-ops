@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -44,7 +45,7 @@ spec:
               protocol: UDP
           resources:
             limits:
-              squat.ai/video: '1'
+              devic.es/video: '1'
           volumeMounts:
             - mountPath: /config
               name: jellyfin-config
