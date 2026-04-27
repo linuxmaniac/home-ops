@@ -21,28 +21,6 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: traefik-crds
-  namespace: flux-system
-spec:
-  interval: 30m
-  targetNamespace: traefik
-  serviceAccountName: helm-controller
-  chart:
-    spec:
-      chart: traefik-crds
-      version: 1.14.x
-      sourceRef:
-        kind: HelmRepository
-        name: traefik
-        namespace: flux-system
-      interval: 12h
-  values:
-    enabled: true
-    traefik: true
----
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
   name: traefik
   namespace: flux-system
 spec:
@@ -52,9 +30,6 @@ spec:
   releaseName: traefik
   targetNamespace: traefik
   serviceAccountName: helm-controller
-  dependsOn:
-    - name: traefik-crds
-      namespace: flux-system
   chart:
     spec:
       chart: traefik
