@@ -10,6 +10,12 @@ wordpressBlogName:
 existingSecret: wp-wordpress
 smtpExistingSecret: wp-wordpress
 #
+global:
+  security:
+    allowInsecureImages: true
+image:
+  tag: 6.7.2-debian-12-r8
+  repository: bitnamilegacy/wordpress
 replicaCount: 1
 updateStrategy:
   type: Recreate
@@ -40,6 +46,9 @@ persistence:
       app: umh-wp
 mariadb:
   enabled: true
+  image:
+    tag: 11.4.5-debian-12-r4
+    repository: bitnamilegacy/mariadb
   auth:
     existingSecret: wp-mariadb
   primary:
