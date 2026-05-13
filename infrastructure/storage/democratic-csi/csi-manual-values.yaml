@@ -7,7 +7,6 @@ driver:
     node:
       mount:
         checkFileSystem:
-          enabled: true
           ext4:
             enabled: true
 controller:
