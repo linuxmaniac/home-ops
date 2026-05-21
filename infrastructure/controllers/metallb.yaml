@@ -31,7 +31,7 @@ spec:
   chart:
     spec:
       chart: metallb
-      version: 0.15.x
+      version: 0.16.x
       sourceRef:
         kind: HelmRepository
         name: metallb
@@ -58,5 +58,3 @@ spec:
   values:
     speaker:
       tolerateMaster: true
-      frr:
-        enabled: true
