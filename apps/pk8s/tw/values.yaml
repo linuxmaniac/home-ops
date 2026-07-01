@@ -15,6 +15,7 @@ nextcloud:
   existingSecret:
     enabled: true
     secretName: nextcloud
+    tokenKey: nextcloud-token
   mail:
     enabled: true
     fromAddress: no-reply
