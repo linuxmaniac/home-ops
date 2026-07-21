@@ -23,7 +23,7 @@ spec:
   chart:
     spec:
       chart: gitea
-      version: 12.5.x
+      version: 12.x.x
       sourceRef:
         kind: HelmRepository
         name: gitea-charts
