@@ -25,10 +25,10 @@ jobs:
         id: update
         run: |
           flux install \
-            --components-extra=image-reflector-controller,image-automation-controller \
+            --components-extra=image-reflector-controller,image-automation-controller,source-watcher \
             --export > ./clusters/pk8s/flux-system/gotk-components.yaml
           flux install \
-            --components-extra=image-reflector-controller,image-automation-controller \
+            --components-extra=image-reflector-controller,image-automation-controller,source-watcher \
             --export > ./clusters/pk8s-dev/flux-system/gotk-components.yaml
           VERSION="$(flux -v)"
           echo "flux_version=$VERSION" >> $GITHUB_OUTPUT
