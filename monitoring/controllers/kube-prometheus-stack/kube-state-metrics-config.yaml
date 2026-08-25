@@ -70,10 +70,10 @@ kube-state-metrics:
                   exported_namespace: [metadata, namespace]
                   ready: [status, conditions, '[type=Ready]', status]
                   suspended: [spec, suspend]
-                  revision: [ status, history, "0", chartVersion ]
-                  chart_name: [ status, history, "0", chartName ]
-                  chart_app_version: [ status, history, "0", appVersion ]
-                  chart_ref_name: [ spec, chartRef, name ]
+                  revision: [status, history, '0', chartVersion]
+                  chart_name: [status, history, '0', chartName]
+                  chart_app_version: [status, history, '0', appVersion]
+                  chart_ref_name: [spec, chartRef, name]
                   chart_source_name: [spec, chart, spec, sourceRef, name]
           - groupVersionKind:
               group: source.toolkit.fluxcd.io
@@ -155,7 +155,7 @@ kube-state-metrics:
                   chart_version: [spec, version]
           - groupVersionKind:
               group: source.toolkit.fluxcd.io
-              version: v1beta2
+              version: v1
               kind: OCIRepository
             metricNamePrefix: gotk
             metrics:
@@ -224,7 +224,7 @@ kube-state-metrics:
                   webhook_path: [status, webhookPath]
           - groupVersionKind:
               group: image.toolkit.fluxcd.io
-              version: v1beta2
+              version: v1
               kind: ImageRepository
             metricNamePrefix: gotk
             metrics:
@@ -242,7 +242,7 @@ kube-state-metrics:
                   image: [spec, image]
           - groupVersionKind:
               group: image.toolkit.fluxcd.io
-              version: v1beta2
+              version: v1
               kind: ImagePolicy
             metricNamePrefix: gotk
             metrics:
@@ -260,7 +260,7 @@ kube-state-metrics:
                   source_name: [spec, imageRepositoryRef, name]
           - groupVersionKind:
               group: image.toolkit.fluxcd.io
-              version: v1beta1
+              version: v1
               kind: ImageUpdateAutomation
             metricNamePrefix: gotk
             metrics:
