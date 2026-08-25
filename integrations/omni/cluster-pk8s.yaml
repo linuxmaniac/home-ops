@@ -1,0 +1,143 @@
+---
+kind: Cluster
+name: pk8s
+talos:
+  version: v1.13.9
+kubernetes:
+  version: 1.36.4
+features:
+  enableWorkloadProxy: true
+  backupConfiguration:
+    interval: 24h
+patches:
+  - name: no-cni # we will install cilium in extraManifests
+    file: patches/cni.yml
+  - name: disable-kubeproxy
+    file: patches/disable-kubeproxy.yml
+systemExtensions:
+  - siderolabs/iscsi-tools
+  - siderolabs/util-linux-tools
+labels:
+  env: prod
+---
+kind: ControlPlane
+machines:
+  - 00d03114-0000-0000-0000-e45f01496f26 # k3s-master
+  - 00d03114-0000-0000-0000-e45f0135fb8b # k3s-node0
+  - 00d03114-0000-0000-0000-e45f0135fbb2 # k3s-node1
+  # - f5348ac2-3e4f-483d-8b05-e7abdb62ee09 # k3s-node2
+patches:
+  - name: install-cilium
+    file: patches/extraManifests.yml
+  - name: metric-server
+    file: patches/metrics-server.yml
+  - name: monitoring
+    file: patches/monitoring.yml
+  - name: security namespace exceptions
+    file: patches/exceptions.yml
+  - name: kubelet
+    file: patches/kubelet-nodeip.yml
+  - name: vip
+    file: patches/vip.yml
+---
+kind: Workers
+name: workers
+machines:
+  - d92c1c15-a61d-e53c-f392-a0f566506566 # k3s-node3
+  - f6ab382a-171c-11ee-9a2d-f3300775a202 # k3s-node5
+patches:
+  - name: metric-server
+    file: patches/metrics-server.yml
+---
+kind: Machine
+name: 00d03114-0000-0000-0000-e45f01496f26 # k3s-master
+labels:
+  pk8s: cp
+  rpi: v4
+locked: false
+patches:
+  - name: rpi
+    file: patches/rpi.yml
+  - name: net0
+    file: patches/rpi_net0.yml
+  - name: hostname
+    file: patches/master/hostname.yml
+---
+kind: Machine
+name: 00d03114-0000-0000-0000-e45f0135fb8b # k3s-node0
+labels:
+  pk8s: cp
+  rpi: v4
+locked: false
+patches:
+  - name: rpi
+    file: patches/rpi.yml
+  - name: net0
+    file: patches/rpi_net0.yml
+  - name: hostname
+    file: patches/node0/hostname.yml
+---
+kind: Machine
+name: 00d03114-0000-0000-0000-e45f0135fbb2 # k3s-node1
+labels:
+  pk8s: cp
+  rpi: v4
+locked: false
+patches:
+  - name: rpi
+    file: patches/rpi.yml
+  - name: net0
+    file: patches/rpi_net0.yml
+  - name: hostname
+    file: patches/node1/hostname.yml
+# ---
+# kind: Machine
+# name: f5348ac2-3e4f-483d-8b05-e7abdb62ee09 # k3s-node2
+# labels:
+#   pk8s: cp
+# locked: false
+# systemExtensions:
+#   - siderolabs/iscsi-tools
+#   - siderolabs/util-linux-tools
+#   - siderolabs/qemu-guest-agent
+# patches:
+#   - name: hostname
+#     file: patches/node2/hostname.yml
+#   - name: net0
+#     file: patches/rpi_net0.yml
+---
+kind: Machine
+name: d92c1c15-a61d-e53c-f392-a0f566506566 # k3s-node3
+labels:
+  pk8s: wk
+locked: false
+systemExtensions:
+  - siderolabs/iscsi-tools
+  - siderolabs/util-linux-tools
+  - siderolabs/amd-ucode
+  - siderolabs/amdgpu
+  - siderolabs/realtek-firmware
+  - siderolabs/nut-client
+patches:
+  - name: network
+    file: patches/node3/network.yml
+  - name: nut-client
+    file: patches/nut.yml
+---
+kind: Machine
+name: f6ab382a-171c-11ee-9a2d-f3300775a202 # k3s-node5
+labels:
+  pk8s: wk
+locked: false
+systemExtensions:
+  - siderolabs/iscsi-tools
+  - siderolabs/util-linux-tools
+  - siderolabs/amd-ucode
+  - siderolabs/amdgpu
+  - siderolabs/realtek-firmware
+  - siderolabs/nut-client
+patches:
+  - name: network
+    file: patches/node5/network.yml
+  - name: nut-client
+    file: patches/nut.yml
