@@ -46,3 +46,21 @@ hubble:
         # Enable Omni Workload Proxying for this service
         omni-kube-service-exposer.sidero.dev/port: '50080'
         omni-kube-service-exposer.sidero.dev/label: Hubble
+  metrics:
+    enabled:
+      - dns
+      - drop
+      - tcp
+      - flow
+      - icmp
+      - http
+  tls:
+    auto:
+      # enable automatic TLS certificate generation
+      enabled: true
+      # auto generate certificates using cronJob method
+      method: cronJob
+      # certificates validity duration in days (default 3 years)
+      certValidityDuration: 1095
+      # schedule for certificates re-generation (crontab syntax)
+      schedule: 0 0 1 */4 *

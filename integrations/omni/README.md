@@ -69,7 +69,7 @@ helm repo add cilium https://helm.cilium.io/
 # if you already have it
 helm repo update
 # produce cilium manifest using our choices
-helm template cilium/cilium -f infrastructure/controllers/cilium-values.yaml --namespace kube-system > infrastructure/controllers/cilium.yaml
+helm template cilium/cilium -f infrastructure/controllers/cilium-values.yaml --version v1.20.1 --namespace kube-system > infrastructure/controllers/cilium.yaml
 ```
 
 Cilium status
