@@ -37,6 +37,7 @@ k8sServiceHost: localhost
 k8sServicePort: 7445
 # Enable Hubble
 hubble:
+  enabled: true
   relay:
     enabled: true
   ui:

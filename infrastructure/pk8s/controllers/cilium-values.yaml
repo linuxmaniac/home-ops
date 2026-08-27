@@ -1,0 +1,15 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: traefik
+  namespace: flux-system
+spec:
+  values:
+    hubble:
+      tls:
+        auto:
+          enabled: true
+          method: helm
+          # certificates validity duration in days (default 3 years)
+          certValidityDuration: 1095

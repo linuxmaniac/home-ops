@@ -1,0 +1,35 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: cilium
+  namespace: flux-system
+spec:
+  interval: 12h
+  url: https://helm.cilium.io/
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cilium
+  namespace: flux-system
+spec:
+  driftDetection:
+    mode: enabled
+  interval: 30m
+  releaseName: cilium
+  targetNamespace: kube-system
+  serviceAccountName: helm-controller
+  chart:
+    spec:
+      chart: cilium
+      version: 1.20.x
+      sourceRef:
+        kind: HelmRepository
+        name: cilium
+        namespace: flux-system
+      interval: 12h
+  valuesFrom:
+    - kind: ConfigMap
+      name: cilium-values
+      valuesKey: cilium-values.yaml
