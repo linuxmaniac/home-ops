@@ -48,6 +48,8 @@ machines:
 patches:
   - name: metric-server
     file: patches/metrics-server.yml
+  - name: kubelet
+    file: patches/kubelet-nodeip.yml
 ---
 kind: Machine
 name: 00d03114-0000-0000-0000-e45f01496f26 # k3s-master
