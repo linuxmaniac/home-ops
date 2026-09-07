@@ -46,6 +46,8 @@ gitea:
       SSH_LISTEN_PORT: 2223
     service:
       DISABLE_REGISTRATION: true
+    ssh.minimum_key_sizes:
+      RSA: 2048
 persistence:
   enabled: true
   create: false
