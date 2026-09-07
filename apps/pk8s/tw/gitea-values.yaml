@@ -46,6 +46,9 @@ gitea:
       SSH_LISTEN_PORT: 2223
     service:
       DISABLE_REGISTRATION: true
+  additionalConfigSources:
+    - configMap:
+        name: gitea-app-ini-plaintext
 persistence:
   enabled: true
   create: false
