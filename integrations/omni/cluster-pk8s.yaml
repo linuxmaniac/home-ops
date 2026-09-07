@@ -57,6 +57,8 @@ labels:
   pk8s: cp
   rpi: v4
 locked: false
+install:
+  disk: /dev/mmcblk0
 patches:
   - name: rpi
     file: patches/rpi.yml
@@ -71,6 +73,8 @@ labels:
   pk8s: cp
   rpi: v4
 locked: false
+install:
+  disk: /dev/mmcblk0
 patches:
   - name: rpi
     file: patches/rpi.yml
@@ -85,6 +89,8 @@ labels:
   pk8s: cp
   rpi: v4
 locked: false
+install:
+  disk: /dev/mmcblk0
 patches:
   - name: rpi
     file: patches/rpi.yml
@@ -123,6 +129,8 @@ systemExtensions:
 patches:
   - name: network
     file: patches/node3/network.yml
+  - name: hostname
+    file: patches/node3/hostname.yml
   - name: nut-client
     file: patches/nut.yml
 ---
@@ -141,5 +149,7 @@ systemExtensions:
 patches:
   - name: network
     file: patches/node5/network.yml
+  - name: hostname
+    file: patches/node5/hostname.yml
   - name: nut-client
     file: patches/nut.yml
