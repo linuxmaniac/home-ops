@@ -21,7 +21,7 @@ spec:
   chart:
     spec:
       chart: semaphore
-      version: 16.0.x
+      version: 16.1.x
       sourceRef:
         kind: HelmRepository
         name: semaphore
