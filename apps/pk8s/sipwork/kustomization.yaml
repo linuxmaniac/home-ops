@@ -10,16 +10,5 @@ resources:
   - storage.yaml
   - services_ext.yaml
   - ingress.yaml
-  - semaphoreui.yaml
-secretGenerator:
-  - name: semaphoreui-config
-    namespace: flux-system
-    files:
-      - values-secret-semaphoreui.yaml=semaphoreui-secret-values.enc.yaml
-configMapGenerator:
-  - name: semaphoreui-values
-    namespace: flux-system
-    files:
-      - values-semaphoreui.yaml=semaphoreui-values.yaml
 configurations:
   - kustomizeconfig.yaml
