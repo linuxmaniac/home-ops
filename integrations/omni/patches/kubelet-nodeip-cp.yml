@@ -1,0 +1,8 @@
+---
+apiVersion: v1alpha1
+kind: KubeNodeConfig
+nodeIP:
+  validSubnets:
+    - 192.168.4.0/24
+taints:
+  node-role.kubernetes.io/control-plane: NoSchedule

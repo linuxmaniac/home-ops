@@ -2,31 +2,31 @@
 kind: Cluster
 name: pk8s-dev
 talos:
-  version: v1.13.11
+  version: v1.14.5
 kubernetes:
-  version: 1.36.4
+  version: 1.37.1
+  manifests:
+    - name: cilium
+      file: cilium.yaml
+      mode: one-time
 features:
   enableWorkloadProxy: true
   backupConfiguration:
     interval: 24h
 patches:
-  - name: no-cni # we will install cilium in extraManifests
+  - name: no-cni
     file: patches/cni.yml
-systemExtensions:
-  - siderolabs/iscsi-tools
-  - siderolabs/util-linux-tools
-  - siderolabs/qemu-guest-agent
 labels:
   env: dev
 ---
 kind: ControlPlane
 machineClass:
   name: proxmox-cp-auto
-  size: 2
+  size: 3
 patches:
   - name: disable-kubeproxy
     file: patches/disable-kubeproxy.yml
-  - name: install-cilium
+  - name: exta-manifests
     file: patches/extraManifests.yml
   - name: metric-server
     file: patches/metrics-server.yml
@@ -35,14 +35,34 @@ patches:
   - name: security namespace exceptions
     file: patches/exceptions.yml
   - name: kubelet
-    file: patches/kubelet-nodeip.yml
+    file: patches/kubelet-nodeip-cp.yml
+systemExtensions:
+  - siderolabs/qemu-guest-agent
 ---
 kind: Workers
 machineClass:
   name: proxmox-worker-auto
   size: 2
 patches:
+  - name: security
+    file: patches/security.yml
   - name: metric-server
     file: patches/metrics-server.yml
   - name: kubelet
     file: patches/kubelet-nodeip.yml
+systemExtensions:
+  - siderolabs/iscsi-tools
+  - siderolabs/util-linux-tools
+  - siderolabs/qemu-guest-agent
+# ---
+# kind: Machine
+# name: 11e176f6-32f9-463d-b214-f3b58ebba169
+# patches:
+#   - name: network
+#     file: patches/worker0/network.yml
+# ---
+# kind: Machine
+# name: b29fddd4-3724-49db-be7c-8373ce832912
+# patches:
+#   - name: network
+#     file: patches/worker1/network.yml

@@ -2,18 +2,22 @@
 kind: Cluster
 name: pk8s
 talos:
-  version: v1.13.9
+  version: v1.14.5
 kubernetes:
-  version: 1.36.4
+  version: 1.37.1
+  manifests:
+    - name: cilium
+      file: cilium.yaml
+      mode: one-time
 features:
   enableWorkloadProxy: true
   backupConfiguration:
     interval: 24h
 patches:
-  - name: no-cni # we will install cilium in extraManifests
+  - name: no-cni
     file: patches/cni.yml
-  - name: disable-kubeproxy
-    file: patches/disable-kubeproxy.yml
+  - name: security
+    file: patches/security.yml
 systemExtensions:
   - siderolabs/iscsi-tools
   - siderolabs/util-linux-tools
@@ -27,7 +31,9 @@ machines:
   - 00d03114-0000-0000-0000-e45f0135fbb2 # k3s-node1
   # - f5348ac2-3e4f-483d-8b05-e7abdb62ee09 # k3s-node2
 patches:
-  - name: install-cilium
+  - name: disable-kubeproxy
+    file: patches/disable-kubeproxy.yml
+  - name: extra-manifests
     file: patches/extraManifests.yml
   - name: metric-server
     file: patches/metrics-server.yml
@@ -46,6 +52,8 @@ machines:
   - d92c1c15-a61d-e53c-f392-a0f566506566 # k3s-node3
   - f6ab382a-171c-11ee-9a2d-f3300775a202 # k3s-node5
 patches:
+  - name: security
+    file: patches/security.yml
   - name: metric-server
     file: patches/metrics-server.yml
   - name: kubelet

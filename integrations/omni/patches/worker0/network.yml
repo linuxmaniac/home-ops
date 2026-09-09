@@ -1,16 +1,16 @@
 ---
-machine:
-  network:
-    interfaces:
-      - deviceSelector:
-          hardwareAddr: bc:24:11:84:f2:25
-        dhcp: true
-      - addresses:
-          - 192.168.11.5/28
-        deviceSelector:
-          hardwareAddr: bc:24:11:40:4f:e7
-        dhcp: false
-        mtu: 9000
-        routes:
-          - gateway: 192.168.11.1
-            network: 192.168.11.0/28
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: enp0s18 # bc:24:11:84:f2:25
+clientIdentifier: mac
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: enp0s19 # bc:24:11:40:4f:e7
+up: true
+mtu: 9000
+addresses:
+  - address: 192.168.11.5/28
+routes:
+  - destination: 192.168.11.0/28
+    gateway: 192.168.11.1
