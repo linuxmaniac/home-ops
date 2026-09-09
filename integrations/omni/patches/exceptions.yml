@@ -1,11 +1,21 @@
 ---
-cluster:
-  apiServer:
-    admissionControl:
-      - name: PodSecurity
-        configuration:
-          exemptions:
-            namespaces:
-              - democratic-csi
-              - monitoring
-              - velero
+apiVersion: v1alpha1
+kind: KubeAdmissionControlConfig
+name: PodSecurity
+configuration:
+  apiVersion: pod-security.admission.config.k8s.io/v1alpha1
+  defaults:
+    audit: restricted
+    audit-version: latest
+    enforce: baseline
+    enforce-version: latest
+    warn: restricted
+    warn-version: latest
+  exemptions:
+    namespaces:
+      - democratic-csi
+      - monitoring
+      - velero
+    runtimeClasses: []
+    usernames: []
+  kind: PodSecurityConfiguration

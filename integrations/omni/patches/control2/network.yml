@@ -1,0 +1,5 @@
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: enp0s18 # BC:24:11:FF:7A:EE
+clientIdentifier: mac
