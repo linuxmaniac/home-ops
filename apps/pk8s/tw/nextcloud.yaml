@@ -23,7 +23,7 @@ spec:
   chart:
     spec:
       chart: nextcloud
-      version: 9.2.x
+      version: 9.3.x
       sourceRef:
         kind: HelmRepository
         name: nextcloud
@@ -35,3 +35,5 @@ spec:
       valuesKey: values-nextcloud.yaml
     - kind: Secret
       name: nextcloud-config
+# TODO
+# https://github.com/pschichtel/helm-charts/blob/main/charts/nextcloud-notify_push/values.yaml
