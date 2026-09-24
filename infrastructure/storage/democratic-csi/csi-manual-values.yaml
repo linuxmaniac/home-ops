@@ -4,11 +4,6 @@ csiDriver:
 driver:
   config:
     driver: node-manual
-    node:
-      mount:
-        checkFileSystem:
-          ext4:
-            enabled: true
 controller:
   driver:
     enabled: true
@@ -29,3 +24,7 @@ node:
         value: /usr/local/sbin/iscsiadm
     iscsiDirHostPath: /usr/local/etc/iscsi
     iscsiDirHostPathType: ''
+  mount:
+    checkFileSystem:
+      ext4:
+        enabled: true
