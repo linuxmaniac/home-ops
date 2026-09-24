@@ -2426,7 +2426,7 @@ spec:
               drop:
                 - ALL
         - name: backend
-          image: quay.io/cilium/hubble-ui-backend:v0.13.5@sha256:fac0c300ae119274edca11fd89b1ad23c788792d8bc4ea2ba631c709e8d3c688
+          image: quay.io/cilium/hubble-ui-backend:v0.13.6@sha256:83b3fc763f3d49948c306bf49b08277383e195904b9ca5c0c0022b2112628787
           imagePullPolicy: IfNotPresent
           env:
             - name: EVENTS_SERVER_PORT
