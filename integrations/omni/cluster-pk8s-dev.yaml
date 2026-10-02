@@ -1,0 +1,48 @@
+---
+kind: Cluster
+name: pk8s-dev
+talos:
+  version: v1.13.11
+kubernetes:
+  version: 1.36.4
+features:
+  enableWorkloadProxy: true
+  backupConfiguration:
+    interval: 24h
+patches:
+  - name: no-cni # we will install cilium in extraManifests
+    file: patches/cni.yml
+  - name: disable-kubeproxy
+    file: patches/disable-kubeproxy.yml
+systemExtensions:
+  - siderolabs/iscsi-tools
+  - siderolabs/util-linux-tools
+  - siderolabs/qemu-guest-agent
+labels:
+  env: dev
+---
+kind: ControlPlane
+machineClass:
+  name: proxmox-cp-auto
+  size: 2
+patches:
+  - name: install-cilium
+    file: patches/extraManifests.yml
+  - name: metric-server
+    file: patches/metrics-server.yml
+  - name: monitoring
+    file: patches/monitoring.yml
+  - name: security namespace exceptions
+    file: patches/exceptions.yml
+  - name: kubelet
+    file: patches/kubelet-nodeip.yml
+---
+kind: Workers
+machineClass:
+  name: proxmox-worker-auto
+  size: 2
+patches:
+  - name: metric-server
+    file: patches/metrics-server.yml
+  - name: kubelet
+    file: patches/kubelet-nodeip.yml

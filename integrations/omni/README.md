@@ -13,7 +13,7 @@ mv kubelogin ~/bin/kubectl_oidc_login
 Create MachineClasses
 =====================
 ```bash
-omnictl apply -f main.yaml
+omnictl apply --file proxmox
 ```
 
 Create cluster
@@ -47,9 +47,14 @@ sha256sum --check "hubble-linux-amd64.tar.gz.sha256sum"
 tar xzvfC hubble-linux-amd64.tar.gz ~/bin/
 ```
 
-workers lable
-============
+workers label
+=============
 worker nodes need ``node-role.kubernetes.io/worker: 'true'`` label
+
+workers patches
+===============
+
+Manually create network patch for ``worker0`` and ``worker1`` to configure second interface for ISCSI
 
 install flux
 ============
@@ -68,6 +73,15 @@ cat ~/.config/sops/age/keys.txt | \
 kubectl --context "omni-${CLUSTER}" create secret generic sops-age \
   --namespace=flux-system \
   --from-file=age.agekey=/dev/stdin
+```
+
+github auth
+===========
+```bash
+flux --context "omni-${CLUSTER}" create secret oci ghcr-auth \
+  --url=ghcr.io \
+  --username=linuxmaniac \
+  --password=<github_pat_>
 ```
 
 Update Cilium manifest

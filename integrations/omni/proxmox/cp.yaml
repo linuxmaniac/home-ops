@@ -1,0 +1,16 @@
+---
+metadata:
+  namespace: default
+  type: MachineClasses.omni.sidero.dev
+  id: proxmox-cp-auto
+spec:
+  autoprovision:
+    providerid: proxmox
+    providerdata: |
+      cores: 2
+      sockets: 1
+      memory: 4096
+      disk_size: 15
+      vlan: 100
+      storage_selector: 'name == "shared"'
+      node: pve01

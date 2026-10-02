@@ -1,0 +1,16 @@
+---
+machine:
+  network:
+    interfaces:
+      - deviceSelector:
+          hardwareAddr: bc:24:11:84:f2:25
+        dhcp: true
+      - addresses:
+          - 192.168.11.5/28
+        deviceSelector:
+          hardwareAddr: bc:24:11:40:4f:e7
+        dhcp: false
+        mtu: 9000
+        routes:
+          - gateway: 192.168.11.1
+            network: 192.168.11.0/28
