@@ -12,5 +12,6 @@ spec:
       memory: 4096
       disk_size: 15
       vlan: 100
+      bios: ovmf
       storage_selector: 'name == "shared"'
       node: pve01

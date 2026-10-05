@@ -12,8 +12,6 @@ features:
 patches:
   - name: no-cni # we will install cilium in extraManifests
     file: patches/cni.yml
-  - name: disable-kubeproxy
-    file: patches/disable-kubeproxy.yml
 systemExtensions:
   - siderolabs/iscsi-tools
   - siderolabs/util-linux-tools
@@ -26,6 +24,8 @@ machineClass:
   name: proxmox-cp-auto
   size: 2
 patches:
+  - name: disable-kubeproxy
+    file: patches/disable-kubeproxy.yml
   - name: install-cilium
     file: patches/extraManifests.yml
   - name: metric-server

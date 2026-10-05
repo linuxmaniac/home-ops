@@ -12,6 +12,7 @@ spec:
       memory: 8192
       disk_size: 40
       vlan: 100
+      bios: ovmf
       storage_selector: 'name == "shared"'
       node: pve01
       additional_nics:
