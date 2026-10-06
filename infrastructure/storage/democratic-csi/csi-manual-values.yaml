@@ -7,6 +7,12 @@ driver:
 controller:
   driver:
     enabled: true
+    securityContext:
+      allowPrivilegeEscalation: true
+      capabilities:
+        add:
+          - SYS_ADMIN
+      privileged: true
   externalSnapshotter:
     enabled: false
   externalResizer:

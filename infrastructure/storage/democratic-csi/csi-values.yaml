@@ -120,6 +120,12 @@ driver:
 controller:
   driver:
     enabled: true
+    securityContext:
+      allowPrivilegeEscalation: true
+      capabilities:
+        add:
+          - SYS_ADMIN
+      privileged: true
   rbac:
     enabled: true
   enabled: true
