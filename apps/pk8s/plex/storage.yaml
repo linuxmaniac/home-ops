@@ -332,7 +332,7 @@ metadata:
     org.democratic-csi.manual: plex-lidarr-config
 spec:
   capacity:
-    storage: 500Mi
+    storage: 1Gi
   csi:
     driver: org.democratic-csi.node-manual
     volumeHandle: pvc-c8722b04-e578-472a-8a2e-8300fa56ed21
@@ -376,7 +376,7 @@ spec:
       org.democratic-csi.manual: plex-lidarr-config
   resources:
     requests:
-      storage: 500Mi
+      storage: 1Gi
 ---
 apiVersion: v1
 kind: PersistentVolume
