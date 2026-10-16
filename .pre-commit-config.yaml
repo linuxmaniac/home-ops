@@ -48,8 +48,3 @@ repos:
     rev: v8.30.1
     hooks:
       - id: gitleaks-docker
-
-  - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 43.249.4
-    hooks:
-      - id: renovate-config-validator
