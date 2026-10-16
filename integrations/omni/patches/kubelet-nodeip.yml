@@ -1,6 +1,8 @@
 ---
-machine:
-  kubelet:
-    nodeIP:
-      validSubnets:
-        - 192.168.4.0/24
+apiVersion: v1alpha1
+kind: KubeNodeConfig
+nodeIP:
+  validSubnets:
+    - 192.168.4.0/24
+labels:
+  node.kubernetes.io/exclude-from-external-load-balancers: ''

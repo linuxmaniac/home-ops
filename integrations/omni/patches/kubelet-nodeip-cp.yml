@@ -1,0 +1,11 @@
+---
+apiVersion: v1alpha1
+kind: KubeNodeConfig
+nodeIP:
+  validSubnets:
+    - 192.168.4.0/24
+labels:
+  node-role.kubernetes.io/control-plane: ''
+  node.kubernetes.io/exclude-from-external-load-balancers: ''
+taints:
+  node-role.kubernetes.io/control-plane: NoSchedule
