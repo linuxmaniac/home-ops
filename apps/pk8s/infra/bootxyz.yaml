@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -94,7 +95,7 @@ metadata:
   annotations:
     traefik.ingress.kubernetes.io/router.tls: 'true'
     traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-internal-ipallowlist@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: traefik--internal-ipallowlist@kubernetescrd
 spec:
   ingressClassName: traefik
   tls:
@@ -120,7 +121,7 @@ metadata:
   namespace: infra
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web
-    traefik.ingress.kubernetes.io/router.middlewares: infra-bootxyz-assets@kubernetescrd,traefik-internal-ipallowlist@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: infra--bootxyz-assets@kubernetescrd,traefik--internal-ipallowlist@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
