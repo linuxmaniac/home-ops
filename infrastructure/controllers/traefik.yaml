@@ -33,7 +33,7 @@ spec:
   chart:
     spec:
       chart: traefik
-      version: 40.0.x
+      version: 41.0.x
       sourceRef:
         kind: HelmRepository
         name: traefik
@@ -84,13 +84,12 @@ spec:
     ingressRoute:
       dashboard:
         enabled: false
-    logs:
-      general:
-        level: INFO
-        format: json
-      access:
-        enabled: true
-        format: json
+    log:
+      level: INFO
+      format: json
+    accessLog:
+      enabled: true
+      format: json
     metrics:
       prometheus:
         addEntryPointsLabels: true
