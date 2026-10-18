@@ -4,12 +4,30 @@ kind: IngressRoute
 metadata:
   name: comunicacioncientifica.info
   namespace: traefik
-  annotations:
-    kubernetes.io/ingress.class: traefik
 spec:
   entryPoints:
     - websecure
-  routes: []
+  routes:
+    - match: Host(`comunicacioncientifica.info`, `www.comunicacioncientifica.info`) && (Path(`/wp-login.php`) || Path(`/login/`) || Path(`/lostpassword/`)
+        || PathPrefix(`/wp-admin`))
+      kind: Rule
+      priority: 100
+      middlewares:
+        - name: internal-ipallowlist
+          namespace: traefik
+      services:
+        - name: wp-wordpress
+          kind: Service
+          port: http
+          namespace: umh
+    - match: HostRegexp(`{host:.+}`)
+      kind: Rule
+      priority: 10
+      services:
+        - name: wp-wordpress
+          kind: Service
+          port: http
+          namespace: umh
   tls:
     secretName: comunicacioncientifica.info-tls
 ---
@@ -18,13 +36,11 @@ kind: IngressRoute
 metadata:
   name: comunicacioncientifica.info-http
   namespace: traefik
-  annotations:
-    kubernetes.io/ingress.class: traefik
 spec:
   entryPoints:
     - web
   routes:
-    - match: HostRegexp(`{host:.+}`)
+    - match: Host(`comunicacioncientifica.info`, `www.comunicacioncientifica.info`)
       kind: Rule
       middlewares:
         - name: redirectscheme

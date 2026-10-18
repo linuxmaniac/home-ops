@@ -132,6 +132,15 @@ spec:
       - apiVersion: traefik.io/v1alpha1
         kind: Middleware
         metadata:
+          name: block-access
+          namespace: traefik
+        spec:
+          ipAllowList:
+            sourceRange:
+              - 255.255.255.255/32
+      - apiVersion: traefik.io/v1alpha1
+        kind: Middleware
+        metadata:
           name: redirectscheme
           namespace: traefik
         spec:

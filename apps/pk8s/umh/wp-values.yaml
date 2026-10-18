@@ -24,7 +24,7 @@ wordpressScheme: https
 service:
   type: ClusterIP
 ingress:
-  enabled: true
+  enabled: false
   ingressClassName: traefik
   hostname: comunicacioncientifica.info
   extraHosts:
@@ -33,7 +33,7 @@ ingress:
   annotations:
     traefik.ingress.kubernetes.io/router.tls: 'true'
     traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-redirectscheme@kubernetescrd,traefik-internal-ipallowlist@kubernetescrd
   extraTls:
     - hosts:
         - comunicacioncientifica.info
