@@ -29,6 +29,7 @@ spec:
             kubeEtcd:
               endpoints:
                 - 192.168.4.64
+                - 192.168.4.66
                 - 192.168.4.67
               service:
                 port: 2381
@@ -36,6 +37,7 @@ spec:
             kubeScheduler:
               endpoints:
                 - 192.168.4.64
+                - 192.168.4.66
                 - 192.168.4.67
               service:
                 selector:
@@ -47,6 +49,7 @@ spec:
             kubeControllerManager:
               endpoints:
                 - 192.168.4.64
+                - 192.168.4.66
                 - 192.168.4.67
               service:
                 selector:
