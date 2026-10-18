@@ -4,8 +4,6 @@ kind: IngressRoute
 metadata:
   name: sipwork.pro
   namespace: traefik
-  annotations:
-    kubernetes.io/ingress.class: traefik
 spec:
   entryPoints:
     - websecure
@@ -18,8 +16,6 @@ kind: IngressRoute
 metadata:
   name: sipwork.pro-http
   namespace: traefik
-  annotations:
-    kubernetes.io/ingress.class: traefik
 spec:
   entryPoints:
     - web

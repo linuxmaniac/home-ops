@@ -4,8 +4,6 @@ kind: IngressRoute
 metadata:
   name: tw
   namespace: traefik
-  annotations:
-    kubernetes.io/ingress.class: traefik
 spec:
   entryPoints:
     - websecure
@@ -27,8 +25,6 @@ kind: IngressRoute
 metadata:
   name: tw-http
   namespace: traefik
-  annotations:
-    kubernetes.io/ingress.class: traefik
 spec:
   entryPoints:
     - web
@@ -48,8 +44,6 @@ kind: IngressRoute
 metadata:
   name: traefik-metrics
   namespace: traefik
-  annotations:
-    kubernetes.io/ingress.class: traefik
 spec:
   entryPoints:
     - websecure

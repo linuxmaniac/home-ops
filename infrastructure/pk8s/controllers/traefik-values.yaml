@@ -16,9 +16,9 @@ spec:
         metallb.io/loadBalancerIPs: 192.168.5.240
       labels: {}
       spec:
+        externalIPs: []
         externalTrafficPolicy: Local
       loadBalancerSourceRanges: []
-      externalIPs: []
       additionalServices:
         internal:
           type: LoadBalancer
@@ -28,9 +28,9 @@ spec:
             metallb.io/address-pool: internal-pool
             metallb.io/loadBalancerIPs: 192.168.4.240
           spec:
+            externalIPs: []
             externalTrafficPolicy: Local
           loadBalancerSourceRanges: []
-          externalIPs: []
     ports:
       traefik:
         expose:
