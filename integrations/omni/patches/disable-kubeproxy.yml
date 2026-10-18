@@ -1,4 +1,7 @@
 ---
-cluster:
-  proxy:
-    disabled: true
+apiVersion: v1alpha1
+kind: KubeProxyConfig
+enabled: false
+image: registry.k8s.io/kube-proxy:v1.37.1
+extraArgs:
+  metrics-bind-address: 0.0.0.0:10249
