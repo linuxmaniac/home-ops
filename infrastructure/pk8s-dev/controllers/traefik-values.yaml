@@ -13,7 +13,8 @@ spec:
       type: LoadBalancer
       annotations:
         io.cilium/lb-ipam-ips: 192.168.5.222
-      labels: {}
+      labels:
+        io.cilium/lb-pool: external
       spec:
         externalTrafficPolicy: Local
       loadBalancerSourceRanges: []
@@ -23,6 +24,7 @@ spec:
           type: LoadBalancer
           labels:
             traefik-service-label: internal
+            io.cilium/lb-pool: internal
           annotations:
             io.cilium/lb-ipam-ips: 192.168.4.229
           spec:

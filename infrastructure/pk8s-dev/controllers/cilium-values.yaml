@@ -2,10 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: traefik
+  name: cilium
   namespace: flux-system
 spec:
   values:
+    ingressController:
+      service:
+        labels:
+          io.cilium/lb-pool: external
     hubble:
       tls:
         auto:
