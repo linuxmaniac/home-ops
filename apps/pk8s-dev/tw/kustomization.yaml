@@ -1,0 +1,44 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  labels:
+    app.kubernetes.io/sops: enabled
+resources:
+  - ../../pk8s/tw/certificate.yaml
+  - ../../pk8s/tw/traefik.yaml
+patches:
+  - target:
+      kind: Certificate
+      name: torreviejawireless.org
+      namespace: traefik
+    patch: |
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - dev.torreviejawireless.org
+          - '*.dev.torreviejawireless.org'
+  - target:
+      kind: IngressRoute
+      name: tw
+      namespace: traefik
+    patch: |
+      - op: replace
+        path: /spec/routes/0/match
+        value: Host(`traefik.dev.torreviejawireless.org`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+  - target:
+      kind: IngressRoute
+      name: tw-http
+      namespace: traefik
+    patch: |
+      - op: replace
+        path: /spec/routes/0/match
+        value: HostRegexp(`{host:.+}`)
+  - target:
+      kind: IngressRoute
+      name: traefik-metrics
+      namespace: traefik
+    patch: |
+      - op: replace
+        path: /spec/routes/0/match
+        value: Host(`traefik.dev.torreviejawireless.org`) && PathPrefix(`/metrics`)
