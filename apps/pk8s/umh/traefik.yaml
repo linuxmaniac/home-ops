@@ -9,7 +9,16 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  routes: []
+  routes:
+    - match: HostRegexp(`{host:.+}`)
+      kind: Rule
+      middlewares:
+        - name: internal-ipallowlist
+          namespace: traefik
+  services:
+    - name: noop@internal
+      kind: TraefikService
+      namespace: traefik
   tls:
     secretName: comunicacioncientifica.info-tls
 ---
