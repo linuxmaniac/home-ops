@@ -3,18 +3,28 @@ apiVersion: cilium.io/v2
 kind: CiliumLoadBalancerIPPool
 metadata:
   name: external-pool
+  labels:
+    routing: bgp
 spec:
   blocks:
     - cidr: 192.168.5.192/27
+  serviceSelector:
+    matchLabels:
+      io.cilium/lb-pool: external
 ---
 apiVersion: cilium.io/v2
 kind: CiliumLoadBalancerIPPool
 metadata:
   name: internal-pool
+  labels:
+    routing: l2
 spec:
   blocks:
     - start: 192.168.4.229
       stop: 192.168.4.239
+  serviceSelector:
+    matchLabels:
+      io.cilium/lb-pool: internal
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumL2AnnouncementPolicy
@@ -22,6 +32,9 @@ metadata:
   name: l2policy
 spec:
   loadBalancerIPs: true
+  serviceSelector:
+    matchLabels:
+      io.cilium/lb-pool: internal
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPPeerConfig
@@ -51,8 +64,24 @@ spec:
     - name: instance-65001
       localASN: 65001
       peers:
-        - name: peer-65001-opn
+        - name: peer-64501-opn
           peerASN: 64501
           peerAddress: 192.168.4.1
           peerConfigRef:
             name: cilium-peer
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPAdvertisement
+metadata:
+  name: cilium-bgp-services-advertisement
+  labels:
+    advertise: bgp
+spec:
+  advertisements:
+    - advertisementType: Service
+      service:
+        addresses:
+          - LoadBalancerIP
+      selector:
+        matchLabels:
+          io.cilium/lb-pool: external
