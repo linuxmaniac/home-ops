@@ -6,7 +6,7 @@ resources:
   - tw
   - plex
   - infra
-  - umh
+  # - umh
   - sipwork
   # - ../base/velero/images.yaml
   # - ../base/velero
