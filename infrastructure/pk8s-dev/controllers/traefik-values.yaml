@@ -10,14 +10,12 @@ spec:
       enabled: false
     service:
       enabled: true
-      type: LoadBalancer
       annotations:
         io.cilium/lb-ipam-ips: 192.168.5.222
       labels: {}
       spec:
+        type: LoadBalancer
         externalTrafficPolicy: Local
-      loadBalancerSourceRanges: []
-      externalIPs: []
       additionalServices:
         internal:
           type: LoadBalancer
@@ -27,8 +25,6 @@ spec:
             io.cilium/lb-ipam-ips: 192.168.4.229
           spec:
             externalTrafficPolicy: Local
-          loadBalancerSourceRanges: []
-          externalIPs: []
     ports:
       traefik:
         expose:
