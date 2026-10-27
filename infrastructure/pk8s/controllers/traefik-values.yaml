@@ -40,10 +40,20 @@ spec:
         expose:
           default: true
           internal: true
+        proxyProtocol:
+          trustedIPs:
+            - 192.168.1.1
+            - 192.168.2.1
+            - 192.168.4.1
       websecure:
         expose:
           default: true
           internal: true
+        proxyProtocol:
+          trustedIPs:
+            - 192.168.1.1
+            - 192.168.2.1
+            - 192.168.4.1
     experimental:
       plugins:
         rewrite-body:
