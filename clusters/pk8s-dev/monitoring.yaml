@@ -7,7 +7,6 @@ metadata:
 spec:
   dependsOn:
     - name: storage
-    - name: infra-pk8s-configs
   interval: 1h
   retryInterval: 2m
   timeout: 10m
