@@ -18,13 +18,13 @@ spec:
         externalTrafficPolicy: Local
       additionalServices:
         internal:
-          type: LoadBalancer
+          spec:
+            externalTrafficPolicy: Local
+            type: LoadBalancer
           labels:
             traefik-service-label: internal
           annotations:
             io.cilium/lb-ipam-ips: 192.168.4.229
-          spec:
-            externalTrafficPolicy: Local
     ports:
       traefik:
         expose:
