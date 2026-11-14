@@ -5,51 +5,90 @@ metadata:
   name: loki
 spec:
   interval: 5m
+  timeout: 15m
   dependsOn:
     - name: kube-prometheus-stack
   chart:
     spec:
-      version: 5.x
+      version: 21.x
       chart: loki
       sourceRef:
         kind: HelmRepository
-        name: grafana-charts
+        name: grafana-community
       interval: 60m
-  # https://github.com/grafana/loki/blob/main/production/helm/loki/values.yaml
   values:
-    deploymentMode: SingleBinary
+    deploymentMode: Monolithic
     loki:
       auth_enabled: false
-      serviceMonitor:
-        enabled: true
-        labels:
-          app.kubernetes.io/part-of: kube-prometheus-stack
       commonConfig:
         replication_factor: 1
       storage:
         type: filesystem
-      table_manager:
-        retention_deletes_enabled: true
+      # Required in Loki 3.x (replaces old boltdb-shipper default)
+      schemaConfig:
+        configs:
+          - from: '2024-04-01'
+            store: tsdb
+            object_store: filesystem
+            schema: v13
+            index:
+              prefix: index_
+              period: 24h
+      # Replaces deprecated table_manager retention
+      limits_config:
         retention_period: 12h
+      compactor:
+        working_directory: /var/loki/compactor
+        compaction_interval: 10m
+        retention_enabled: true
+        retention_delete_delay: 2h
+        delete_request_store: filesystem
     gateway:
       enabled: true
     singleBinary:
       replicas: 1
-    # Monitoring section determines which monitoring features to enable
+    backend:
+      replicas: 0
+    read:
+      replicas: 0
+    write:
+      replicas: 0
+    ingester:
+      replicas: 0
+    querier:
+      replicas: 0
+    queryFrontend:
+      replicas: 0
+    queryScheduler:
+      replicas: 0
+    distributor:
+      replicas: 0
+    compactor:
+      replicas: 0
+    indexGateway:
+      replicas: 0
+    bloomPlanner:
+      replicas: 0
+    bloomBuilder:
+      replicas: 0
+    bloomGateway:
+      replicas: 0
+    # Disable default Memcached StatefulSets for lightweight SingleBinary installs
+    chunksCache:
+      enabled: false
+    resultsCache:
+      enabled: false
     monitoring:
-      # Dashboards for monitoring Loki
+      serviceMonitor:
+        enabled: true
+        labels:
+          app.kubernetes.io/part-of: kube-prometheus-stack
       dashboards:
-        # -- If enabled, create configmap with dashboards for monitoring Loki
         enabled: false
       selfMonitoring:
         enabled: false
-        grafanaAgent:
-          installOperator: false
-      # The Loki canary pushes logs to and queries from this loki installation
-      # to test that it's working correctly
       lokiCanary:
         enabled: false
-    # -- Section for configuring optional Helm test
     test:
       enabled: false
     extraObjects:
@@ -70,6 +109,6 @@ spec:
             - name: Loki
               type: loki
               access: proxy
-              url: http://loki:{{ .Values.loki.server.http_listen_port }}
+              url: http://loki-gateway.{{ .Release.Namespace }}.svc.cluster.local
               version: 1
               isDefault: false
