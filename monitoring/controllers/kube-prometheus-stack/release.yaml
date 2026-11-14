@@ -5,6 +5,7 @@ metadata:
   name: kube-prometheus-stack
 spec:
   interval: 1h
+  timeout: 15m # Added: prevents timeout during large CRD + subchart rollout
   chartRef:
     kind: OCIRepository
     name: kube-prometheus-stack
@@ -12,6 +13,8 @@ spec:
     crds: Create
   upgrade:
     crds: CreateReplace
+    remediation:
+      retries: 3 # Added: allows automatic retry if webhook/CRD propagation lags
   driftDetection:
     mode: enabled
     ignore:
