@@ -33,6 +33,12 @@ volumeSnapshotClasses:
 driver:
   config:
     driver: freenas-api-iscsi
+    node:
+      mount:
+        checkFilesystem:
+          enabled: true
+          ext4:
+            enabled: true
     instance_id:
     httpConnection:
       protocol: https
@@ -137,7 +143,3 @@ node:
         value: /usr/local/sbin/iscsiadm
     iscsiDirHostPath: /var/iscsi
     iscsiDirHostPathType: ''
-  mount:
-    checkFileSystem:
-      ext4:
-        enabled: true

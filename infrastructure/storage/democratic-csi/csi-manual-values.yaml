@@ -4,9 +4,17 @@ csiDriver:
 driver:
   config:
     driver: node-manual
+  node:
+    mount:
+      checkFilesystem:
+        enabled: true
+        ext4:
+          enabled: true
 controller:
   driver:
     enabled: true
+  externalProvisioner:
+    enabled: false
   externalSnapshotter:
     enabled: false
   externalResizer:
@@ -24,7 +32,3 @@ node:
         value: /usr/local/sbin/iscsiadm
     iscsiDirHostPath: /usr/local/etc/iscsi
     iscsiDirHostPathType: ''
-  mount:
-    checkFileSystem:
-      ext4:
-        enabled: true
