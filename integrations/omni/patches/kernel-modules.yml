@@ -1,0 +1,6 @@
+---
+machine:
+  kernel:
+    modules:
+      - name: realtek
+      - name: rpcsec_gss_krb5
