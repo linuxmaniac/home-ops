@@ -8,5 +8,4 @@ resources:
   - infra
   # - umh
   - sipwork
-  # - ../base/velero/images.yaml
-  # - ../base/velero
+  - ../base/velero
