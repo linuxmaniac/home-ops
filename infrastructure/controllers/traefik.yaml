@@ -24,6 +24,10 @@ metadata:
   name: traefik
   namespace: flux-system
 spec:
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
   driftDetection:
     mode: enabled
   interval: 30m
@@ -33,7 +37,7 @@ spec:
   chart:
     spec:
       chart: traefik
-      version: 42.3.x
+      version: 42.4.x
       sourceRef:
         kind: HelmRepository
         name: traefik
