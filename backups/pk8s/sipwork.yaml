@@ -6,11 +6,11 @@ metadata:
   namespace: velero
 spec:
   schedule: '@every 24h'
+  useOwnerReferencesInBackup: false
   template:
-    csiSnapshotTimeout: 15s
+    csiSnapshotTimeout: 10m
+    itemOperationTimeout: 1h
     includedNamespaces:
       - sipwork
-    itemOperationTimeout: 5s
     ttl: 360h00m00s
     snapshotVolumes: true
-  useOwnerReferencesInBackup: false
