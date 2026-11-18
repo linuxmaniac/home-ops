@@ -40,10 +40,13 @@ systemExtensions:
   - siderolabs/qemu-guest-agent
 ---
 kind: Workers
+name: worker0
 machineClass:
   name: proxmox-worker-auto
-  size: 2
+  size: 1
 patches:
+  - name: network
+    file: patches/worker0/network.yml
   - name: security
     file: patches/security.yml
   - name: metric-server
@@ -54,15 +57,22 @@ systemExtensions:
   - siderolabs/iscsi-tools
   - siderolabs/util-linux-tools
   - siderolabs/qemu-guest-agent
-# ---
-# kind: Machine
-# name: 11e176f6-32f9-463d-b214-f3b58ebba169
-# patches:
-#   - name: network
-#     file: patches/worker0/network.yml
-# ---
-# kind: Machine
-# name: b29fddd4-3724-49db-be7c-8373ce832912
-# patches:
-#   - name: network
-#     file: patches/worker1/network.yml
+---
+kind: Workers
+name: worker1
+machineClass:
+  name: proxmox-worker-auto
+  size: 1
+patches:
+  - name: network
+    file: patches/worker1/network.yml
+  - name: security
+    file: patches/security.yml
+  - name: metric-server
+    file: patches/metrics-server.yml
+  - name: kubelet
+    file: patches/kubelet-nodeip.yml
+systemExtensions:
+  - siderolabs/iscsi-tools
+  - siderolabs/util-linux-tools
+  - siderolabs/qemu-guest-agent
