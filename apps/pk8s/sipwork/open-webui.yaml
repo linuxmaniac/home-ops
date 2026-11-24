@@ -1,0 +1,39 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmChart
+metadata:
+  name: open-webui
+  namespace: flux-system
+spec:
+  interval: 6h
+  chart: open-webui
+  reconcileStrategy: ChartVersion
+  sourceRef:
+    kind: HelmRepository
+    name: helmforgedev
+  version: 1.5.x
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: open-webui
+  namespace: flux-system
+spec:
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+  driftDetection:
+    mode: enabled
+  interval: 30m
+  releaseName: open-webui
+  targetNamespace: sipwork
+  serviceAccountName: helm-controller
+  chartRef:
+    kind: HelmChart
+    name: open-webui
+    namespace: flux-system
+  valuesFrom:
+    - kind: ConfigMap
+      name: open-webui-values
+      valuesKey: values-open-webui.yaml

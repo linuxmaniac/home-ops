@@ -10,5 +10,11 @@ resources:
   - storage.yaml
   - services_ext.yaml
   - ingress.yaml
+  - open-webui.yaml
+configMapGenerator:
+  - name: open-webui-values
+    namespace: flux-system
+    files:
+      - values-open-webui.yaml=open-webui-values.yaml
 configurations:
   - kustomizeconfig.yaml
