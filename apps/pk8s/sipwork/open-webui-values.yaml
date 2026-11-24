@@ -1,4 +1,6 @@
 ---
+image:
+  tag: v0.13.4
 openWebui:
   port: 8080
   ollamaBaseUrl: http://debrock.lab:11434
