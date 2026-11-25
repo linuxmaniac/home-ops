@@ -30,3 +30,5 @@ spec:
     - kind: ConfigMap
       name: openclaw-values
       valuesKey: values-openclaw.yaml
+    - kind: Secret
+      name: openclaw-config

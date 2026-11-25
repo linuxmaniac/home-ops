@@ -12,6 +12,11 @@ resources:
   - ingress.yaml
   - open-webui.yaml
   - openclaw.yaml
+secretGenerator:
+  - name: openclaw-config
+    namespace: flux-system
+    files:
+      - values.yaml=openclaw_secret-values.enc.yaml
 configMapGenerator:
   - name: open-webui-values
     namespace: flux-system
