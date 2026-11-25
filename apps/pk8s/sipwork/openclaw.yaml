@@ -1,0 +1,32 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: openclaw
+  namespace: flux-system
+spec:
+  interval: 12h
+  url: https://chrisbattarbee.github.io/openclaw-helm
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: openclaw
+  namespace: flux-system
+spec:
+  interval: 30m
+  releaseName: openclaw
+  targetNamespace: sipwork
+  serviceAccountName: helm-controller
+  chart:
+    spec:
+      chart: openclaw
+      version: 0.1.x
+      sourceRef:
+        kind: HelmRepository
+        name: openclaw
+      interval: 15m
+  valuesFrom:
+    - kind: ConfigMap
+      name: openclaw-values
+      valuesKey: values-openclaw.yaml

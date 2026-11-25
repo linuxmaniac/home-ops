@@ -11,10 +11,15 @@ resources:
   - services_ext.yaml
   - ingress.yaml
   - open-webui.yaml
+  - openclaw.yaml
 configMapGenerator:
   - name: open-webui-values
     namespace: flux-system
     files:
       - values-open-webui.yaml=open-webui-values.yaml
+  - name: openclaw-values
+    namespace: flux-system
+    files:
+      - values-openclaw.yaml=openclaw-values.yaml
 configurations:
   - kustomizeconfig.yaml
