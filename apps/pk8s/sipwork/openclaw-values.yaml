@@ -9,7 +9,7 @@ openclaw:
           - https://claw.sipwork.pro
   agents:
     defaults:
-      model: ollama/glm-4.7-flash
+      model: ollama/qwen3.5-custom
       timeoutSeconds: 600
       thinkingDefault: low
 chromium:
