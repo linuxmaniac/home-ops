@@ -7,11 +7,11 @@ openclaw:
       controlUi:
         allowedOrigins:
           - https://claw.sipwork.pro
-agents:
-  defaults:
-    model: ollama/glm-4.7-flash
-    timeoutSeconds: 600
-    thinkingDefault: low
+  agents:
+    defaults:
+      model: ollama/glm-4.7-flash
+      timeoutSeconds: 600
+      thinkingDefault: low
 chromium:
   enabled: true
 persistence:
